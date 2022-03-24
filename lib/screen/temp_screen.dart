@@ -7,7 +7,7 @@ class TempScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('동현 오빠 라고 부를 수 있도록...'),
+        child: Text('ㅗ'),
       ),
     );
   }
