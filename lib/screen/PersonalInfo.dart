@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uni_meet/screen/widget/signup_button.dart';
 
 enum Gender {MAN,WOMAN}
 
@@ -15,6 +16,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -49,45 +51,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                   },
                 ),
               ),
-
-              /*
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        onSaved: (val) {},
-                        validator: (val) {
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            hintText: "닉네임"
-                        ),
-                      ),
-                      TextFormField(
-                        onSaved: (val) {},
-                        validator: (val) {
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            hintText: '나이'
-                        ),
-                      ),
-                      TextFormField(
-                        onSaved: (val) {},
-                        validator: (val) {
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            hintText: '대학교'
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),*/
+              signup_button(size: _size),
             ],
           ),
         ),
@@ -96,3 +60,4 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
     );
   }
 }
+
