@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "619265699331",
+    "project_id": "uni-meet-54600",
+    "storage_bucket": "uni-meet-54600.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619265699331:android:b5430a78af77ed1f41a836",
+        "android_client_info": {
+          "package_name": "com.dongpakka.uni_meet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619265699331-um7i630hrbst6ma8g1o97l0hd8hi8c1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dongpakka.uni_meet",
+            "certificate_hash": "fe806dfb5ea8120ef25d8b7255b6a21d5612eaa8"
+          }
+        },
+        {
+          "client_id": "619265699331-2lueu3c0nitme9jvembq2tf9bv5tvnde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrqGdIH9ciUC5vY1_NSUqYfKoqYq4V02g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619265699331-2lueu3c0nitme9jvembq2tf9bv5tvnde.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

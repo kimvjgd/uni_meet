@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>619265699331-7e0aff17km3000f7klh8v8pch5bd9olp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.619265699331-7e0aff17km3000f7klh8v8pch5bd9olp</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>619265699331-um7i630hrbst6ma8g1o97l0hd8hi8c1u.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA8W6j6ii3nO-4yc2UaaO2GRh4mpGNNzSU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>619265699331</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.dongpakka.uniMeet</string>
+	<key>PROJECT_ID</key>
+	<string>uni-meet-54600</string>
+	<key>STORAGE_BUCKET</key>
+	<string>uni-meet-54600.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:619265699331:ios:273b0bec7cfc2e9c41a836</string>
+</dict>
+</plist>
