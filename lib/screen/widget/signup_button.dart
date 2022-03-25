@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class signup_button extends StatelessWidget {
+
   const signup_button({
     Key? key,
     required Size size,
@@ -22,8 +23,7 @@ class signup_button extends StatelessWidget {
               )
           ),
           onPressed: (){},
-
-          child: Text('12.5')),
+          child: Text('확        인')),
     );
   }
 }
