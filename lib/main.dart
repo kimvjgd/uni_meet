@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:uni_meet/screen/AuthImage_screen.dart';
 import 'package:uni_meet/screen/PersonalInfo.dart';
 import 'package:uni_meet/screen/Profile_set.dart';
+import 'package:uni_meet/screen/University_check.dart';
 import 'package:uni_meet/screen/phone_number_screen.dart';
 import 'package:uni_meet/screen/temp_screen.dart';
 
@@ -11,7 +12,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: AuthInfoScreen(),));
+    home: PhoneNumberScreen(),));
 }
 
 // sudo arch -x86_64 gem install ffi 다운받고
