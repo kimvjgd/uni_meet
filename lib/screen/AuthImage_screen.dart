@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:uni_meet/secret/secret_keys.dart';
 
 
 
@@ -31,7 +32,7 @@ class _AuthImageState extends State<AuthImage> {
 
     var url = 'https://api.ocr.space/parse/image';
     var payload = {"base64Image": "data:image/jpg;base64,${img64.toString()}","language" :"kor"};
-    var header = {"apikey" :"K84674039688957"};
+    var header = {"apikey" :auth_image_key};
 
     var post = await http.post(Uri.parse(url),body: payload,headers: header);
     var result = jsonDecode(post.body);
