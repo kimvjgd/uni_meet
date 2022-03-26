@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:uni_meet/screen/AuthImage_screen.dart';
 import 'package:uni_meet/screen/PersonalInfo.dart';
 import 'package:uni_meet/screen/Profile_set.dart';
@@ -12,7 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: PhoneNumberScreen(),));
+    home: ProfileImageScreen(),));
 }
 
 // sudo arch -x86_64 gem install ffi 다운받고
