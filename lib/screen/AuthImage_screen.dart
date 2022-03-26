@@ -9,7 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:uni_meet/secret/secret_keys.dart';
 
 
-
+/*
 class AuthImage extends StatefulWidget {
   const AuthImage({Key? key}) : super(key: key);
 
@@ -96,4 +96,4 @@ class _AuthImageState extends State<AuthImage> {
   }
 }
 
-
+*/

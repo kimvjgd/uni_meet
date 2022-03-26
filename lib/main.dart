@@ -5,6 +5,7 @@ import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/screen/AuthImage_screen.dart';
 import 'package:uni_meet/screen/PersonalInfo.dart';
 import 'package:uni_meet/screen/Profile_set.dart';
+import 'package:uni_meet/screen/University_check.dart';
 import 'package:uni_meet/screen/phone_number_screen.dart';
 import 'package:uni_meet/screen/temp_screen.dart';
 
