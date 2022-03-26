@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uni_meet/screen/Profile_congratulations.dart';
 import 'package:uni_meet/screen/widget/signup_button.dart';
-
+import 'package:get/get.dart';
 class ProfileImageScreen extends StatefulWidget {
   const ProfileImageScreen({Key? key}) : super(key: key);
 
@@ -21,6 +22,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
   }
 @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -221,9 +223,15 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                   ),],
               ),
               Spacer(flex: 6,),
-              signup_button(
-                size:MediaQuery.of(context).size,
-           ),
+              ElevatedButton(
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileCongratsScreen(selected_profile: selected_profile)));
+                  //  Get.to(ProfileCongratsScreen(selected_profile: selected_profile));
+                  }, child: Text("완료")),
+             // signup_button(size:MediaQuery.of(context).size,), 아직 보이드 콜백 몰라서 안 쓰는 중
             ],
           ),
         ),
