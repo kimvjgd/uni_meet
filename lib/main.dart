@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/screen/AuthImage_screen.dart';
 import 'package:uni_meet/screen/PersonalInfo.dart';
 import 'package:uni_meet/screen/Profile_set.dart';
@@ -9,8 +11,9 @@ import 'package:uni_meet/screen/temp_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
+    initialBinding: InitBinding(),
     home: AuthInfoScreen(),));
 }
 

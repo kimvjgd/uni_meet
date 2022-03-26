@@ -52,18 +52,16 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                     ),
                   ],
                 ),
-                signup_button(
-                  size: _size, // 나중에 bool complete로 색전환 구현
-                ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: signup_button(
+        size: _size, // 나중에 bool complete로 색전환 구현
+      ),
     );
   }
-
-
 
   Padding _textFormField(String category, String content) {
     return Padding(
@@ -77,9 +75,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                 child: Container(
                   child: Text(category),
                 )),
-            Expanded(
-                flex: 4,
-                child: TextFormField()),
+            Expanded(flex: 4, child: TextFormField()),
           ],
         ),
       ),
@@ -102,26 +98,27 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                 flex: 4,
                 child: TypeAheadField<String>(
                   suggestionsCallback: (String pattern) {
-                    return univList.where((item)=>item.toLowerCase().contains(pattern.toLowerCase()));
+                    return univList.where((item) =>
+                        item.toLowerCase().contains(pattern.toLowerCase()));
                   },
                   itemBuilder: (BuildContext context, itemData) {
-                    return ListTile(title: Text(itemData),);
+                    return ListTile(
+                      title: Text(itemData),
+                    );
                   },
                   onSuggestionSelected: (String suggestion) {
                     setState(() {
                       this._univController.text = suggestion;
                     });
                   },
-                  textFieldConfiguration: TextFieldConfiguration(
-                      controller: this._univController
-                  ),
+                  textFieldConfiguration:
+                      TextFieldConfiguration(controller: this._univController),
                 )),
           ],
         ),
       ),
     );
   }
-
 
   Padding _agePicker(String category) {
     return Padding(
