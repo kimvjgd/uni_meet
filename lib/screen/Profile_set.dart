@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uni_meet/screen/Profile_congratulations.dart';
-import 'package:uni_meet/screen/widget/signup_button.dart';
-import 'package:get/get.dart';
 class ProfileImageScreen extends StatefulWidget {
   const ProfileImageScreen({Key? key}) : super(key: key);
 

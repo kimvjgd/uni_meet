@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:uni_meet/screen/widget/age_bottom_sheet.dart';
-import 'package:uni_meet/screen/widget/signup_button.dart';
+import 'package:uni_meet/app/ui/page/signup/widget/age_bottom_sheet.dart';
+import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
 import 'package:uni_meet/secret/univ_list.dart';
 
 enum Gender { MAN, WOMAN }
