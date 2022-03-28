@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class signup_button extends StatelessWidget {
 
+    final VoidCallback onPressed;
   const signup_button({
+    required this.onPressed,
     Key? key,
     required Size size,
   }) : _size = size, super(key: key);

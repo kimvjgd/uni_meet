@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:uni_meet/root_page.dart';
 
-class PhoneNumberScreen extends StatefulWidget {
-  const PhoneNumberScreen({Key? key}) : super(key: key);
+class PhoneAuthScreen extends StatefulWidget {
+  const PhoneAuthScreen({Key? key}) : super(key: key);
 
   @override
-  _PhoneNumberScreenState createState() => _PhoneNumberScreenState();
+  _PhoneAuthScreenState createState() => _PhoneAuthScreenState();
 }
 
-class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
+class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpCodeController = TextEditingController();
@@ -83,6 +85,6 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
 
   void verifyCode() async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificaitonIdReceived, smsCode: otpCodeController.text);
-    await auth.signInWithCredential(credential).then((value) => print("You are logged in successfully"));
+    await auth.signInWithCredential(credential).then((value) => Get.to(RootPage()));
   }
 }

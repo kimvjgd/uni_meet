@@ -110,6 +110,7 @@ class _ProfileCongratsScreenState extends State<ProfileCongratsScreen> {
               Spacer(flex: 6,),
               signup_button(
                 size:MediaQuery.of(context).size,
+                onPressed: onPressed,
               ),
             ],
           ),
@@ -117,5 +118,8 @@ class _ProfileCongratsScreenState extends State<ProfileCongratsScreen> {
       ),
 
     );
+  }
+  void onPressed() {
+
   }
 }

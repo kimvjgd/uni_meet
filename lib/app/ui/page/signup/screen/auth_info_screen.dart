@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/age_bottom_sheet.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
 import 'package:uni_meet/secret/univ_list.dart';
@@ -8,6 +9,8 @@ import 'package:uni_meet/secret/univ_list.dart';
 enum Gender { MAN, WOMAN }
 
 class AuthInfoScreen extends StatefulWidget {
+  final String uid;
+  const AuthInfoScreen({required this.uid, Key? key}) : super(key:key);
   @override
   State<AuthInfoScreen> createState() => _AuthInfoScreenState();
 }
@@ -59,8 +62,13 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
       ),
       bottomNavigationBar: signup_button(
         size: _size, // 나중에 bool complete로 색전환 구현
+        onPressed: onPressed,
       ),
     );
+  }
+
+  void onPressed() {
+    // Get.to();
   }
 
   Padding _textFormField(String category, String content) {
@@ -254,17 +262,3 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
   }
 }
 
-class BottomSheet extends StatelessWidget {
-  const BottomSheet({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      color: Colors.white,
-      child: Column(
-        children: [Text('asda')],
-      ),
-    );
-  }
-}

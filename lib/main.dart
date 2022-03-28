@@ -7,8 +7,9 @@ import 'package:uni_meet/screen/AuthImage_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/auth_info_screen.dart';
 import 'package:uni_meet/screen/Profile_set.dart';
 import 'package:uni_meet/screen/University_check.dart';
-import 'package:uni_meet/screen/phone_number_screen.dart';
+import 'package:uni_meet/app/ui/page/signup/screen/phone_auth_screen.dart';
 import 'package:uni_meet/screen/temp_screen.dart';
+import 'package:uni_meet/screen/widget/mbti_selection.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

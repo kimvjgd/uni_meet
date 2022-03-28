@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class mbtiSelector extends StatelessWidget {
-  const mbtiSelector({Key? key}) : super(key: key);
+class MbtiSelector extends StatelessWidget {
+  const MbtiSelector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
