@@ -8,6 +8,7 @@ import 'package:uni_meet/screen/Profile_set.dart';
 import 'package:uni_meet/screen/University_check.dart';
 import 'package:uni_meet/screen/phone_number_screen.dart';
 import 'package:uni_meet/screen/temp_screen.dart';
+import 'package:uni_meet/screen/widget/mbti_selection.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,7 @@ Future<void> main() async {
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     initialBinding: InitBinding(),
-    home: AuthInfoScreen(),));
+    home: mbtiSelector(),));
 }
 
 // sudo arch -x86_64 gem install ffi 다운받고
