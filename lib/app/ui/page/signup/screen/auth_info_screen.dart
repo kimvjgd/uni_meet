@@ -11,16 +11,15 @@ import 'package:uni_meet/secret/univ_list.dart';
 
 enum Gender { MAN, WOMAN }
 
-class AuthInfoScreen extends StatefulWidget {
+class AuthInfoScreen extends GetView<AuthController> {
+  final BuildContext context;
   final String uid;
 
-  const AuthInfoScreen({required this.uid, Key? key}) : super(key: key);
+  AuthInfoScreen({
+    required this.context,
+    required this.uid, Key? key}) : super(key: key);
 
-  @override
-  State<AuthInfoScreen> createState() => _AuthInfoScreenState();
-}
 
-class _AuthInfoScreenState extends State<AuthInfoScreen> {
   var logger = Logger();
   var _isChecked = false;
   Gender _gender = Gender.MAN;
@@ -35,7 +34,6 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(AuthController());
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -79,14 +77,14 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
   void onPressed() {
     if (_formKey.currentState!.validate()) {
       var signupUser = AppUser(
-          uid: widget.uid,
+          uid: uid,
           name: _nickNameController.text,
           major: _majorController.text,
           gender: _gender.toString(),
           university: _univController.text,
-          age: age);
+          age: controller.user.value.age);
 
-      logger.d(widget.uid);
+      logger.d(signupUser);
     } else {
       logger.d('입력 실패!');
     }
@@ -202,9 +200,9 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                     );
                   },
                   onSuggestionSelected: (String suggestion) {
-                    setState(() {
-                      this._univController.text = suggestion;
-                    });
+                    // setState(() {
+                    //   this._univController.text = suggestion;
+                    // });
                   },
                   textFieldConfiguration:
                       TextFieldConfiguration(controller: this._univController),
@@ -227,13 +225,14 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                 child: Container(
                   child: Text(category),
                 )),
-            Obx(() => Expanded(
+            Expanded(
                 flex: 4,
                 child: InkWell(
                   onTap: () {
                     showModalBottomSheet(
                         context: context,
                         builder: (_) {
+                          print(controller.user.value.age.toString());
                           return AgeBottomSheet(age: age);
                         });
                   },
@@ -241,10 +240,10 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(Get.find<AuthController>().user.value.age.toString())
+                      Obx(()=>Text(controller.user.value.age.toString())),
                     ],
                   ),
-                ))),
+                )),
           ],
         ),
       ),
@@ -279,9 +278,9 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
             highlightColor: Colors.white,
             splashColor: Colors.transparent,
             onTap: () {
-              setState(() {
-                _gender = Gender.MAN;
-              });
+              // setState(() {
+              //   _gender = Gender.MAN;
+              // });
             },
             child: ListTile(
               title: Text(
@@ -293,9 +292,9 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                 value: Gender.MAN,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
-                  setState(() {
-                    _gender = value!;
-                  });
+                  // setState(() {
+                  //   _gender = value!;
+                  // });
                 },
               ),
             ),
@@ -306,9 +305,9 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
             highlightColor: Colors.white,
             splashColor: Colors.transparent,
             onTap: () {
-              setState(() {
-                _gender = Gender.WOMAN;
-              });
+              // setState(() {
+              //   _gender = Gender.WOMAN;
+              // });
             },
             child: ListTile(
               title: Text("여자",
@@ -320,9 +319,9 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                 value: Gender.WOMAN,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
-                  setState(() {
-                    _gender = value!;
-                  });
+                  // setState(() {
+                  //   _gender = value!;
+                  // });
                 },
               ),
             ),

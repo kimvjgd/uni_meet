@@ -25,7 +25,7 @@ class RootPage extends GetView<AuthController> {
                     return Obx(() => controller.user.value.uid != null
                         ? const PostScreen()
                         // : SignupPage(uid: user.data!.uid));
-                        : AuthInfoScreen(uid: user.data!.uid));
+                        : AuthInfoScreen(context: context, uid: user.data!.uid));
                   }
                 });
           } else {

@@ -18,7 +18,6 @@ class AgeBottomSheet extends GetView<AuthController> {
         onSelectedItemChanged: (int value) {
           int temp_age = 20+value;
           controller.changeAge(temp_age);
-          print(temp_age);
           logger.d(controller.user.value.age.toString());
         },
         children: [

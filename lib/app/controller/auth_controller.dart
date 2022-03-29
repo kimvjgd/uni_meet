@@ -21,7 +21,8 @@ class AuthController extends GetxController {
   }
 
   void changeAge(value) {
-    user.value.age = value;
+    user(AppUser(age: value));
+    // user.value.age = value;
   }
 
   void signup(AppUser signupUser, XFile? thumbnail) async {
