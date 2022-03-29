@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uni_meet/screen/Profile_congratulations.dart';
+import 'package:uni_meet/app/ui/page/signup/screen/confetti_screen.dart';
 class ProfileImageScreen extends StatefulWidget {
   const ProfileImageScreen({Key? key}) : super(key: key);
 
@@ -226,7 +226,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProfileCongratsScreen(selected_profile: selected_profile)));
+                            builder: (context) => ConfettiScreen(selected_profile: selected_profile)));
                     //  Get.to(ProfileCongratsScreen(selected_profile: selected_profile));
                   }, child: Text("완료")),
               // signup_button(size:MediaQuery.of(context).size,), 아직 보이드 콜백 몰라서 안 쓰는 중

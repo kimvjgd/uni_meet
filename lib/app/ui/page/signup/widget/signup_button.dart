@@ -24,7 +24,7 @@ class signup_button extends StatelessWidget {
                   )
               )
           ),
-          onPressed: (){},
+          onPressed: onPressed,
           child: Text('확        인')),
     );
   }

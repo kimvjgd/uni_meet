@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class AppUser {
   String? uid;
   bool? auth;
+  String? gender;
   String? name;
   int? age;
   String? mbti;
@@ -14,12 +13,13 @@ class AppUser {
   List<dynamic>? chatroomList;
   // DocumentReference reference; 쓰는 벙을 기억해야함...
 
-  AppUser({this.uid, this.auth, this.name, this.age, this.mbti, this.university, this.major, this.black, this.imagePath, this.phone, this.chatroomList});
+  AppUser({this.uid, this.auth, this.gender, this.name, this.age, this.mbti, this.university, this.major, this.black, this.imagePath, this.phone, this.chatroomList});
 
   factory AppUser.fromJson(Map<String, dynamic> json){
     return AppUser(
       uid: json['uid'] == null ? '' : json['uid'] as String,
         auth: json['auth'] == null ? false : json['auth'] as bool,
+        gender: json['gender'] == null ? 'MAN' : json['gender'] as String,
         name: json['name'] == null ? '' : json['name'] as String,
         age: json['age'] == null ? 20 : json['age'] as int,
         mbti: json['mbti'] == null ? '' : json['mbti'] as String,
@@ -36,6 +36,7 @@ class AppUser {
     return {
       "uid": uid,
       "auth": auth,
+      "gender": gender,
       "name": name,
       "age": age,
       "mbti": mbti,
@@ -51,6 +52,7 @@ class AppUser {
   AppUser copyWith({
     String? uid,
     bool? auth,
+    String? gender,
     String? name,
     int? age,
     String? mbti,
@@ -64,6 +66,7 @@ class AppUser {
     return AppUser(
       uid: uid ?? this.uid,
       auth: auth ?? this.auth,
+        gender: gender ?? this.gender,
         name: name ?? this.name,
         age: age ?? this.age,
         mbti: mbti ?? this.mbti,

@@ -20,6 +20,10 @@ class AuthController extends GetxController {
     return userData;
   }
 
+  void changeAge(value) {
+    user.value.age = value;
+  }
+
   void signup(AppUser signupUser, XFile? thumbnail) async {
     if(thumbnail==null){
       _submitSignup(signupUser);

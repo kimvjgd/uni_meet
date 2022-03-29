@@ -6,7 +6,6 @@ import 'package:uni_meet/app/data/model/app_user.dart';
 import 'package:uni_meet/app/ui/page/post/post_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/auth_info_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/start_screen.dart';
-import 'package:uni_meet/screen/temp_screen.dart';
 
 class RootPage extends GetView<AuthController> {
   const RootPage({Key? key}) : super(key: key);

@@ -8,7 +8,6 @@ class UserRepository {
     if(data.size==0){
       return null;
     }else {
-      print(data.docs.first.data());
       return AppUser.fromJson(data.docs.first.data());
     }
   }

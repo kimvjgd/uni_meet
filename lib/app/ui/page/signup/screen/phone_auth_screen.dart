@@ -85,6 +85,9 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
 
   void verifyCode() async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificaitonIdReceived, smsCode: otpCodeController.text);
-    await auth.signInWithCredential(credential).then((value) => Get.to(RootPage()));
+    await auth.signInWithCredential(credential).then((value) {
+      print(value);
+      Get.to(RootPage());
+    });
   }
 }

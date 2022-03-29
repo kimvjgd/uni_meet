@@ -26,4 +26,3 @@ class StartScreen extends StatelessWidget {
 }
 
 
-// DA:47:FF:84:3B:1E:14:1A:16:6D:A4:1B:C3:A2:54:00:FA:C0:D7:F6:32:2D:20:58:C0:7E:4E:D2:31:D3:35:CF

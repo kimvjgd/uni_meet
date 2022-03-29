@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
+import 'package:uni_meet/app/data/model/app_user.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/age_bottom_sheet.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
 import 'package:uni_meet/secret/univ_list.dart';
@@ -10,23 +13,29 @@ enum Gender { MAN, WOMAN }
 
 class AuthInfoScreen extends StatefulWidget {
   final String uid;
-  const AuthInfoScreen({required this.uid, Key? key}) : super(key:key);
+
+  const AuthInfoScreen({required this.uid, Key? key}) : super(key: key);
+
   @override
   State<AuthInfoScreen> createState() => _AuthInfoScreenState();
 }
 
 class _AuthInfoScreenState extends State<AuthInfoScreen> {
+  var logger = Logger();
   var _isChecked = false;
   Gender _gender = Gender.MAN;
   bool complete = false;
   int age = 20;
 
-  final GlobalKey<FormState> formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
+  TextEditingController _nickNameController = TextEditingController();
   TextEditingController _univController = TextEditingController();
+  TextEditingController _majorController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AuthController());
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -42,14 +51,14 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                     _intro(),
                     _genderSelection("성별"),
                     Form(
-                      key: formKey,
+                      key: _formKey,
                       child: Column(
                         children: [
-                          _textFormField("닉네임", "future"),
+                          _nickTextFormField("닉네임", "future"),
                           _agePicker("나이"),
                           _univPicker("대학교"),
-                          _textFormField("학과", "컴퓨터정보학부"),
-                          _textFormField("MBTI", "ENTP"),
+                          _majorTextFormField("학과", "컴퓨터정보학부"),
+                          _mbtiTextFormField("MBTI", "ENTP"), // 고칠 것이다.
                         ],
                       ),
                     ),
@@ -68,10 +77,88 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
   }
 
   void onPressed() {
-    // Get.to();
+    if (_formKey.currentState!.validate()) {
+      var signupUser = AppUser(
+          uid: widget.uid,
+          name: _nickNameController.text,
+          major: _majorController.text,
+          gender: _gender.toString(),
+          university: _univController.text,
+          age: age);
+
+      logger.d(widget.uid);
+    } else {
+      logger.d('입력 실패!');
+    }
   }
 
-  Padding _textFormField(String category, String content) {
+  Padding _nickTextFormField(String category, String content) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 50,
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Container(
+                  child: Text(category),
+                )),
+            Expanded(
+                flex: 4,
+                child: TextFormField(
+                  controller: _nickNameController,
+                  validator: (name) {
+                    if (name!.isNotEmpty && name.length > 3) {
+                      return null;
+                    } else {
+                      if (name.isEmpty) {
+                        return '닉네임을 입력해주세요.';
+                      }
+                      return '닉네임이 너무 짧습니다.';
+                    }
+                  },
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding _majorTextFormField(String category, String content) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 50,
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Container(
+                  child: Text(category),
+                )),
+            Expanded(
+                flex: 4,
+                child: TextFormField(
+                  controller: _majorController,
+                  validator: (major) {
+                    if (major!.isNotEmpty && major.length > 3) {
+                      return null;
+                    } else {
+                      if (major.isEmpty) {
+                        return '학과명을 입력해주세요.';
+                      }
+                      return '학과명을 정확히 기재해주세요.';
+                    }
+                  },
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding _mbtiTextFormField(String category, String content) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -140,7 +227,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                 child: Container(
                   child: Text(category),
                 )),
-            Expanded(
+            Obx(() => Expanded(
                 flex: 4,
                 child: InkWell(
                   onTap: () {
@@ -154,10 +241,10 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(age.toString()),
+                      Text(Get.find<AuthController>().user.value.age.toString())
                     ],
                   ),
-                )),
+                ))),
           ],
         ),
       ),
@@ -261,4 +348,3 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
     );
   }
 }
-

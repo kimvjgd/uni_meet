@@ -5,16 +5,16 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import '../secret/secret_keys.dart';
+import '../../../../../secret/secret_keys.dart';
 
-class UniCheckScreen extends StatefulWidget {
-  const UniCheckScreen({Key? key}) : super(key: key);
+class UnivCheckScreen extends StatefulWidget {
+  const UnivCheckScreen({Key? key}) : super(key: key);
 
   @override
-  _UniCheckScreenState createState() => _UniCheckScreenState();
+  _UnivCheckScreenState createState() => _UnivCheckScreenState();
 }
 
-class _UniCheckScreenState extends State<UniCheckScreen> {
+class _UnivCheckScreenState extends State<UnivCheckScreen> {
   File? imageFile;
   String parsedtext = '';
 

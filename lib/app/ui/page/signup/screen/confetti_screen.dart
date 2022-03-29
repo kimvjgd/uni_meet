@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
-import 'package:uni_meet/screen/widget/confetti_effect.dart';
+import 'package:uni_meet/app/ui/page/signup/widget/confetti_effect.dart';
 
 
-class ProfileCongratsScreen extends StatefulWidget {
-  const ProfileCongratsScreen({Key? key,required this.selected_profile}) : super(key: key);
+class ConfettiScreen extends StatefulWidget {
+  const ConfettiScreen({Key? key,required this.selected_profile}) : super(key: key);
   final int selected_profile;
   @override
-  State<ProfileCongratsScreen> createState() => _ProfileCongratsScreenState();
+  State<ConfettiScreen> createState() => _ConfettiScreenState();
 }
 
-class _ProfileCongratsScreenState extends State<ProfileCongratsScreen> {
+class _ConfettiScreenState extends State<ConfettiScreen> {
   @override
   Widget build(BuildContext context) {
 

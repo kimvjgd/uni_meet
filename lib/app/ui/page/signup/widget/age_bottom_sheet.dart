@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
 
-class AgeBottomSheet extends StatelessWidget {
+class AgeBottomSheet extends GetView<AuthController> {
   final int age;
   const AgeBottomSheet({
     required this.age,
@@ -8,10 +11,15 @@ class AgeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var logger = Logger();
     return CupertinoPicker(
 
         itemExtent: 30,
         onSelectedItemChanged: (int value) {
+          int temp_age = 20+value;
+          controller.changeAge(temp_age);
+          print(temp_age);
+          logger.d(controller.user.value.age.toString());
         },
         children: [
           Text('20'),
