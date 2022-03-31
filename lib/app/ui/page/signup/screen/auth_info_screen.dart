@@ -15,16 +15,15 @@ class AuthInfoScreen extends GetView<AuthController> {
   final BuildContext context;
   final String uid;
 
-  AuthInfoScreen({
-    required this.context,
-    required this.uid, Key? key}) : super(key: key);
-
+  AuthInfoScreen({required this.context, required this.uid, Key? key})
+      : super(key: key);
 
   var logger = Logger();
   var _isChecked = false;
   Gender _gender = Gender.MAN;
   bool complete = false;
   int age = 20;
+  String mbti = '';
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -53,10 +52,13 @@ class AuthInfoScreen extends GetView<AuthController> {
                       child: Column(
                         children: [
                           _nickTextFormField("닉네임", "future"),
+
                           _agePicker("나이"),
+                          _mbtiField(),
+
                           _univPicker("대학교"),
                           _majorTextFormField("학과", "컴퓨터정보학부"),
-                          _mbtiTextFormField("MBTI", "ENTP"), // 고칠 것이다.
+                          // 고칠 것이다.
                         ],
                       ),
                     ),
@@ -80,6 +82,7 @@ class AuthInfoScreen extends GetView<AuthController> {
           uid: uid,
           name: _nickNameController.text,
           major: _majorController.text,
+          mbti: mbti,
           gender: _gender.toString(),
           university: _univController.text,
           age: controller.user.value.age);
@@ -156,7 +159,7 @@ class AuthInfoScreen extends GetView<AuthController> {
     );
   }
 
-  Padding _mbtiTextFormField(String category, String content) {
+  Padding _mbtiField() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -166,12 +169,122 @@ class AuthInfoScreen extends GetView<AuthController> {
             Expanded(
                 flex: 1,
                 child: Container(
-                  child: Text(category),
+                  child: Text("MBTI"),
                 )),
-            Expanded(flex: 4, child: TextFormField()),
+            Expanded(
+                flex: 4,
+                child: OutlinedButton(
+                  child: mbti == "" ? Text("MBTI"):Text(mbti,style: TextStyle(color: Colors.black),),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      clipBehavior: Clip.none,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) {
+                          return FractionallySizedBox(
+                            heightFactor: 0.6,
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(30),
+                                        topRight: Radius.circular(30))),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Text("분석형"),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          _mbti("INTJ", context),
+                                          _mbti("INTP", context),
+                                          _mbti("ENTJ", context),
+                                          _mbti("ENTP", context),
+                                        ],
+                                      ),
+                                      Text("외교형"),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          _mbti("INFJ", context),
+                                          _mbti("INFP", context),
+                                          _mbti("ENFJ", context),
+                                          _mbti("ENFP", context),
+                                        ],
+                                      ),
+                                      Text("관리자형"),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          _mbti("ISTJ", context),
+                                          _mbti("ISFJ", context),
+                                          _mbti("ESTJ", context),
+                                          _mbti("ESFJ", context),
+                                        ],
+                                      ),
+                                      Text("탐험가형"),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          _mbti("ISTP", context),
+                                          _mbti("ISFP", context),
+                                          _mbti("ESTP", context),
+                                          _mbti("ESFP", context),
+                                        ],
+                                      ),
+
+                                    ])),
+                          );
+                        });
+                  },
+                )),
           ],
         ),
       ),
+    );
+  }
+
+  TextButton _mbti(String text, context) {
+    return TextButton(
+      child: Text(text),
+      style: ButtonStyle(
+          textStyle: MaterialStateProperty.all(TextStyle(fontSize: 17)),
+          foregroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return Colors.black;
+            } else {
+              return Colors.grey;
+            }
+          }),
+          padding:
+              MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return Colors.white;
+            } else {
+              return Colors.grey[200];
+            }
+          }),
+          shape: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30));
+            } else {
+              return null;
+            }
+          })),
+      onPressed: () {
+
+
+        this.mbti = text;
+        print(mbti);
+        Navigator.pop(context);
+      },
     );
   }
 
@@ -240,7 +353,7 @@ class AuthInfoScreen extends GetView<AuthController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(()=>Text(controller.user.value.age.toString())),
+                      Obx(() => Text(controller.user.value.age.toString())),
                     ],
                   ),
                 )),

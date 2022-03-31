@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/*
 class MbtiSelector extends StatelessWidget {
   const MbtiSelector({Key? key}) : super(key: key);
 
@@ -85,7 +85,8 @@ class MbtiSelector extends StatelessWidget {
                         ),
                       ),
                     );
-                  });
+                  }
+                  );
             }),
       ),
     );
@@ -137,3 +138,4 @@ class MbtiSelector extends StatelessWidget {
     
   }
 }
+*/
