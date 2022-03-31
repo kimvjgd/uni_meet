@@ -25,6 +25,10 @@ class AuthController extends GetxController {
     // user.value.age = value;
   }
 
+  void toggleGender() {
+
+  }
+
   void signup(AppUser signupUser, XFile? thumbnail) async {
     if(thumbnail==null){
       _submitSignup(signupUser);

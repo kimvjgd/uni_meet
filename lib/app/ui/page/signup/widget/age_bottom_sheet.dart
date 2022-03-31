@@ -3,34 +3,43 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 
-class AgeBottomSheet extends GetView<AuthController> {
+class AgeBottomSheet extends StatefulWidget {
   final int age;
-  const AgeBottomSheet({
-    required this.age,
-    Key? key}) : super(key: key);
+
+  const AgeBottomSheet({required this.age, Key? key}) : super(key: key);
+
+  @override
+  State<AgeBottomSheet> createState() => _AgeBottomSheetState();
+}
+
+class _AgeBottomSheetState extends State<AgeBottomSheet> {
+  late FixedExtentScrollController scrollController;
+
+  @override
+  void initState() {
+    scrollController = FixedExtentScrollController(
+        initialItem: Get.find<AuthController>().user.value.age != null
+            ? Get.find<AuthController>().user.value.age! - 20
+            : 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var logger = Logger();
     return CupertinoPicker(
-
-        itemExtent: 30,
-        onSelectedItemChanged: (int value) {
-          int temp_age = 20+value;
-          controller.changeAge(temp_age);
-          logger.d(controller.user.value.age.toString());
-        },
-        children: [
-          Text('20'),
-          Text('21'),
-          Text('22'),
-          Text('23'),
-          Text('24'),
-          Text('25'),
-          Text('26'),
-          Text('27'),
-          Text('28'),
-          Text('29'),
-        ]);
+      scrollController: scrollController,
+      itemExtent: 30,
+      onSelectedItemChanged: (int value) {
+        Get.find<AuthController>().changeAge(20 + value);
+      },
+      children:
+          List.generate(10, (index) => Text((index + 20).toString())).toList(),
+    );
   }
 }

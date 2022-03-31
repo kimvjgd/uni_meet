@@ -5,31 +5,52 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user.dart';
+import 'package:uni_meet/app/data/repository/user_repository.dart';
+import 'package:uni_meet/app/ui/page/signup/screen/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/age_bottom_sheet.dart';
+import 'package:uni_meet/app/ui/page/signup/widget/intro.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
+import 'package:uni_meet/root_page.dart';
 import 'package:uni_meet/secret/univ_list.dart';
 
 enum Gender { MAN, WOMAN }
 
-class AuthInfoScreen extends GetView<AuthController> {
+class AuthInfoScreen extends StatefulWidget {
   final BuildContext context;
   final String uid;
 
   AuthInfoScreen({required this.context, required this.uid, Key? key})
       : super(key: key);
 
+  @override
+  State<AuthInfoScreen> createState() => _AuthInfoScreenState();
+}
+
+class _AuthInfoScreenState extends State<AuthInfoScreen> {
   var logger = Logger();
+
   var _isChecked = false;
+
   Gender _gender = Gender.MAN;
   bool complete = false;
   int age = 20;
   String mbti = '';
-
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   TextEditingController _nickNameController = TextEditingController();
+
   TextEditingController _univController = TextEditingController();
+
   TextEditingController _majorController = TextEditingController();
+
+
+  @override
+  void dispose() {
+    _nickNameController.dispose();
+    _univController.dispose();
+    _majorController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +66,7 @@ class AuthInfoScreen extends GetView<AuthController> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _intro(),
+                    Intro(),
                     _genderSelection("성별"),
                     Form(
                       key: _formKey,
@@ -76,18 +97,19 @@ class AuthInfoScreen extends GetView<AuthController> {
     );
   }
 
-  void onPressed() {
+  void onPressed() async {
     if (_formKey.currentState!.validate()) {
       var signupUser = AppUser(
-          uid: uid,
+          uid: widget.uid,
           name: _nickNameController.text,
           major: _majorController.text,
           mbti: mbti,
           gender: _gender.toString(),
           university: _univController.text,
-          age: controller.user.value.age);
+          age: Get.find<AuthController>().user.value.age ?? 20);
 
-      logger.d(signupUser);
+      await UserRepository.signup(signupUser);
+      Get.to(ProfileImageScreen());
     } else {
       logger.d('입력 실패!');
     }
@@ -110,7 +132,7 @@ class AuthInfoScreen extends GetView<AuthController> {
                 child: TextFormField(
                   controller: _nickNameController,
                   validator: (name) {
-                    if (name!.isNotEmpty && name.length > 3) {
+                    if (name!.isNotEmpty && name.length > 2) {
                       return null;
                     } else {
                       if (name.isEmpty) {
@@ -143,7 +165,7 @@ class AuthInfoScreen extends GetView<AuthController> {
                 child: TextFormField(
                   controller: _majorController,
                   validator: (major) {
-                    if (major!.isNotEmpty && major.length > 3) {
+                    if (major!.isNotEmpty && major.length > 2) {
                       return null;
                     } else {
                       if (major.isEmpty) {
@@ -174,18 +196,23 @@ class AuthInfoScreen extends GetView<AuthController> {
             Expanded(
                 flex: 4,
                 child: OutlinedButton(
-                  child: mbti == "" ? Text("MBTI"):Text(mbti,style: TextStyle(color: Colors.black),),
+                  child: mbti == ""
+                      ? Text("MBTI")
+                      : Text(
+                          mbti,
+                          style: TextStyle(color: Colors.black),
+                        ),
                   onPressed: () {
                     showModalBottomSheet(
-                      clipBehavior: Clip.none,
+                        clipBehavior: Clip.none,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        context: context,
+                        context: widget.context,
                         builder: (context) {
                           return FractionallySizedBox(
                             heightFactor: 0.6,
                             child: Container(
-                              padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(20),
                                 decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
@@ -199,7 +226,8 @@ class AuthInfoScreen extends GetView<AuthController> {
                                     children: <Widget>[
                                       Text("분석형"),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("INTJ", context),
                                           _mbti("INTP", context),
@@ -209,7 +237,8 @@ class AuthInfoScreen extends GetView<AuthController> {
                                       ),
                                       Text("외교형"),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("INFJ", context),
                                           _mbti("INFP", context),
@@ -219,7 +248,8 @@ class AuthInfoScreen extends GetView<AuthController> {
                                       ),
                                       Text("관리자형"),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("ISTJ", context),
                                           _mbti("ISFJ", context),
@@ -229,7 +259,8 @@ class AuthInfoScreen extends GetView<AuthController> {
                                       ),
                                       Text("탐험가형"),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("ISTP", context),
                                           _mbti("ISFP", context),
@@ -237,7 +268,6 @@ class AuthInfoScreen extends GetView<AuthController> {
                                           _mbti("ESFP", context),
                                         ],
                                       ),
-
                                     ])),
                           );
                         });
@@ -279,9 +309,9 @@ class AuthInfoScreen extends GetView<AuthController> {
             }
           })),
       onPressed: () {
-
-
-        this.mbti = text;
+        setState(() {
+          this.mbti = text;
+        });
         print(mbti);
         Navigator.pop(context);
       },
@@ -313,9 +343,9 @@ class AuthInfoScreen extends GetView<AuthController> {
                     );
                   },
                   onSuggestionSelected: (String suggestion) {
-                    // setState(() {
-                    //   this._univController.text = suggestion;
-                    // });
+                    setState(() {
+                      this._univController.text = suggestion;
+                    });
                   },
                   textFieldConfiguration:
                       TextFieldConfiguration(controller: this._univController),
@@ -343,17 +373,22 @@ class AuthInfoScreen extends GetView<AuthController> {
                 child: InkWell(
                   onTap: () {
                     showModalBottomSheet(
-                        context: context,
+                        context: widget.context,
                         builder: (_) {
-                          print(controller.user.value.age.toString());
-                          return AgeBottomSheet(age: age);
+                          print(Get.find<AuthController>()
+                              .user
+                              .value
+                              .age
+                              .toString());
+                          return AgeBottomSheet(age: Get.find<AuthController>().user.value.age!);
                         });
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(() => Text(controller.user.value.age.toString())),
+                      Obx(() => Text(
+                          Get.find<AuthController>().user.value.age.toString()=='null'?'20':Get.find<AuthController>().user.value.age.toString())),
                     ],
                   ),
                 )),
@@ -391,9 +426,9 @@ class AuthInfoScreen extends GetView<AuthController> {
             highlightColor: Colors.white,
             splashColor: Colors.transparent,
             onTap: () {
-              // setState(() {
-              //   _gender = Gender.MAN;
-              // });
+              setState(() {
+                _gender = Gender.MAN;
+              });
             },
             child: ListTile(
               title: Text(
@@ -405,9 +440,9 @@ class AuthInfoScreen extends GetView<AuthController> {
                 value: Gender.MAN,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
-                  // setState(() {
-                  //   _gender = value!;
-                  // });
+                  setState(() {
+                    _gender = value!;
+                  });
                 },
               ),
             ),
@@ -418,9 +453,9 @@ class AuthInfoScreen extends GetView<AuthController> {
             highlightColor: Colors.white,
             splashColor: Colors.transparent,
             onTap: () {
-              // setState(() {
-              //   _gender = Gender.WOMAN;
-              // });
+              setState(() {
+                _gender = Gender.WOMAN;
+              });
             },
             child: ListTile(
               title: Text("여자",
@@ -432,9 +467,9 @@ class AuthInfoScreen extends GetView<AuthController> {
                 value: Gender.WOMAN,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
-                  // setState(() {
-                  //   _gender = value!;
-                  // });
+                  setState(() {
+                    _gender = value!;
+                  });
                 },
               ),
             ),
@@ -444,19 +479,4 @@ class AuthInfoScreen extends GetView<AuthController> {
     );
   }
 
-  Container _intro() {
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-            child: Text("""
-안녕하세요!👋
-즐거운 만남을 위해
-당신에 대해 알려주세요."""),
-          ),
-        ],
-      ),
-    );
-  }
 }

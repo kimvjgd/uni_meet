@@ -20,7 +20,7 @@ class RootPage extends GetView<AuthController> {
                 future: controller.loginUser(user.data!.uid),
                 builder: (context, snapshot) {                // auth_uid와 같은 uid가 user collection안에 있으면 그 IUser, 없으면 snapshot==null
                   if (snapshot.hasData) {
-                    return PostScreen();
+                    return AuthInfoScreen(context: context, uid: 'temp');
                   } else {
                     return Obx(() => controller.user.value.uid != null
                         ? const PostScreen()
@@ -29,7 +29,8 @@ class RootPage extends GetView<AuthController> {
                   }
                 });
           } else {
-            return StartScreen();
+            // return StartScreen();
+            return AuthInfoScreen(context: context, uid: 'temp');
           }
         });
   }
