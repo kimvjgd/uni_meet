@@ -35,6 +35,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
   bool complete = false;
   int age = 20;
   String mbti = '';
+
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   TextEditingController _nickNameController = TextEditingController();
@@ -72,11 +73,9 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          _nickTextFormField("닉네임", "future"),
-
-                          _agePicker("나이"),
+                          _nickTextFormField("이름", "future"),
                           _mbtiField(),
-
+                          _agePicker("학번"),
                           _univPicker("대학교"),
                           _majorTextFormField("학과", "컴퓨터정보학부"),
                           // 고칠 것이다.
@@ -109,7 +108,10 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
           age: Get.find<AuthController>().user.value.age ?? 20);
 
       await UserRepository.signup(signupUser);
-      Get.to(ProfileImageScreen());
+
+      Get.to(() => ProfileImageScreen(), arguments: signupUser);
+
+    //  Get.to(ProfileImageScreen());
     } else {
       logger.d('입력 실패!');
     }
@@ -199,9 +201,9 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                   child: mbti == ""
                       ? Text("MBTI")
                       : Text(
-                          mbti,
-                          style: TextStyle(color: Colors.black),
-                        ),
+                    mbti,
+                    style: TextStyle(color: Colors.black),
+                  ),
                   onPressed: () {
                     showModalBottomSheet(
                         clipBehavior: Clip.none,
@@ -220,14 +222,14 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                                         topRight: Radius.circular(30))),
                                 child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       Text("분석형"),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("INTJ", context),
                                           _mbti("INTP", context),
@@ -238,7 +240,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                                       Text("외교형"),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("INFJ", context),
                                           _mbti("INFP", context),
@@ -249,7 +251,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                                       Text("관리자형"),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("ISTJ", context),
                                           _mbti("ISFJ", context),
@@ -260,7 +262,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                                       Text("탐험가형"),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         children: [
                                           _mbti("ISTP", context),
                                           _mbti("ISFP", context),
@@ -292,7 +294,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
             }
           }),
           padding:
-              MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+          MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
           backgroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.pressed)) {
               return Colors.white;
@@ -348,7 +350,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                     });
                   },
                   textFieldConfiguration:
-                      TextFieldConfiguration(controller: this._univController),
+                  TextFieldConfiguration(controller: this._univController),
                 )),
           ],
         ),

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/confetti_screen.dart';
+import 'package:uni_meet/app/ui/page/signup/screen/univ_check_screen.dart';
+import '../widget/signup_button.dart';
+
 class ProfileImageScreen extends StatefulWidget {
   const ProfileImageScreen({Key? key}) : super(key: key);
 
@@ -221,15 +226,10 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                   ),],
               ),
               Spacer(flex: 6,),
-              ElevatedButton(
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ConfettiScreen(selected_profile: selected_profile)));
-                    //  Get.to(ProfileCongratsScreen(selected_profile: selected_profile));
-                  }, child: Text("완료")),
-              // signup_button(size:MediaQuery.of(context).size,), 아직 보이드 콜백 몰라서 안 쓰는 중
+              signup_button(
+                size:MediaQuery.of(context).size,
+                onPressed: onPressed,
+              ),
             ],
           ),
         ),
@@ -237,4 +237,11 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
 
     );
   }
+
+
+  void onPressed() async {
+
+      Get.to(UnivCheckScreen(),arguments: Get.arguments);
+  }
+
 }

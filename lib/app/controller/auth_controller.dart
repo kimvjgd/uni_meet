@@ -11,6 +11,8 @@ class AuthController extends GetxController {
 
   Rx<AppUser> user = AppUser().obs;
 
+
+
   Future<AppUser?> loginUser(String uid) async {
     var userData = await UserRepository.loginUserByUdi(uid);
     if(userData != null){
@@ -62,5 +64,6 @@ class AuthController extends GetxController {
       loginUser(signupUser.uid!);
     }
   }
+
 
 }

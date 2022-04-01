@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -6,6 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../../../../secret/secret_keys.dart';
+import '../../../../controller/auth_controller.dart';
+import '../../../../data/model/app_user.dart';
+
 
 class UnivCheckScreen extends StatefulWidget {
   const UnivCheckScreen({Key? key}) : super(key: key);
@@ -15,19 +20,32 @@ class UnivCheckScreen extends StatefulWidget {
 }
 
 class _UnivCheckScreenState extends State<UnivCheckScreen> {
+
   File? imageFile;
   String parsedtext = '';
+  String name = Get.arguments.name; // 파이어베이스 연동 후 고쳐야 함
+  String uni = Get.arguments.university;
 
-  String name = "홍민영"; // 파이어베이스 연동 후 고쳐야 함
-  String uni = "세종대";
+ // String grade = "18학번";
   String everytime = "학교 인증";
   bool flag1 = false, flag2 = false, flag3 = false;
 
-  Future _getFromGallery() async {
+  Future _getFromGallery() async{
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
     final image_temporary= File(pickedFile.path);
+    if (pickedFile == null) {
+      print('fail');
+      return;
+    }
+    else print("사진 픽 성공");
 
+    setState(() {
+      this.imageFile = image_temporary;
+    });
+  }
+
+  Future _Recognition(pickedFile) async {
     var bytes = File(pickedFile.path.toString()).readAsBytesSync();
     String img64 = base64Encode(bytes);
 
@@ -39,17 +57,17 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
     var result = jsonDecode(post.body);
 
     setState(() {
-      this.imageFile = image_temporary;
       parsedtext = result['ParsedResults'][0]['ParsedText'];
     });
   }
+
   bool txtCheck() {
     flag1 = parsedtext.contains(name);
     flag2 = parsedtext.contains(uni);
     flag3 = parsedtext.contains(everytime);
-     if(flag1) print("이름 확인");
-     if(flag2) print("학교 확인");
-     if(flag3) print("에타 확인");
+//     if(flag1) print("이름 확인");
+//     if(flag2) print("학교 확인");
+//     if(flag3) print("에타 확인");
 
     if (flag1 && flag2 && flag3)
       return true;
@@ -83,6 +101,8 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BackButton(),
+          Text(uni),
+          Text(name),
           Text(
             "먼저 학교 인증을 해야해요",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
@@ -108,6 +128,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
           ElevatedButton(
               onPressed: () {
                 _getFromGallery();
+
               },
               child: Text("사진 업로드")
           ),
