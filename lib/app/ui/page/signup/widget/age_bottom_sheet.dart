@@ -39,7 +39,7 @@ class _AgeBottomSheetState extends State<AgeBottomSheet> {
         Get.find<AuthController>().changeAge(20 + value);
       },
       children:
-          List.generate(10, (index) => Text((index + 20).toString())).toList(),
+      List.generate(10, (index) => Text((index + 20).toString())).toList(),
     );
   }
 }

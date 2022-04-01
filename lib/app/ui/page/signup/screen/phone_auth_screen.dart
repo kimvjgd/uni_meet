@@ -33,7 +33,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              controller: phoneController,
+              controller: phoneController..text = '+8210',
               decoration: InputDecoration(labelText: "Phone"),
               keyboardType: TextInputType.phone,
             ),
