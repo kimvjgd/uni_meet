@@ -11,7 +11,7 @@ class AppUser {
   String? imagePath;
   String? phone;
   List<dynamic>? chatroomList;
-  // DocumentReference reference; 쓰는 벙을 기억해야함...
+  // DocumentReference reference;
 
   AppUser({this.uid, this.auth, this.gender, this.name, this.age, this.mbti, this.university, this.major, this.black, this.imagePath, this.phone, this.chatroomList});
 

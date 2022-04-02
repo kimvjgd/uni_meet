@@ -10,10 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:uni_meet/app/ui/page/post/post_screen.dart';
-import 'package:uni_meet/app/ui/page/signup/screen/confetti_screen.dart';
 import '../../../../../secret/secret_keys.dart';
-import '../../../../controller/auth_controller.dart';
-import '../../../../data/model/app_user.dart';
 
 class UnivCheckScreen extends StatefulWidget {
   const UnivCheckScreen({Key? key}) : super(key: key);
@@ -27,7 +24,6 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
   String parsedtext = '';
   String name = Get.arguments.name;
   String uni = Get.arguments.university;
-  // String grade = Get.arguments.age + "학번";
   String everytime = "학교 인증";
   bool flag1 = false, flag2 = false, flag3 = false;
   bool? uni_check;
@@ -278,6 +274,4 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
       ),
     )));
   }
-
-
 }

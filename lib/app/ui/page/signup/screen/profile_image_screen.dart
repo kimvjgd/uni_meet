@@ -240,8 +240,6 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
 
 
   void onPressed() async {
-
       Get.to(UnivCheckScreen(),arguments: Get.arguments);
   }
-
 }

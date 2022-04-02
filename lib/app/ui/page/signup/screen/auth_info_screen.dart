@@ -9,6 +9,7 @@ import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/age_bottom_sheet.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/intro.dart';
+import 'package:uni_meet/app/ui/page/signup/widget/major_textformfield.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
 import 'package:uni_meet/root_page.dart';
 import 'package:uni_meet/secret/univ_list.dart';
@@ -77,8 +78,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                           _mbtiField(),
                           _agePicker("학번"),
                           _univPicker("대학교"),
-                          _majorTextFormField("학과", "컴퓨터정보학부"),
-                          // 고칠 것이다.
+                          MajorTextFormField(category: "학과", majorController: _majorController),
                         ],
                       ),
                     ),
@@ -141,39 +141,6 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                         return '닉네임을 입력해주세요.';
                       }
                       return '닉네임이 너무 짧습니다.';
-                    }
-                  },
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Padding _majorTextFormField(String category, String content) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 50,
-        child: Row(
-          children: [
-            Expanded(
-                flex: 1,
-                child: Container(
-                  child: Text(category),
-                )),
-            Expanded(
-                flex: 4,
-                child: TextFormField(
-                  controller: _majorController,
-                  validator: (major) {
-                    if (major!.isNotEmpty && major.length > 2) {
-                      return null;
-                    } else {
-                      if (major.isEmpty) {
-                        return '학과명을 입력해주세요.';
-                      }
-                      return '학과명을 정확히 기재해주세요.';
                     }
                   },
                 )),
