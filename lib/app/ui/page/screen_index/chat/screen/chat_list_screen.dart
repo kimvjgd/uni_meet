@@ -59,8 +59,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                     .postTitle!),
                                 Text(
                                   snapshot.data![index]
-                                      .lastMessageTime
-                                      .toString(),
+                                      .lastMessage!,
                                   style: TextStyle(
                                       fontSize: 30, color: Colors.black),
                                 ),

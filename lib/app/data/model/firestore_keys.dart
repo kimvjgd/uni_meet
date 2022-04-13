@@ -12,10 +12,13 @@ const KEY_USER_AGE = "age";
 const KEY_USER_MBTI = "mbti";
 const KEY_USER_UNIVERSITY = "university";
 const KEY_USER_MAJOR = "major";
-const KEY_USER_BLACK = "black";
-const KEY_USER_IMAGEPATH = "imagePath";
+const KEY_USER_BLACKLIST = "black_list";
+const KEY_USER_BLACK = 'black';
+const KEY_USER_NICKNAME = 'nickname';
+const KEY_USER_TOKEN = 'token';
+const KEY_USER_IMAGEPATH = "image_path";
 const KEY_USER_PHONE = "phone";
-const KEY_USER_CHATROOMLIST = "chatroomList";
+const KEY_USER_CHATROOMLIST = "chatroom_list";
 
 const KEY_POST_POSYKEY = "key";
 const KEY_POST_HOST = "host";
@@ -32,7 +35,7 @@ const KEY_COMMENT_COMMENTTIME = "comment_time";
 
 const KEY_CHATROOM_ALLUSER = "all_user";
 const KEY_CHATROOM_CREATEDDATE = "created_date";
-const KEY_CHATROOM_CHATROOMID = "chat_id";
+const KEY_CHATROOM_CHATROOMID = "chatroom_id";
 const KEY_CHATROOM_POSTKEY = "post_key";
 const KEY_CHATROOM_POSTTITLE = "post_title";
 const KEY_CHATROOM_LASTMESSAGE = "last_message";
