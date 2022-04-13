@@ -38,6 +38,7 @@ dependencies:
   timeago: ^3.2.2
   firebase_messaging: ^11.2.4
   flutter_local_notifications: ^9.4.0
+  settings_ui: ^2.0.2
 
 
 dev_dependencies:
