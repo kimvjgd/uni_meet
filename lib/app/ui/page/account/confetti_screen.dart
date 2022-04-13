@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uni_meet/app/ui/page/account/univ_check_screen.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
 import 'package:uni_meet/app/ui/page/account/widget/confetti_effect.dart';
