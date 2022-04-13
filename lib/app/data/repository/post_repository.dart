@@ -11,7 +11,7 @@ class PostRepository {
   // PostRepository._internal();
 
   static Future<void> createPost(
-      {required String title, required String content, required String place, required int headCount, required DateTime createdDate, required String host }) async {
+      {required String title, required String content, required String place, required int headCount, required DateTime createdDate, required String host,required String hostpushToken }) async {
     DocumentReference postRef = FirebaseFirestore.instance.collection('posts').doc();
     PostModel postData = PostModel(
         title: title,
@@ -21,6 +21,7 @@ class PostRepository {
         headCount: headCount,
         createdDate: createdDate,
         host: host,
+        hostpushToken: hostpushToken,
         numComments: 0);
     await postRef
         .set(postData.toMap());

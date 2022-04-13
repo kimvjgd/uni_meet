@@ -71,6 +71,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
                         headCount: 3,
                         createdDate: DateTime.now(),
                         host: AuthController.to.user.value.uid!,
+                      hostpushToken: ""
                     );
                     Get.back();
                   }, child: Text('완료')),

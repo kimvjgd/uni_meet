@@ -5,9 +5,7 @@ import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/ui/page/account/edit_number.dart';
-import 'package:uni_meet/app/ui/page/signup/screen/auth_info_screen.dart';
-import 'package:uni_meet/app/ui/page/signup/screen/start_screen.dart';
-
+import 'app/ui/page/account/edit_info.dart';
 import 'app/ui/page/screen_index/index_screen.dart';
 
 class RootPage extends GetView<AuthController> {
@@ -28,7 +26,7 @@ class RootPage extends GetView<AuthController> {
                   } else {
                     return Obx(() => controller.user.value.uid != null
                         ? index()
-                        : AuthInfoScreen(context: context, uid: user.data!.uid));
+                        : EditInfo(uid: user.data!.uid));
                   }
                 });
           } else {

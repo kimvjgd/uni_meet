@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class signup_button extends StatelessWidget {
+class BigButton extends StatelessWidget {
 
-    final VoidCallback onPressed;
-  const signup_button({
+  final VoidCallback onPressed;
+  const BigButton({
     required this.onPressed,
     Key? key,
-    required Size size,
-  }) : _size = size, super(key: key);
+    required this.btnText,
+  }) : super(key: key);
 
-  final Size _size;
 
+  final String btnText;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _size.width*0.85,
-      height: _size.height*0.06,
+      width: MediaQuery.of(context).size.width*0.85,
+      height: MediaQuery.of(context).size.height*0.06,
       child: ElevatedButton(
           style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -25,7 +25,7 @@ class signup_button extends StatelessWidget {
               )
           ),
           onPressed: onPressed,
-          child: Text('확        인')),
+          child: Text(btnText)),
     );
   }
 }
