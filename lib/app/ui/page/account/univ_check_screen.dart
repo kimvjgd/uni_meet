@@ -197,44 +197,6 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                             users.update({'unicheck': true})
                                 .then((value) => print("User Updated"))
                                 .catchError((error) => print("Failed to update user: $error"));
-                            /*
-                            showDialog(
-                                context: context,
-                                //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0)),
-                                    //Dialog Main Title
-                                    title: Column(
-                                      children: <Widget>[
-                                        new Text("Dialog Title"),
-                                      ],
-                                    ),
-                                    //
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          "인증이 완료되었습니다.",
-                                        ),
-                                      ],
-                                    ),
-                                    actions: <Widget>[
-                                      new TextButton(
-                                        child: new Text("확인"),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Get.to(Home());
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                });*/
-
                           }
                           else {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

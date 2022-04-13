@@ -23,9 +23,8 @@ class EditInfo extends StatefulWidget {
 
 class _EditInfoState extends State<EditInfo> {
   Gender _gender = Gender.MAN;
+  String mbti ="";
   bool complete = false;
-  int age = 20;
-  String mbti = '';
   int grade=0;
 
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -45,8 +44,6 @@ class _EditInfoState extends State<EditInfo> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-
-    DocumentReference users = FirebaseFirestore.instance.collection('users').doc(widget.uid);
     //파이어베이스 유저 개인정보 저장하기
     void createUserInFirestore (){
       AppUserModel userModel = AppUserModel(
@@ -58,8 +55,6 @@ class _EditInfoState extends State<EditInfo> {
         university: _univController.text,
         major: _majorController.text,
         grade: grade,
-        mbti: mbti,
-
       );
       //users.update(userModel.toMap());
       UserRepository.signup(userModel);
@@ -94,10 +89,10 @@ class _EditInfoState extends State<EditInfo> {
                   _mbtiField(),
                   SizedBox(height: 30,),
                   BigButton(onPressed: () {
-                    if(mbti == "" || grade == 0){
+                    if(grade == 0){
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: const Text(
-                          "학번과 MBTI를 채워주세요 !",
+                          "학번을 채워주세요 !",
                           style: TextStyle(color: Colors.black),
                         ),
                         backgroundColor: Colors.white,
@@ -109,7 +104,7 @@ class _EditInfoState extends State<EditInfo> {
                     } else {
                       print('입력 실패!');
                     }
-                  }, btnText:"등록하기")
+                  }, btnText:"다음으로")
                 ],
               ),
             ),
@@ -146,29 +141,48 @@ class _EditInfoState extends State<EditInfo> {
       children: [
         Expanded(
           child: InkWell(
-            highlightColor: Colors.white,
-            splashColor: Colors.transparent,
-            onTap: () {
-              setState(() {
-                _gender = Gender.MAN;
-              });
-            },
-            child: ListTile(
-              title: Text(
-                "남성",
-                style: TextStyle(
-                    color: _gender == Gender.MAN ? Colors.blue : Colors.black),
-              ),
-              leading: Radio(
-                value: Gender.MAN,
-                groupValue: _gender,
-                onChanged: (Gender? value) {
-                  setState(() {
-                    _gender = value!;
-                  });
-                },
-              ),
-            ),
+              highlightColor: Colors.white,
+              splashColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  _gender = Gender.MAN;
+                });
+              },
+              child: Row(
+                children: [
+                  Radio(
+                    value: Gender.MAN,
+                    groupValue: _gender,
+                    onChanged: (Gender? value) {
+                      setState(() {
+                        _gender = value!;
+                      });
+                    },
+                  ),
+                  Text(
+                    "남자입니다",
+                    style: TextStyle(
+                        color:
+                        _gender == Gender.MAN ? Colors.blue : Colors.black),
+                  ),
+                ],
+              )
+            // ListTile(
+            //   title: Text(
+            //     "남자예요",
+            //     style: TextStyle(
+            //         color: _gender == Gender.MAN ? Colors.blue : Colors.black),
+            //   ),
+            //   leading: Radio(
+            //     value: Gender.MAN,
+            //     groupValue: _gender,
+            //     onChanged: (Gender? value) {
+            //       setState(() {
+            //         _gender = value!;
+            //       });
+            //     },
+            //   ),
+            // ),
           ),
         ),
         Expanded(
@@ -180,13 +194,8 @@ class _EditInfoState extends State<EditInfo> {
                 _gender = Gender.WOMAN;
               });
             },
-            child: ListTile(
-              title: Text("여성",
-                  style: TextStyle(
-                      color: _gender == Gender.WOMAN
-                          ? Colors.blue
-                          : Colors.black)),
-              leading: Radio(
+            child: Row(children: [
+              Radio(
                 value: Gender.WOMAN,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
@@ -195,7 +204,12 @@ class _EditInfoState extends State<EditInfo> {
                   });
                 },
               ),
-            ),
+              Text("여자입니다",
+                  style: TextStyle(
+                      color: _gender == Gender.WOMAN
+                          ? Colors.blue
+                          : Colors.black)),
+            ]),
           ),
         ),
       ],

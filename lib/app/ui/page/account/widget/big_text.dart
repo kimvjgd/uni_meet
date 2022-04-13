@@ -10,7 +10,7 @@ class BigText extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Text(
-          headText , style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500,letterSpacing: 1),
+          headText , style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500,),
         ),
       ),
     );

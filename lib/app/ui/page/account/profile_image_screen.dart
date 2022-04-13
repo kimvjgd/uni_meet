@@ -24,7 +24,16 @@ class ProfileImageScreen extends StatefulWidget {
 
 class _ProfileImageScreenState extends State<ProfileImageScreen> {
   int selected_profile= 0;
+  String nickname="";
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  TextEditingController _nicknameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nicknameController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -33,9 +42,10 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
   }
   @override
   Widget build(BuildContext context) {
-
+    Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
+      resizeToAvoidBottomInset: false,
+        body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
           child: Column(
@@ -44,25 +54,29 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
               BackButton(),
               BigText(headText:"새로운 만남을 대하는\n당신의 모습은 어떤가요?"),
               Spacer(flex:2,),
-              Center(
-                  child: selected_profile ==0 ? Column(
-                    children: [
-                      Container(
-                        height:110,
-                        width:110,
-                      ),
-                      SizedBox(height: 3,),
-                    ],
-                  )
-                      : selected_profile ==1 ? Momo('diamond.png','모모1')
-                      : selected_profile ==2 ? Momo('uniexample.png','모모2')
-                      : selected_profile ==3 ? Momo('diamond.png','모모3')
-                      : selected_profile ==4 ? Momo('diamond.png','모모4')
-                      : selected_profile ==5 ? Momo('diamond.png','모모5')
-                      : selected_profile ==6 ? Momo('diamond.png','모모6')
-                      :Container(height:110, width:110)
+              selected_profile ==0 ? Center(
+                child: Container(
+                  height:120,
+                  width:120,
+                  child: CircleAvatar(
+                    child: Icon(Icons.question_mark,color: Colors.white,),
+                    backgroundColor: Colors.grey[200],),
+                ),
+              )
+                  : selected_profile ==1 ? Big_Momo('diamond.png')
+                  : selected_profile ==2 ? Big_Momo('uniexample.png')
+                  : selected_profile ==3 ? Big_Momo('diamond.png')
+                  : selected_profile ==4 ? Big_Momo('diamond.png')
+                  : selected_profile ==5 ? Big_Momo('diamond.png')
+                  : selected_profile ==6 ? Big_Momo('diamond.png')
+                  :Container(height:120, width:120),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: _size.width*0.5,
+                    child: _nicknameFormField()),
               ),
-              Spacer(flex: 2,),
+              Spacer(flex:6,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -132,6 +146,17 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
     );
   }
 
+  Center Big_Momo(String url){
+    return Center(
+      child:Container(
+        height: 120,
+        width: 120,
+        child: CircleAvatar(
+          backgroundImage: AssetImage('assets/images/'+url),
+        ),
+      ),
+    );
+  }
   Column Momo(String url,String name){
     return Column(
       children: [
@@ -148,16 +173,59 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
     );
   }
 
-
-  void onPressed() async {
-
-    var uid = FirebaseAuth.instance.currentUser!.uid;
-
-    FirebaseFirestore.instance.collection(COLLECTION_USERS)
-        .doc(uid)
-        .update({KEY_USER_LOCALIMAGE:selected_profile});
-
-    Get.to(() => ConfettiScreen(selected_profile: selected_profile));
+  Padding _nicknameFormField() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 50,
+        child: Row(
+          children: [
+            Expanded(
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: "닉네임을 입력해주세요",
+                    contentPadding: EdgeInsets.all(5),
+                  ),
+                  controller: _nicknameController,
+                  validator: (name) {
+                    if (name!.isNotEmpty && name.length > 1) {
+                      return null;
+                    } else {
+                      if (name.isEmpty) {
+                        return '닉네임을 입력해주세요.';
+                      }
+                      return '닉네임이 너무 짧습니다.';
+                    }
+                  },
+                )),
+          ],
+        ),
+      ),
+    );
   }
 
+  void onPressed() async {
+    nickname = _nicknameController.text.trim();
+    if (selected_profile == 0 || nickname == '') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          "닉네임과 프로필을 설정해주세요!",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ));
+    }
+    else {
+      var uid = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance.collection(COLLECTION_USERS)
+          .doc(uid)
+          .update({
+        KEY_USER_NICKNAME: nickname,
+        KEY_USER_LOCALIMAGE: selected_profile
+      });
+
+      Get.to(() => ConfettiScreen(selected_profile: selected_profile,nick_name: nickname,));
+    }
+  }
 }
