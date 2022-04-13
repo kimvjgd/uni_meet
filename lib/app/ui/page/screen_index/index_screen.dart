@@ -1,13 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
-import 'package:uni_meet/app/ui/page/screen_index/alarm/screen/alarm_screen.dart';
+import 'package:uni_meet/app/ui/page/screen_index/home/screen/home_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/screen/chat_list_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/message_popup.dart';
 import 'package:uni_meet/app/ui/page/screen_index/post/screen/post_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/setting_screen.dart';
+
+import 'home/screen/home_screen.dart';
 
 class IndexScreen extends GetView<BottomNavController> {
   const IndexScreen({Key? key}) : super(key: key);
@@ -20,8 +21,8 @@ class IndexScreen extends GetView<BottomNavController> {
               child: IndexedStack(
                 index: controller.pageIndex.value,
                 children: [
+                  HomeScreen(),
                   PostScreen(),
-                  AlarmScreen(),
                   ChatListScreen(),
                   SettingScreen(),
                 ],
@@ -39,45 +40,45 @@ class IndexScreen extends GetView<BottomNavController> {
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.category,
-                    color: Colors.black,
+                    Icons.home,
+                   // color: Colors.black,
                   ),
                   activeIcon: Icon(
-                    Icons.circle,
-                    color: Colors.black,
+                    Icons.home,
+                   // color: Colors.black,
                   ),
                   label: 'home',
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.category,
-                      color: Colors.black,
+                      Icons.view_list_rounded,
+                    //  color: Colors.black,
                     ),
                     activeIcon: Icon(
-                      Icons.circle,
-                      color: Colors.black,
+                      Icons.view_list_rounded,
+                     // color: Colors.black,
                     ),
-                    label: 'home'),
+                    label: 'list'),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.category,
+                      Icons.chat_bubble_outline,
                       color: Colors.black,
                     ),
                     activeIcon: Icon(
-                      Icons.circle,
+                      Icons.chat_bubble_outline,
                       color: Colors.black,
                     ),
-                    label: 'home'),
+                    label: 'chat'),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.category,
+                      Icons.settings,
                       color: Colors.black,
                     ),
                     activeIcon: Icon(
-                      Icons.circle,
+                      Icons.settings,
                       color: Colors.black,
                     ),
-                    label: 'home'),
+                    label: 'setting'),
               ],
             ),
           )),
