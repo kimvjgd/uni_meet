@@ -3,7 +3,7 @@ import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
 class AppUserModel {
   String? uid;
-  bool? auth;
+  bool? unicheck;
   String? gender;
   String? name;
   int? age;
@@ -21,7 +21,7 @@ class AppUserModel {
 
   AppUserModel(
       {this.uid,
-      this.auth,
+      this.unicheck,
       this.gender,
       this.name,
       this.age,
@@ -41,7 +41,7 @@ class AppUserModel {
   factory AppUserModel.fromJson(Map<String, dynamic> json) {
     return AppUserModel(
       uid: json[KEY_USER_UID] == null ? '' : json[KEY_USER_UID] as String,
-      auth: json[KEY_USER_AUTH] == null ? false : json[KEY_USER_AUTH] as bool,
+      unicheck: json[KEY_USER_AUTH] == null ? false : json[KEY_USER_AUTH] as bool,
       gender: json[KEY_USER_GENDER] == null ? 'MAN' : json[KEY_USER_GENDER] as String,
       name: json[KEY_USER_NAME] == null ? '' : json[KEY_USER_NAME] as String,
       age: json[KEY_USER_AGE] == null ? 20 : json[KEY_USER_AGE] as int,
@@ -63,7 +63,7 @@ class AppUserModel {
   Map<String, dynamic> toMap() {
     return {
       KEY_USER_UID: uid,
-      KEY_USER_AUTH: auth,
+      KEY_USER_AUTH: unicheck,
       KEY_USER_GENDER: gender,
       KEY_USER_NAME: name,
       KEY_USER_AGE: age,
@@ -99,7 +99,7 @@ class AppUserModel {
   }) {
     return AppUserModel(
       uid: uid ?? this.uid,
-      auth: auth ?? this.auth,
+      unicheck: auth ?? this.unicheck,
       gender: gender ?? this.gender,
       name: name ?? this.name,
       age: age ?? this.age,

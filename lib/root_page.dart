@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
+import 'package:uni_meet/app/ui/page/account/edit_number.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/auth_info_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/start_screen.dart';
 
@@ -31,7 +32,7 @@ class RootPage extends GetView<AuthController> {
                   }
                 });
           } else {
-            return StartScreen();
+            return EditNumber();
           }
         });
   }
