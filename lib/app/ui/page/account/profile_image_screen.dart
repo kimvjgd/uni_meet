@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/page/account/confetti_screen.dart';
 import 'package:uni_meet/app/ui/page/account/univ_check_screen.dart';
@@ -128,7 +129,6 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
           ),
         ),
       ),
-
     );
   }
 
@@ -150,10 +150,13 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
 
 
   void onPressed() async {
-    //AppUser userModel = AppUser(localImage :selected_profile);
-    //UserRepository.update(userModel);
+
     var uid = FirebaseAuth.instance.currentUser!.uid;
-    FirebaseFirestore.instance.collection('users').doc(uid).update({'localImage':selected_profile});
+
+    FirebaseFirestore.instance.collection(COLLECTION_USERS)
+        .doc(uid)
+        .update({KEY_USER_LOCALIMAGE:selected_profile});
+
     Get.to(() => ConfettiScreen(selected_profile: selected_profile));
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
+import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/page/account/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
@@ -56,11 +57,12 @@ class _EditInfoState extends State<EditInfo> {
         gender: _gender.toString(),
         university: _univController.text,
         major: _majorController.text,
-       // grade: grade,
+        grade: grade,
         mbti: mbti,
+
       );
       //users.update(userModel.toMap());
-     // UserRepository.signup(userModel);
+      UserRepository.signup(userModel);
     }
 
     return GestureDetector(

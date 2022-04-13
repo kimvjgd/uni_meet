@@ -28,7 +28,7 @@ class AuthController extends GetxController {
   }
 
   void changeAge(value) {
-    user(AppUserModel(age: value));
+    user(AppUserModel(grade: value));
     // user.value.age = value;
   }
 

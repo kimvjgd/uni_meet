@@ -8,7 +8,7 @@ const KEY_USER_UID = "uid";
 const KEY_USER_AUTH = "auth";
 const KEY_USER_GENDER = "gender";
 const KEY_USER_NAME = "name";
-const KEY_USER_AGE = "age";
+const KEY_USER_GRADE = "grade";
 const KEY_USER_MBTI = "mbti";
 const KEY_USER_UNIVERSITY = "university";
 const KEY_USER_MAJOR = "major";
@@ -17,6 +17,7 @@ const KEY_USER_BLACK = 'black';
 const KEY_USER_NICKNAME = 'nickname';
 const KEY_USER_TOKEN = 'token';
 const KEY_USER_IMAGEPATH = "image_path";
+const KEY_USER_LOCALIMAGE="localImage";
 const KEY_USER_PHONE = "phone";
 const KEY_USER_CHATROOMLIST = "chatroom_list";
 
