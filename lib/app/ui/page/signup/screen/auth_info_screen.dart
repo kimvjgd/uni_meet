@@ -2,16 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
-import 'package:uni_meet/app/data/model/app_user.dart';
+import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/age_bottom_sheet.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/intro.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/major_textformfield.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
-import 'package:uni_meet/root_page.dart';
 import 'package:uni_meet/secret/univ_list.dart';
 
 enum Gender { MAN, WOMAN }
@@ -28,7 +26,6 @@ class AuthInfoScreen extends StatefulWidget {
 }
 
 class _AuthInfoScreenState extends State<AuthInfoScreen> {
-  var logger = Logger();
 
   var _isChecked = false;
 
@@ -98,7 +95,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
 
   void onPressed() async {
     if (_formKey.currentState!.validate()) {
-      var signupUser = AppUser(
+      var signupUser = AppUserModel(
           uid: widget.uid,
           name: _nickNameController.text,
           major: _majorController.text,
@@ -109,11 +106,10 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
 
       await UserRepository.signup(signupUser);
 
-      Get.to(() => ProfileImageScreen(), arguments: signupUser);
+      Get.to(() => ProfileImageScreen());
 
     //  Get.to(ProfileImageScreen());
     } else {
-      logger.d('입력 실패!');
     }
   }
 
@@ -349,7 +345,7 @@ class _AuthInfoScreenState extends State<AuthInfoScreen> {
                               .value
                               .age
                               .toString());
-                          return AgeBottomSheet(age: Get.find<AuthController>().user.value.age!);
+                          return AgeBottomSheet(age: Get.find<AuthController>().user.value.age!=null?Get.find<AuthController>().user.value.age!:20);
                         });
                   },
                   child: Column(

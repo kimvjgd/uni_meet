@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 
 class AgeBottomSheet extends StatefulWidget {

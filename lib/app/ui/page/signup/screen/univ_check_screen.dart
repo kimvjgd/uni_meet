@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:uni_meet/app/ui/page/post/post_screen.dart';
+import 'package:uni_meet/app/ui/page/screen_index/index_screen.dart';
 import '../../../../../secret/secret_keys.dart';
 
 class UnivCheckScreen extends StatefulWidget {
@@ -22,8 +22,8 @@ class UnivCheckScreen extends StatefulWidget {
 class _UnivCheckScreenState extends State<UnivCheckScreen> {
   File? imageFile;
   String parsedtext = '';
-  String name = Get.arguments.name;
-  String uni = Get.arguments.university;
+  String name = '';
+  String uni = '';
   String everytime = "학교 인증";
   bool flag1 = false, flag2 = false, flag3 = false;
   bool? uni_check;
@@ -196,7 +196,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                                   child: new Text("확인"),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    Get.to(PostScreen());
+                                    Get.to(IndexScreen());
                                   },
                                 ),
                               ],

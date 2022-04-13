@@ -1,22 +1,29 @@
-import 'package:uni_meet/app/data/model/app_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uni_meet/app/data/model/app_user_model.dart';
+import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
 class UserRepository {
-  static Future<AppUser?> loginUserByUdi(String uid) async {
-    var data = await FirebaseFirestore.instance.collection('users').where('uid',isEqualTo: uid).get();
+  static Future<AppUserModel?> loginUserByUid(String uid) async {
+    var data = await FirebaseFirestore.instance
+        .collection(COLLECTION_USERS)
+        .where(KEY_USER_UID, isEqualTo: uid)
+        .get();
 
-    if(data.size==0){
+    if (data.size == 0) {
       return null;
-    }else {
-      return AppUser.fromJson(data.docs.first.data());
+    } else {
+      return AppUserModel.fromJson(data.docs.first.data());
     }
   }
 
-  static Future<bool> signup(AppUser user)async {
-    try{
-      await FirebaseFirestore.instance.collection('users').add(user.toMap());
+  static Future<bool> signup(AppUserModel user) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(COLLECTION_USERS)
+          .doc(user.uid)
+          .set(user.toMap());
       return true;
-    }catch(e) {
+    } catch (e) {
       return false;
     }
   }

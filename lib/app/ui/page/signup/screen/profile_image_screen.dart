@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:uni_meet/app/ui/page/signup/screen/confetti_screen.dart';
 import 'package:uni_meet/app/ui/page/signup/screen/univ_check_screen.dart';
 import '../widget/signup_button.dart';
 
@@ -240,6 +239,6 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
 
 
   void onPressed() async {
-      Get.to(UnivCheckScreen(),arguments: Get.arguments);
+      Get.to(UnivCheckScreen());
   }
 }

@@ -9,21 +9,13 @@ class BottomSheetBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Padding(
+      child: Padding(
         padding: pagePadding,
         child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: children,),),);
+          mainAxisSize: MainAxisSize.min,
+          children: children,
+        ),
+      ),
+    );
   }
 }
-// void showPermissionDenied(BuildContext context, {required String permission}) {
-//   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//       content:Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Text('$permission 권한이 없습닌다.'),
-//           TextButton(onPressed: (){
-//             openAppSettings();
-//           }, child: Text('설정창으로 이동'))
-//         ],)));
-// }

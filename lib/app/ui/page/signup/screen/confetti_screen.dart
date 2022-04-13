@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
 import 'package:uni_meet/app/ui/page/signup/widget/confetti_effect.dart';
+import 'package:uni_meet/app/ui/page/signup/widget/signup_button.dart';
 
 
 class ConfettiScreen extends StatefulWidget {
