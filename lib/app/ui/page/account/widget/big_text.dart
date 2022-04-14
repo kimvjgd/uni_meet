@@ -7,11 +7,8 @@ class BigText extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Text(
-          headText , style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500,),
-        ),
+      child: Text(
+        headText , style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500,),
       ),
     );
   }

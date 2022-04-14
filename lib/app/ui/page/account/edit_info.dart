@@ -2,9 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
+import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
@@ -44,67 +47,76 @@ class _EditInfoState extends State<EditInfo> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    //파이어베이스 유저 개인정보 저장하기
-    void createUserInFirestore (){
-      AppUserModel userModel = AppUserModel(
-        uid:FirebaseAuth.instance.currentUser?.uid,
-        unicheck:false,
-        phone:FirebaseAuth.instance.currentUser?.phoneNumber,
-        name: _nameController.text,
-        gender: _gender.toString(),
-        university: _univController.text,
-        major: _majorController.text,
-        grade: grade,
-      );
-      //users.update(userModel.toMap());
-      UserRepository.signup(userModel);
-    }
 
     return GestureDetector(
       onTap: (){FocusScope.of(context).unfocus();},
       child: Scaffold(
-        appBar: AppBar(title: Text("개인정보 입력하기")),
+        resizeToAvoidBottomInset: true,
+        appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0.0,),
         body:Center(
           child: SizedBox(
             height: _size.height,
             width: _size.width*0.9,
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("임시 user uid => "+widget.uid ),
                   BigText(headText: "안녕하세요!👋\n즐거운 만남을 위해\n당신에 대해 알려주세요."),
-                  Form(key:_formKey,
-                      child:Column(
-                        children: [
-                          _nameFormField("이름"),
-                          _genderSelection("성별"),
-                          _univPicker("대학교"),
-                          _majorTextFormField("학과")
-                        ],
-                      )
+                  SizedBox(height: _size.height*0.1,),
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Form(key:_formKey,
+                            child:Column(
+                              children: [
+                                _nameFormField("이름"),
+                                _genderSelection("성별"),
+                                _univPicker("대학교"),
+                                _majorTextFormField("학과")
+                              ],
+                            )
+                        ),
+                        _gradePicker(),
+                        _mbtiField(),
+                      ],
+                    ),
                   ),
-                  _gradePicker(),
-                  _mbtiField(),
-                  SizedBox(height: 30,),
+                  SizedBox(height: _size.height*0.12,),
                   BigButton(onPressed: () {
                     if(grade == 0){
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: const Text(
-                          "학번을 채워주세요 !",
+                          "학번을 채워주세요!",
                           style: TextStyle(color: Colors.black),
                         ),
                         backgroundColor: Colors.white,
                       ));
                     }
                     else if (_formKey.currentState!.validate()) {
-                      createUserInFirestore();
+                      UserRepository.signup(AppUserModel(
+                        uid:FirebaseAuth.instance.currentUser?.uid,
+                        unicheck:false,
+                        phone:FirebaseAuth.instance.currentUser?.phoneNumber,
+                        name: _nameController.text,
+                        gender: _gender.toString(),
+                        university: _univController.text,
+                        major: _majorController.text,
+                        grade: grade,
+                      ));
+                      //이렇게 쓰면 안될거같은데..
                       Get.to(ProfileImageScreen());
-                    } else {
-                      print('입력 실패!');
                     }
-                  }, btnText:"다음으로")
+                    else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text(
+                          "오류가 발생했습니다. 다시 한번 시도해주세요!",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        backgroundColor: Colors.white,
+                      ));
+                    }
+                  }, btnText:"다음으로",)
                 ],
               ),
             ),
@@ -118,7 +130,7 @@ class _EditInfoState extends State<EditInfo> {
   //성별 선택
   Padding _genderSelection(String category) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0),
       child: Container(
         height: 50,
         child: Row(
@@ -127,7 +139,7 @@ class _EditInfoState extends State<EditInfo> {
             Expanded(
                 flex: 1,
                 child: Container(
-                  child: Text(category,style:TextStyle(fontSize: 16,color: Colors.grey[600]),
+                  child: Text(category,style:TextStyle(fontSize: 16,color: divider),
                 ))),
             Expanded(flex: 4, child: _genderRadio()),
           ],
@@ -151,6 +163,7 @@ class _EditInfoState extends State<EditInfo> {
               child: Row(
                 children: [
                   Radio(
+                    activeColor: app_red,
                     value: Gender.MAN,
                     groupValue: _gender,
                     onChanged: (Gender? value) {
@@ -163,26 +176,10 @@ class _EditInfoState extends State<EditInfo> {
                     "남자입니다",
                     style: TextStyle(
                         color:
-                        _gender == Gender.MAN ? Colors.blue : Colors.black),
+                        _gender == Gender.MAN ? app_red : divider),
                   ),
                 ],
               )
-            // ListTile(
-            //   title: Text(
-            //     "남자예요",
-            //     style: TextStyle(
-            //         color: _gender == Gender.MAN ? Colors.blue : Colors.black),
-            //   ),
-            //   leading: Radio(
-            //     value: Gender.MAN,
-            //     groupValue: _gender,
-            //     onChanged: (Gender? value) {
-            //       setState(() {
-            //         _gender = value!;
-            //       });
-            //     },
-            //   ),
-            // ),
           ),
         ),
         Expanded(
@@ -196,6 +193,7 @@ class _EditInfoState extends State<EditInfo> {
             },
             child: Row(children: [
               Radio(
+                activeColor: app_red,
                 value: Gender.WOMAN,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
@@ -207,8 +205,7 @@ class _EditInfoState extends State<EditInfo> {
               Text("여자입니다",
                   style: TextStyle(
                       color: _gender == Gender.WOMAN
-                          ? Colors.blue
-                          : Colors.black)),
+                          ? app_red : divider)),
             ]),
           ),
         ),
@@ -217,123 +214,120 @@ class _EditInfoState extends State<EditInfo> {
   }
 
   //이름 선택
-  Padding _nameFormField(String category) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 50,
-        child: Row(
-          children: [
-            Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      label: Text(category),
-                    contentPadding: EdgeInsets.all(5),
-                  ),
-                  controller: _nameController,
-                  validator: (name) {
-                    if (name!.isNotEmpty && name.length > 1) {
-                      return null;
-                    } else {
-                      if (name.isEmpty) {
-                        return '이름을 입력해주세요.';
-                      }
-                      return '이름이 너무 짧습니다.';
+  Container _nameFormField(String category) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+              child: TextFormField(
+                cursorColor: app_red,
+                decoration: InputDecoration(
+                  focusColor: app_red,
+                    label: Text(category,style: TextStyle(color: divider),),
+                  contentPadding: EdgeInsets.all(5),
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
+                ),
+                controller: _nameController,
+                validator: (name) {
+                  if (name!.isNotEmpty && name.length > 1) {
+                    return null;
+                  } else {
+                    if (name.isEmpty) {
+                      return '이름을 입력해주세요.';
                     }
-                  },
-                )),
-          ],
-        ),
+                    return '이름이 너무 짧습니다.';
+                  }
+                },
+              )),
+        ],
       ),
     );
   }
 
   //대학교 선택
-  Padding _univPicker(String category) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 50,
-        child: Row(
-          children: [
-            Expanded(
-                child: TypeAheadField<String>(
-                  suggestionsCallback: (String pattern) {
-                    return univList.where((item) =>
-                        item.toLowerCase().contains(pattern.toLowerCase()));
-                  },
-                  itemBuilder: (BuildContext context, itemData) {
-                    return ListTile(
-                      title: Text(itemData),
-                    );
-                  },
-                  onSuggestionSelected: (String suggestion) {
-                    setState(() {
-                      this._univController.text = suggestion;
-                    });
-                  },
-                  textFieldConfiguration:
-                  TextFieldConfiguration(
-                      controller: this._univController,
-                    decoration: InputDecoration(
-                      label: Text(category),
-                      contentPadding: EdgeInsets.all(5),
-
-                    )
+  Container _univPicker(String category) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+              child: TypeAheadField<String>(
+                suggestionsCallback: (String pattern) {
+                  return univList.where((item) =>
+                      item.toLowerCase().contains(pattern.toLowerCase()));
+                },
+                itemBuilder: (BuildContext context, itemData) {
+                  return ListTile(
+                    title: Text(itemData),
+                  );
+                },
+                onSuggestionSelected: (String suggestion) {
+                  setState(() {
+                    this._univController.text = suggestion;
+                  });
+                },
+                textFieldConfiguration:
+                TextFieldConfiguration(
+                    controller: this._univController,
+                  cursorColor: app_red,
+                  decoration: InputDecoration(
+                    focusColor: app_red,
+                    label: Text(category,style: TextStyle(color: divider),),
+                    contentPadding: EdgeInsets.all(5),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
                   ),
-                )),
-          ],
-        ),
+                ),
+              )),
+        ],
       ),
     );
   }
   //학과 선택
-  Padding _majorTextFormField(String category) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 50,
-        child: Row(
-          children: [
-            Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    label: Text(category),
-                    contentPadding: EdgeInsets.all(5),
-                  ),
-                  controller: _majorController,
-                  validator: (major) {
-                    if (major!.isNotEmpty && major.length > 2) {
-                      return null;
-                    } else {
-                      if (major.isEmpty) {
-                        return '학과명을 입력해주세요.';
-                      }
-                      return '학과명을 정확히 기재해주세요.';
+  Container _majorTextFormField(String category) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+              child: TextFormField(
+                cursorColor: app_red,
+                decoration: InputDecoration(
+                  focusColor: app_red,
+                  label: Text(category,style: TextStyle(color: divider),),
+                  contentPadding: EdgeInsets.all(5),
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
+                ),
+                controller: _majorController,
+                validator: (major) {
+                  if (major!.isNotEmpty && major.length > 2) {
+                    return null;
+                  } else {
+                    if (major.isEmpty) {
+                      return '학과명을 입력해주세요.';
                     }
-                  },
-                )),
-          ],
-        ),
+                    return '학과명을 정확히 기재해주세요.';
+                  }
+                },
+              )),
+        ],
       ),
     );
   }
-
   //학번 선택
   Padding _gradePicker() {
     List<int> gradeItem = [14,15,16,17,18,19,20,21,22];
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0),
       child: Container(
-        height: 50,
         child: Row(
           children: [
             SizedBox(width: 5,),
             Expanded(
                 flex: 1,
                 child: Container(
-                    child: Text("학번",style:TextStyle(fontSize: 16,color: Colors.grey[600]),
+                    child: Text("학번",style:TextStyle(fontSize: 16,color: divider),
                     ))),
             Expanded(
               flex: 4,
@@ -380,8 +374,8 @@ class _EditInfoState extends State<EditInfo> {
                       });
                 },
                 child:grade == 0
-                  ? Text("학번")
-                  : Text(grade.toString() + "학번",style: TextStyle(color: Colors.black),),
+                  ? Text("학번을 선택해 주세요!",style: TextStyle(color: app_systemGrey2),)
+                  : Text(grade.toString() + "학번",style: TextStyle(color:app_red),),
     ),
             ),
           ],
@@ -393,7 +387,7 @@ class _EditInfoState extends State<EditInfo> {
   //엠비티아이 선택
   Padding _mbtiField() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0),
       child: Container(
         height: 50,
         child: Row(
@@ -402,16 +396,16 @@ class _EditInfoState extends State<EditInfo> {
             Expanded(
                 flex: 1,
                 child: Container(
-                    child: Text("MBTI",style:TextStyle(fontSize: 16,color: Colors.grey[600]),
+                    child: Text("MBTI",style:TextStyle(fontSize: 16,color: divider),
                     ))),
             Expanded(
               flex: 4,
               child: OutlinedButton(
                 child: mbti == ""
-                    ? Text("MBTI")
+                    ? Text("MBTI는 무엇인가요?",style: TextStyle(color: app_systemGrey2),)
                     : Text(
                   mbti,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: app_red),
                 ),
                 onPressed: () {
                   showModalBottomSheet(
