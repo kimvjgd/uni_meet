@@ -139,7 +139,7 @@ class _EditInfoState extends State<EditInfo> {
             Expanded(
                 flex: 1,
                 child: Container(
-                  child: Text(category,style:TextStyle(fontSize: 16,color: divider),
+                  child: Text(category,style:TextStyle(fontSize: 16,color:app_label_grey),
                 ))),
             Expanded(flex: 4, child: _genderRadio()),
           ],
@@ -223,7 +223,7 @@ class _EditInfoState extends State<EditInfo> {
                 cursorColor: app_red,
                 decoration: InputDecoration(
                   focusColor: app_red,
-                    label: Text(category,style: TextStyle(color: divider),),
+                    label: Text(category,style: TextStyle(color:app_label_grey),),
                   contentPadding: EdgeInsets.all(5),
                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
@@ -272,7 +272,7 @@ class _EditInfoState extends State<EditInfo> {
                   cursorColor: app_red,
                   decoration: InputDecoration(
                     focusColor: app_red,
-                    label: Text(category,style: TextStyle(color: divider),),
+                    label: Text(category,style: TextStyle(color: app_label_grey),),
                     contentPadding: EdgeInsets.all(5),
                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
@@ -293,7 +293,7 @@ class _EditInfoState extends State<EditInfo> {
                 cursorColor: app_red,
                 decoration: InputDecoration(
                   focusColor: app_red,
-                  label: Text(category,style: TextStyle(color: divider),),
+                  label: Text(category,style: TextStyle(color: app_label_grey),),
                   contentPadding: EdgeInsets.all(5),
                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
@@ -327,7 +327,7 @@ class _EditInfoState extends State<EditInfo> {
             Expanded(
                 flex: 1,
                 child: Container(
-                    child: Text("학번",style:TextStyle(fontSize: 16,color: divider),
+                    child: Text("학번",style:TextStyle(fontSize: 16,color:app_label_grey),
                     ))),
             Expanded(
               flex: 4,
@@ -396,7 +396,7 @@ class _EditInfoState extends State<EditInfo> {
             Expanded(
                 flex: 1,
                 child: Container(
-                    child: Text("MBTI",style:TextStyle(fontSize: 16,color: divider),
+                    child: Text("MBTI",style:TextStyle(fontSize: 16,color: app_label_grey),
                     ))),
             Expanded(
               flex: 4,
