@@ -15,6 +15,7 @@ class ChatController extends GetxController {
           postKey: '',
           postTitle: '',
           lastMessage: '',
+          place: '',
           lastMessageTime: DateTime.now(),
           headCount: 1)
       .obs;

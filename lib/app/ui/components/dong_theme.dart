@@ -3,7 +3,6 @@ import 'package:uni_meet/app/ui/components/dong_colors.dart';
 
 class DongThemes {
 
-
   // MaterialApp에서 theme: DongThemes.lightTheme 하면 라이트 테마로 바뀐다.
   static ThemeData get lightTheme => ThemeData(
         primarySwatch: DongColors.primaryMeterialColor,
@@ -13,7 +12,7 @@ class DongThemes {
     scaffoldBackgroundColor: Colors.white,
     splashColor: Colors.white,
     brightness: Brightness.light
-      );
+  );
   static ThemeData get darkTheme => ThemeData(
       primarySwatch: DongColors.primaryMeterialColor,
       fontFamily: 'GmarketSansTTF',
