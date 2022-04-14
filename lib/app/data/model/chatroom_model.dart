@@ -11,6 +11,7 @@ class ChatroomModel {
   DateTime? lastMessageTime;
   int? headCount;
   DocumentReference? reference;
+  String? place;
 
   ChatroomModel({
     required this.allUser,
@@ -22,6 +23,7 @@ class ChatroomModel {
     required this.lastMessageTime,
     required this.headCount,
     this.reference,
+    required this.place,
   });
 
   factory ChatroomModel.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,7 @@ class ChatroomModel {
       headCount: json[KEY_CHATROOM_HEADCOUNT] == null
           ? 2
           : json[KEY_CHATROOM_HEADCOUNT] as int,
+      place: json[KEY_CHATROOM_PLACE] == null? '' : json[KEY_CHATROOM_PLACE] as String,
     );
   }
 
@@ -61,6 +64,7 @@ class ChatroomModel {
       KEY_CHATROOM_LASTMESSAGE: lastMessage,
       KEY_CHATROOM_LASTMESSAGETIME: lastMessageTime,
       KEY_CHATROOM_HEADCOUNT: headCount,
+      KEY_CHATROOM_PLACE : place,
     };
   }
 }

@@ -71,13 +71,18 @@ class _EditInfoState extends State<EditInfo> {
                             child:Column(
                               children: [
                                 _nameFormField("이름"),
+                                SizedBox(height: 10,),
                                 _genderSelection("성별"),
+                                SizedBox(height: 10,),
                                 _univPicker("대학교"),
-                                _majorTextFormField("학과")
+                                SizedBox(height: 10,),
+                                _majorTextFormField("학과"),
+                                SizedBox(height: 10,),
                               ],
                             )
                         ),
                         _gradePicker(),
+                        SizedBox(height: 10,),
                         _mbtiField(),
                       ],
                     ),
@@ -122,7 +127,6 @@ class _EditInfoState extends State<EditInfo> {
             ),
           ),
         )
-
       ),
     );
   }
@@ -212,7 +216,6 @@ class _EditInfoState extends State<EditInfo> {
       ],
     );
   }
-
   //이름 선택
   Container _nameFormField(String category) {
     return Container(
@@ -244,7 +247,6 @@ class _EditInfoState extends State<EditInfo> {
       ),
     );
   }
-
   //대학교 선택
   Container _univPicker(String category) {
     return Container(
@@ -317,7 +319,6 @@ class _EditInfoState extends State<EditInfo> {
   //학번 선택
   Padding _gradePicker() {
     List<int> gradeItem = [14,15,16,17,18,19,20,21,22];
-
     return Padding(
       padding: const EdgeInsets.all(0),
       child: Container(
@@ -337,13 +338,11 @@ class _EditInfoState extends State<EditInfo> {
                       context: context,
                       builder: (_) {
                         return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15),
-                            ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height:MediaQuery.of(context).size.height * 0.4,
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              height:MediaQuery.of(context).size.height * 0.3,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   color: Colors.grey[200]),
@@ -358,16 +357,16 @@ class _EditInfoState extends State<EditInfo> {
                                     ...gradeItem.map((e) => Align(child: Text(e.toString() + '학번')))
                                   ]),
                             ),
-                            Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 15),
-                                child: TextButton(
-                                  child:Text("완료"),
-                                  onPressed: (){
-                                    Navigator.pop(context);
-                                    FocusScopeNode currentFocus = FocusScope.of(context);
-                                    currentFocus.unfocus();
-                                  },
-                                )
+                            ElevatedButton(
+                              child:Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("완료",style: TextStyle(fontSize: 20),),
+                              ),
+                              onPressed: (){
+                                Get.back();
+                                FocusScopeNode currentFocus = FocusScope.of(context);
+                                currentFocus.unfocus();
+                              },
                             ),
                           ],
                         );
@@ -383,7 +382,6 @@ class _EditInfoState extends State<EditInfo> {
       )
     );
   }
-
   //엠비티아이 선택
   Padding _mbtiField() {
     return Padding(

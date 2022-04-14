@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
@@ -17,29 +18,53 @@ class PostItem extends StatelessWidget {
     TimeAgo? _timeAgo;
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height/10,
-      child: GestureDetector(
-        onTap: (){
-          InitBinding.commentBinding();
-          Get.to(()=>PostDetailScreen(post: post));
-        },
+
+       child: GestureDetector(
+         onTap: (){
+           InitBinding.commentBinding();
+           Get.to(()=>PostDetailScreen(post: post));
+         },
         child: Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // 나중에 글씨제한 둘 예정, 일단 기능 구현 먼저
-                  Text(post.title??'빈 제목',style: TextStyle(fontSize: 26),textAlign: TextAlign.start,),
-                  Text(TimeAgo.timeAgoSinceData(post.createdDate!))
-                ],
+              Expanded(
+                flex: 4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(post.headCount.toString()+"명/"+post.place.toString()
+                      ,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blue),),
+                    SizedBox(height: 7,),
+                    Text(
+                      post.title?? '빈 제목',
+                      style: Theme.of(context).textTheme.titleSmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 7,),
+                    Text(
+                      post.content?? '내용 없음',
+                      style:Theme.of(context).textTheme.bodySmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,),
+                    SizedBox(height: 7,),
+                    Text(post.host.toString(),style: Theme.of(context).textTheme.labelSmall)
+                  ],
+                ),
               ),
-              Text(post.content??'내용 없음',style: TextStyle(fontSize: 16,color: Colors.grey)),
+              Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Icon(CupertinoIcons.chat_bubble_text),
+                      SizedBox(width: 5,),
+                      Text("3(수정)")
+                    ],
+                  ))
             ],
           ),
-        ),
-      ),
+        ),)
     );
   }
 }

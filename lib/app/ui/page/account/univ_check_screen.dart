@@ -116,7 +116,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
             body: body(),
           );
         }
-
+        //로딩화면 수정 필요 !!!!!!!
         return LinearProgressIndicator(backgroundColor: Colors.white,color: Colors.purple,);
       },
     );
@@ -133,8 +133,12 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
             children: [
               BackButton(),
              // Text("임시 텍스트" + uni + grade + name),
-              BigText(headText: "먼저, 학교 인증을 해야 해요"),
-              Text("에브리타임 앱 > 내 정보 에 들어가서\n이름, 대학명, 학번이 보이게 스크린샷을 찍어주세요\n크롭 된 파일이 아닌, 전체 스크린 샷을 업로드 해주세요"),
+              BigText(headText: "먼저, 학교 인증을 해야 해요!"),
+              Spacer(
+                flex: 1,
+              ),
+              Text("에브리타임 앱 > 내 정보 에 들어가서\n이름, 대학명, 학번이 보이게 스크린샷을 찍어주세요\n크롭 된 파일이 아닌, 전체 스크린 샷을 업로드 해주세요"
+                ,style: TextStyle(color: app_label_grey),),
               Spacer(
                 flex: 1,
               ),
@@ -226,6 +230,9 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                       btnText: "인증하기",)
                 ),
                 ),
+              Spacer(
+                flex: 1,
+              ),
               Align(
                 alignment: Alignment.center,
                 child: Padding(

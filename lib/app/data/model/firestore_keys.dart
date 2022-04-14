@@ -43,6 +43,7 @@ const KEY_CHATROOM_POSTTITLE = "post_title";
 const KEY_CHATROOM_LASTMESSAGE = "last_message";
 const KEY_CHATROOM_LASTMESSAGETIME = "last_message_time";
 const KEY_CHATROOM_HEADCOUNT = "head_count";
+const KEY_CHATROOM_PLACE = "place";
 
 const KEY_CHAT_WRITER = "writer";
 const KEY_CHAT_MESSAGE = "message";
