@@ -22,6 +22,7 @@ class PostScreen extends GetView<PostController>{
     return Scaffold(
       appBar: AppBar(
         backgroundColor:Colors.white,
+        elevation: 2,
       ),
       body:
       RefreshIndicator(
