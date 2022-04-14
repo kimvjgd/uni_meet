@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:uni_meet/app/ui/components/app_color.dart';
+import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
 import '../../../../secret/secret_keys.dart';
 import '../screen_index/index_screen.dart';
@@ -99,7 +101,6 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
       future: users.get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
         if (snapshot.hasError) {
           return Text("Something went wrong");
         }
@@ -131,7 +132,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BackButton(),
-              Text("임시 텍스트" + uni + grade + name),
+             // Text("임시 텍스트" + uni + grade + name),
               BigText(headText: "먼저, 학교 인증을 해야 해요"),
               Text("에브리타임 앱 > 내 정보 에 들어가서\n이름, 대학명, 학번이 보이게 스크린샷을 찍어주세요\n크롭 된 파일이 아닌, 전체 스크린 샷을 업로드 해주세요"),
               Spacer(
@@ -154,25 +155,35 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                       child: ElevatedButton(
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(10),
+                            backgroundColor: MaterialStateProperty.resolveWith((states) {
+                              if(imageFile ==null){
+                                return app_red;
+                              }
+                              else{
+                                return Colors.white;
+                              }
+                            })
                           ),
                           onPressed: () {
                             _getFromGallery();
                           },
-                          child: Text(
-                            "사진 업로드",
-                          )),
+                          child:
+                          imageFile ==null
+                              ? Text("사진 업로드",style: TextStyle(color: Colors.white),)
+                              : Text("사진 다시 고르기",style: TextStyle(color: app_red,fontWeight: FontWeight.bold),)
+                      ),
                     ),
                   ),
                 ],
               ),
               Spacer(
-                flex: 1,
+                flex: 2,
               ),
               Center(
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width*0.85,
                   height: MediaQuery.of(context).size.height*0.06,
-                  child: ElevatedButton(
+                  child: BigButton(
                       onPressed: () {
                         if (imageFile == null) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -210,22 +221,18 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           }
 
                           Get.to(IndexScreen());
-                        }
-                      },
-                      child: Text("인증하기"),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith((states) {
-                          if (imageFile != null) {
-                            return Colors.blue;
-                          } else {
-                            return Colors.grey[500];
-                          }
+                      }
                         },
-                        ),
-                      )),
+                      btnText: "인증하기",)
+                ),
+                ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(" 2~3분 이내에 학교인증이 완료됩니다.",style: TextStyle(color: app_systemGrey2),),
                 ),
               ),
-              Text(" 2~3분 이내에 학교인증이 완료됩니다."),
               Spacer(
                 flex: 2,
               ),
