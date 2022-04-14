@@ -134,15 +134,19 @@ class _SettingScreenState extends State<SettingScreen> {
           },
           trailing: Icon(Icons.arrow_forward_ios),
         ),
+        SettingsTile.navigation(
+          leading: Icon(Icons.exit_to_app),
+          title: Text('Log out'),
+          onPressed: (context) async {
+            AuthController.to.signOut();
+            await auth.signOut();
+            Get.to(()=>RootPage());
+          },
+          trailing: Icon(Icons.arrow_forward_ios),
+        )
       ],
     );
   }
-
-
-  // TextButton(child: Text('Log Out'),
-  // onPressed: signOut,
-  // )
-
   Future<void> signOut() async {
     AuthController.to.signOut();
     await auth.signOut();
