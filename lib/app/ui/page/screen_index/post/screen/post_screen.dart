@@ -9,12 +9,17 @@ import 'package:uni_meet/app/ui/page/screen_index/post/screen/post_add_screen.da
 import 'package:uni_meet/app/ui/page/screen_index/post/screen/post_detail_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/post/widget/post_item.dart';
 
-class PostScreen extends GetView<PostController>{
+class PostScreen extends StatefulWidget{
   const PostScreen({Key? key}) : super(key: key);
-  // GetView<PostController> 추후에 바꿀 예정.... 분함 분함... <-제가 임의로 바꿨습니다 점검 부탁 -미녕
 
+  @override
+  State<PostScreen> createState() => _PostScreenState();
+}
+
+class _PostScreenState extends State<PostScreen> {
+  // GetView<PostController> 추후에 바꿀 예정.... 분함 분함... <-제가 임의로 바꿨습니다 점검 부탁 -미녕
   Future _onRefresh() async {
-    controller.loadPostList();
+    PostController.to.loadPostList();
   }
 
   @override
@@ -33,14 +38,14 @@ class PostScreen extends GetView<PostController>{
           separatorBuilder: (context, index) {
             return Divider();
           },
-          itemCount: controller.postList.length,
+          itemCount: PostController.to.postList.length,
           itemBuilder: (context, index) {
             return InkWell(
-              child: PostItem(post: controller.postList[index]),
+              child: PostItem(post: PostController.to.postList[index]),
               onTap: () {
                 Get.to(
                     PostItem(
-                  post: controller.postList[index],
+                  post: PostController.to.postList[index],
                 ));
               },
             );
@@ -64,12 +69,4 @@ class PostScreen extends GetView<PostController>{
       ),
     );
   }
-
-  // Widget _postList() {
-  //   return Obx(() => ListView(
-  //         children: List.generate(
-  //             PostController.to.postList.length,
-  //             (index) => PostItem(post: PostController.to.postList[index])).toList(),
-  //       ));
-  // }
 }
