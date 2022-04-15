@@ -14,8 +14,8 @@ class PostController extends GetxController{
 
   void loadPostList() async {
     if(postList.isNotEmpty) postList.clear();
-
     var myList = await PostRepository.loadPostList();
     postList.addAll(myList);
   }
+
 }

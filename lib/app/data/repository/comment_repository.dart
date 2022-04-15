@@ -9,7 +9,7 @@ class CommentRepository {
     final DocumentReference commentRef =
         postRef.collection(COLLECTION_COMMENTS).doc();
 
-    commentData['commentKey'] = commentRef;
+    commentData[KEY_COMMENT_COMMENTKEY] = commentRef;
 
     return FirebaseFirestore.instance.runTransaction((tx) async {
         tx.set(commentRef, commentData);
@@ -23,7 +23,7 @@ class CommentRepository {
         .collection(COLLECTION_POSTS)
         .doc(postKey)
         .collection(COLLECTION_COMMENTS)
-        .orderBy('comment_time', descending: true);
+        .orderBy(KEY_COMMENT_COMMENTTIME, descending: true);
     var data = await document.get();
     List<CommentModel> comments = [];
     for (int i=0; i<data.size; i++){
@@ -40,7 +40,6 @@ class CommentRepository {
   }
 
   Future<void> deleteComment(String postKey,String UID) async {
-
     return (UID as DocumentReference)
         .delete()
         .then((value) => print("User Deleted"))
