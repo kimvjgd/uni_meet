@@ -114,13 +114,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       host: AuthController.to.user.value.uid,
       content: CommentController.to.commentTextController.text,
       commentTime: DateTime.now(),
+
     );
     await commentRepository.createNewComment(
         widget.post.postKey, comment.toMap());
     // 화면 새로고침
 
     CommentController.to.commentTextController.clear();
-    setState(() {});
+   // setState(() {});
   }
 
   Column _comment(AsyncSnapshot<List<CommentModel>> snapshot) {
@@ -336,9 +337,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     return FutureBuilder(
         future: commentRepository.loadCommentList(widget.post.postKey),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return LinearProgressIndicator();
-          }
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   //return LinearProgressIndicator();
+          //   return Container();
+          // }
           if (snapshot.hasData) {
             return snapshot.data.length == 0
                 ? Center(

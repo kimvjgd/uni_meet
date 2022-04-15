@@ -23,6 +23,7 @@ class PostScreen extends GetView<PostController>{
       appBar: AppBar(
         backgroundColor:Colors.white,
         elevation: 2,
+        actions: [IconButton(icon: Icon(Icons.more_vert_rounded),onPressed: (){},)],
       ),
       body:
       RefreshIndicator(

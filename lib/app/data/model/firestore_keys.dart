@@ -21,7 +21,7 @@ const KEY_USER_LOCALIMAGE="localImage";
 const KEY_USER_PHONE = "phone";
 const KEY_USER_CHATROOMLIST = "chatroom_list";
 
-const KEY_POST_POSYKEY = "key";
+const KEY_POST_POSTKEY = "post_key";
 const KEY_POST_HOST = "host";
 const KEY_POST_PLACE = "place";
 const KEY_POST_HEADCOUNT = "headcount";
@@ -32,6 +32,7 @@ const KEY_POST_NUMCOMMENTS = "num_comments";
 const KEY_POST_HOSTPUSHTOKEN = "host_push_token";
 
 const KEY_COMMENT_HOST = "host";
+const KEY_COMMENT_COMMENTKEY = "comment_key";
 const KEY_COMMENT_CONTENT = "content";
 const KEY_COMMENT_COMMENTTIME = "comment_time";
 
