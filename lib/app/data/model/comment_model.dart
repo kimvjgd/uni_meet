@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
 class CommentModel {
-  String? commentKey;
+  DocumentReference? commentKey;
   String? host;
   String? content;
   DateTime? commentTime;
@@ -18,7 +18,7 @@ class CommentModel {
 
   factory CommentModel.fromJson(Map<String, dynamic> json) {
     return CommentModel(
-        commentKey:json[KEY_COMMENT_COMMENTKEY] == null ? '' : json[KEY_COMMENT_COMMENTKEY] as String,
+        commentKey:json[KEY_COMMENT_COMMENTKEY] == null ? '' as DocumentReference: json[KEY_COMMENT_COMMENTKEY] as DocumentReference,
         host:json[KEY_COMMENT_HOST] == null ? '' : json[KEY_COMMENT_HOST] as String,
         content:json[KEY_COMMENT_CONTENT] == null ? '' : json[KEY_COMMENT_CONTENT] as String,
         commentTime:json[KEY_COMMENT_COMMENTTIME] == null ? DateTime.now() : json[KEY_COMMENT_COMMENTTIME].toDate(),

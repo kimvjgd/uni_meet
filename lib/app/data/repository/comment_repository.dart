@@ -39,8 +39,8 @@ class CommentRepository {
     return comments;
   }
 
-  Future<void> deleteComment(String postKey,String UID) async {
-    return (UID as DocumentReference)
+  Future<void> deleteComment(String postKey,DocumentReference UID) async {
+    return (UID)
         .delete()
         .then((value) => print("User Deleted"))
         .catchError((error) => print("Failed to delete user: $error"));
