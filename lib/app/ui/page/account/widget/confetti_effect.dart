@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
+import 'package:uni_meet/app/ui/components/app_color.dart';
+import 'package:uni_meet/app/ui/components/dong_colors.dart';
 
 class Confetti extends StatefulWidget {
   const Confetti({Key? key}) : super(key: key);
@@ -40,18 +42,18 @@ class _ConfettiState extends State<Confetti> {
           confettiController: _controllerRight,
           blastDirection: (-3/4)*pi,
           particleDrag: 0.05,
-          emissionFrequency: 0.02,
-          numberOfParticles: 20,
-          gravity: 0.15,
+          emissionFrequency: 0.05,
+          numberOfParticles: 5,
+          gravity: 0.2,
           shouldLoop: false,
           minimumSize: Size(7,19),
           maximumSize: Size(8,20),
-          colors: const [
-            Colors.green,
+          colors: [
+            app_green,
             Colors.blue,
-            Colors.pink,
+            app_deepyellow,
+            app_red,
             Colors.orange,
-            Colors.purple
           ], // manually specify the colors to be used
         ),
       ),
@@ -62,18 +64,18 @@ class _ConfettiState extends State<Confetti> {
           confettiController: _controllerLeft,
           blastDirection:(-1/4)*pi,
           particleDrag: 0.05,
-          emissionFrequency: 0.02,
-          numberOfParticles: 20,
-          gravity: 0.15,
+          emissionFrequency: 0.05,
+          numberOfParticles: 5,
+          gravity: 0.2,
           shouldLoop: false,
           minimumSize: Size(7,19),
           maximumSize: Size(8,20),
-          colors: const [
-            Colors.green,
+          colors: [
+            app_green,
             Colors.blue,
-            Colors.pink,
+            app_deepyellow,
+            app_red,
             Colors.orange,
-            Colors.purple
           ], // manually specify the colors to be used
         ),
       ),

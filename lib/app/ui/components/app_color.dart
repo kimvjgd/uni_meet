@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 const Color app_color = Color(0xfffff3f1);
 const Color app_red = Color(0xFFF96155);
-const Color app_yellow = Color(0xFFF1D708);
-const Color app_blue = Color(0xFF007AFF);
+const Color app_lightyellow = Color(0xFFFFEA9F);
+const Color app_deepyellow = Color(0xFFFFC452);
+const Color app_green = Color(0xFF34C759);
+
 const Color app_label_grey = Color(0x993C3C43);
 
 const Color app_systemGrey1=Color(0xFF8E8E93);
@@ -13,7 +15,5 @@ const Color app_systemGery4 = Color(0xFFE5E5EA);
 const Color app_systemGrey5=Color(0xFFEFEFF4);
 const Color app_systemGrey6=Color(0xFFF2F2F7);
 
-const Color app_lightyellow = Color(0xFFFFEA9F);
-const Color app_deepyellow = Color(0xFFFFC452);
 
 const Color divider = Color.fromRGBO(60, 60, 67, 0.29);
