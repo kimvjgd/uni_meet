@@ -6,12 +6,12 @@ import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
+import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import '../../../../../data/model/chatroom_model.dart';
 import '../../../../../data/model/comment_model.dart';
 import '../../../../../data/model/post_model.dart';
 import '../../../../../data/repository/chat_repository.dart';
 import '../../message_popup.dart';
-
 
 class CommentItem extends StatelessWidget {
   final CommentModel comment;
@@ -95,7 +95,11 @@ class CommentItem extends StatelessWidget {
                      )
                  );
               },))
-          : Container()
+          : AuthController.to.user.value.uid == comment.host
+              ? IconButton(icon: Icon(Icons.cancel_outlined),onPressed: (){
+                commentRepository.deleteComment(post.postKey, comment.commentKey!);
+          },)
+              :  Container()
         ],
       ),
     );

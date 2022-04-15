@@ -9,6 +9,8 @@ class CommentRepository {
     final DocumentReference commentRef =
         postRef.collection(COLLECTION_COMMENTS).doc();
 
+    commentData['commentKey'] = commentRef;
+
     return FirebaseFirestore.instance.runTransaction((tx) async {
         tx.set(commentRef, commentData);
         // int numOfComments = postSnapshot.get(KEY_POST_NUMCOMMENTS);
@@ -28,6 +30,7 @@ class CommentRepository {
 
       CommentModel comment = CommentModel(
         host: data.docs[i].data()[KEY_COMMENT_HOST],
+        commentKey: data.docs[i].data()[KEY_COMMENT_COMMENTKEY],
         content: data.docs[i].data()[KEY_COMMENT_CONTENT],
         commentTime: data.docs[i].data()[KEY_COMMENT_COMMENTTIME].toDate(),
       );
@@ -35,6 +38,15 @@ class CommentRepository {
     }
     return comments;
   }
+
+  Future<void> deleteComment(String postKey,String UID) async {
+
+    return (UID as DocumentReference)
+        .delete()
+        .then((value) => print("User Deleted"))
+        .catchError((error) => print("Failed to delete user: $error"));
+  }
+
 
 }
 CommentRepository commentRepository = CommentRepository();
