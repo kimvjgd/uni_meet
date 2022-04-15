@@ -11,6 +11,9 @@ class PostModel {
   final int numComments;
   final String? content;
   final String? hostpushToken;
+  final String? hostUni;
+  final String? hostNick;
+  final String? hostGrade;
   // final DocumentReference reference;
 
   PostModel({
@@ -23,6 +26,9 @@ class PostModel {
     required this.createdDate,
     required this.content,
     required this.hostpushToken,
+    required this. hostUni,
+    required this. hostNick,
+    required this. hostGrade,
   });
 
   factory PostModel.fromJson(String docId, Map<String, dynamic> json) {
@@ -48,6 +54,9 @@ class PostModel {
       numComments: json[KEY_POST_NUMCOMMENTS] == null
           ? 0
           : json[KEY_POST_NUMCOMMENTS] as int,
+      hostGrade: json[KEY_POST_HOSTGRADE] == null ? '' : json[KEY_POST_HOSTGRADE] as String,
+      hostNick: json[KEY_POST_HOSTNICK] == null ? '' : json[KEY_POST_HOSTNICK] as String,
+      hostUni:json[KEY_POST_HOSTUNI] == null ? '' : json[KEY_POST_HOSTUNI] as String,
     );
   }
 
@@ -62,6 +71,9 @@ class PostModel {
       KEY_POST_CONTENT: content,
       KEY_POST_NUMCOMMENTS: numComments,
       KEY_POST_HOSTPUSHTOKEN: hostpushToken,
+      KEY_POST_HOSTNICK : hostNick,
+      KEY_POST_HOSTGRADE : hostGrade,
+      KEY_POST_HOSTUNI : hostUni,
     };
   }
 
@@ -75,6 +87,9 @@ class PostModel {
     int? numComments,
     String? content,
     String? hostpushToken,
+    String? hostNick,
+    String? hostUni,
+    String? hostGrade
   }) {
     return PostModel(
         postKey: postKey ?? this.postKey,
@@ -85,6 +100,10 @@ class PostModel {
         createdDate: createdDate ?? this.createdDate,
         numComments: numComments ?? this.numComments,
         content: content ?? this.content,
-        hostpushToken: hostpushToken ?? this.hostpushToken);
+        hostpushToken: hostpushToken ?? this.hostpushToken,
+      hostNick: hostNick ?? this.hostNick,
+      hostGrade: hostGrade ?? this.hostGrade,
+      hostUni:  hostUni ?? this.hostUni,
+    );
   }
 }

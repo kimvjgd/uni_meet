@@ -22,7 +22,6 @@ import 'package:intl/intl.dart';
 import '../widget/comment_item.dart';
 
 class PostDetailScreen extends StatefulWidget {
-
   final PostModel post;
   PostDetailScreen({required this.post, Key? key}) : super(key: key);
 
@@ -47,29 +46,41 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          leading: BackButton(color: Colors.black,),
-          actions:[
+          leading: BackButton(
+            color: Colors.black,
+          ),
+          actions: [
             AuthController.to.user.value.uid == widget.post.host
                 ? IconButton(
-              icon: Icon(Icons.delete,color: app_systemGrey1,)
-              ,onPressed: (){
-              showDialog(
-                  context: Get.context!,
-                  builder: (context) => MessagePopup(
-                    title: '모모두',
-                    message: '정말 삭제하시겠습니까?',
-                    okCallback: () {
-                      PostRepository.deletePost(widget.post.postKey);
-                      Get.back();
-                      Get.back();
-                      Get.put(BottomNavController()).changeBottomNav(1);
+                    icon: Icon(
+                      Icons.delete_outline_rounded,
+                      color: app_systemGrey1,
+                    ),
+                    onPressed: () {
+                      showDialog(
+                          context: Get.context!,
+                          builder: (context) => MessagePopup(
+                                title: '모모두',
+                                message: '정말 삭제하시겠습니까?',
+                                okCallback: () {
+                                  PostRepository.deletePost(
+                                      widget.post.postKey);
+                                  Get.back();
+                                  Get.back();
+                                  Get.put(BottomNavController())
+                                      .changeBottomNav(1);
+                                },
+                                cancelCallback: Get.back,
+                              ));
                     },
-                    cancelCallback: Get.back,
                   )
-              );
-
-            },)
-                : IconButton(icon: Icon(Icons.block,color: app_systemGrey1,),onPressed: (){},)
+                : IconButton(
+                    icon: Icon(
+                      Icons.block,
+                      color: app_systemGrey1,
+                    ),
+                    onPressed: () {},
+                  )
           ],
         ),
         body: Container(
@@ -96,10 +107,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 child: TextFormField(
                   controller: _commentController,
                   decoration: InputDecoration(
-                    border:UnderlineInputBorder(borderSide:BorderSide.none),
+                      border: UnderlineInputBorder(borderSide: BorderSide.none),
                       contentPadding: EdgeInsets.fromLTRB(15, 15, 3, 15),
                       hintText: '댓글을 남겨주세요..',
-                      hintStyle: TextStyle(color: app_systemGery4),
+                      hintStyle: TextStyle(color: app_systemGrey4),
                       suffixIcon: IconButton(
                         icon: Icon(Icons.send),
                         onPressed: () {
@@ -111,11 +122,13 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                     okCallback: () async {
                                       await commentRepository.createNewComment(
                                           widget.post.postKey, {
-                                            KEY_COMMENT_HOST: AuthController.to.user.value.uid,
-                                            KEY_COMMENT_CONTENT: _commentController.text,
-                                            KEY_COMMENT_COMMENTTIME: DateTime.now()
+                                        KEY_COMMENT_HOST:
+                                            AuthController.to.user.value.uid,
+                                        KEY_COMMENT_CONTENT:
+                                            _commentController.text,
+                                        KEY_COMMENT_COMMENTTIME: DateTime.now()
                                       });
-                                      print(widget.post.title);
+
                                       await Get.put(NotificationController())
                                           .NewCommentNotification(
                                               title:
@@ -138,17 +151,13 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       host: AuthController.to.user.value.uid,
       content: CommentController.to.commentTextController.text,
       commentTime: DateTime.now(),
-
     );
     await commentRepository.createNewComment(
         widget.post.postKey, comment.toMap());
     // 화면 새로고침
-
     CommentController.to.commentTextController.clear();
-   // setState(() {});
+    setState(() {});
   }
-
-  // Column _c
 
   Row _hostProfile() {
     return Row(
@@ -164,15 +173,17 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           width: 5,
         ),
         Text(
-          '모모대 18학번 닉네임 ',
+    widget.post.hostUni!+' ' + widget.post.hostGrade!+'학번 ' + widget.post.hostNick!+' ',
           style: Theme.of(context).textTheme.labelLarge,
         ),
         Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFC4C4C4),
-              borderRadius: BorderRadius.circular(2.0)),
-
-            child: Text(' 외 ${widget.post.headCount! - 1}명 ',style: TextStyle(color: Colors.white),))
+            decoration: BoxDecoration(
+                color: Color(0xFFC4C4C4),
+                borderRadius: BorderRadius.circular(2.0)),
+            child: Text(
+              ' 외 ${widget.post.headCount! - 1}명 ',
+              style: TextStyle(color: Colors.white),
+            ))
       ],
     );
   }
@@ -193,7 +204,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         SizedBox(
           height: 10,
         ),
-        _hostProfile(),
+        Container(child: _hostProfile(),),
         Align(
           alignment: Alignment.centerRight,
           child: Text(
@@ -204,7 +215,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           child: RichText(
               text: TextSpan(children: [
             TextSpan(text: '장소 ', style: TextStyle(color: app_systemGrey1)),
-            TextSpan(text: widget.post.place.toString(),style: TextStyle(color: Colors.black)),
+            TextSpan(
+                text: widget.post.place.toString(),
+                style: TextStyle(color: Colors.black)),
           ])),
         ),
         SizedBox(
@@ -252,5 +265,4 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             return Container();
         });
   }
-
 }

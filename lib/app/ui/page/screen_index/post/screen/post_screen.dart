@@ -29,34 +29,41 @@ class _PostScreenState extends State<PostScreen> {
       appBar: AppBar(
         backgroundColor:Colors.white,
         elevation: 2,
+        title: Text("게시판",style: TextStyle(color:Colors.grey[800]),),
       ),
       body:
-      RefreshIndicator(
-        onRefresh:  _onRefresh,
-        child: Obx(() =>ListView.separated(
-          padding: EdgeInsets.all(16),
-          separatorBuilder: (context, index) {
-            return Divider();
-          },
-          itemCount: PostController.to.postList.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              child: PostItem(post: PostController.to.postList[index]),
-              onTap: () {
-                Get.to(
-                    PostItem(
-                  post: PostController.to.postList[index],
-                ));
-              },
-            );
-          },
-        )),
+      GlowingOverscrollIndicator(
+        axisDirection: AxisDirection.down,
+        color: Colors.white,
+        child: RefreshIndicator(
+          onRefresh:  _onRefresh,
+          child: Obx(() =>ListView.separated(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            separatorBuilder: (context, index) {
+              return Divider(thickness: 1,color: app_systemGrey4);
+            },
+            itemCount: PostController.to.postList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: PostItem(post: PostController.to.postList[index]),
+              );
+            },
+
+          )),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
+        foregroundColor: app_deepyellow,
+        backgroundColor: app_lightyellow,
+        hoverColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        elevation: 3,
         onPressed: () {
           Get.to(PostAddScreen());
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.create_outlined),
       ),
     );
   }

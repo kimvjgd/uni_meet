@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
+import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/screen_index/post/screen/post_detail_screen.dart';
 
 
@@ -16,15 +17,14 @@ class PostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TimeAgo? _timeAgo;
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-
-       child: GestureDetector(
-         onTap: (){
-           InitBinding.commentBinding();
-           Get.to(()=>PostDetailScreen(post: post));
-         },
-        child: Card(
+    return GestureDetector(
+      onTap: (){
+         InitBinding.commentBinding();
+         Get.to(()=>PostDetailScreen(post: post));
+       },
+      child: InkWell(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
           child: Row(
             children: [
               Expanded(
@@ -33,8 +33,6 @@ class PostItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(post.headCount.toString()+"명/"+post.place.toString()
-                      ,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blue),),
                     SizedBox(height: 7,),
                     Text(
                       post.title?? '빈 제목',
@@ -49,13 +47,31 @@ class PostItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,),
                     SizedBox(height: 7,),
-                    Text(post.host.toString(),style: Theme.of(context).textTheme.labelSmall)
+                    Row(children: [
+                      Text(
+                      post.hostUni!+' ' + post.hostGrade!+'학번 ' + post.hostNick!+' ',
+                      style: TextStyle(color: app_systemGrey1),
+                    ),
+                      Container(
+                          decoration: BoxDecoration(
+                              color: app_red,
+                              borderRadius: BorderRadius.circular(2.0)),
+                          child: Text(' 외 ${post.headCount! - 1}명 ',style: TextStyle(color: Colors.white),)),
+                      SizedBox(width: 2,),
+                      Container(
+                          decoration: BoxDecoration(
+                              color: app_deepyellow,
+                              borderRadius: BorderRadius.circular(2.0)),
+                          child: Text(" ${post.place} ",style: TextStyle(color: Colors.white),)),
+                    ],)
+
                   ],
                 ),
               ),
             ],
           ),
-        ),)
+        ),
+      ),
     );
   }
 }

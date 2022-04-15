@@ -5,8 +5,18 @@ import 'package:uni_meet/app/data/model/post_model.dart';
 class PostRepository {
 
   static Future<void> createPost(
-      {required String title, required String content, required String place, required int headCount, required DateTime createdDate, required String host,required String hostpushToken }) async {
-    DocumentReference postRef = FirebaseFirestore.instance.collection('posts').doc();
+      {required String title,
+        required String content,
+        required String place,
+        required int headCount,
+        required DateTime createdDate,
+        required String host,
+        required String hostpushToken,
+        required String hostGrade,
+        required String hostNick,
+        required String hostUni,
+      }) async {
+    DocumentReference postRef = FirebaseFirestore.instance.collection(COLLECTION_POSTS).doc();
     PostModel postData = PostModel(
         title: title,
         postKey: postRef.id,
@@ -15,6 +25,9 @@ class PostRepository {
         headCount: headCount,
         createdDate: createdDate,
         host: host,
+        hostGrade: hostGrade,
+        hostNick: hostNick,
+        hostUni: hostUni,
         hostpushToken: hostpushToken,
         numComments: 0);
     await postRef

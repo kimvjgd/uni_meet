@@ -45,6 +45,11 @@ class MyApp extends StatelessWidget {
               shadowColor: Colors.white,
           ),
         dividerColor: Colors.transparent,
+        bottomSheetTheme:BottomSheetThemeData(backgroundColor: Colors.transparent),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.transparent),
+        iconTheme: IconThemeData(color: Colors.black),
+        highlightColor: Colors.transparent,
+
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
