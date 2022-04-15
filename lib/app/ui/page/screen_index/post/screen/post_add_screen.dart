@@ -21,7 +21,6 @@ class _PostAddScreenState extends State<PostAddScreen> {
 
   TextEditingController _titleController = TextEditingController();
   TextEditingController _contentController = TextEditingController();
-  TextEditingController _peopleController = TextEditingController();
   String place = "";
   int people=0;
 
@@ -29,7 +28,6 @@ class _PostAddScreenState extends State<PostAddScreen> {
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
-    _peopleController.dispose();
     super.dispose();
   }
 
@@ -91,7 +89,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
               borderSide: BorderSide(width: 1, color: Colors.grey),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 1, color: app_systemGery4),
+              borderSide: BorderSide(width: 1, color: app_systemGrey2),
             ),
           ),
           controller: _titleController,
@@ -119,7 +117,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
           decoration: InputDecoration(
             hintStyle: TextStyle(color: app_systemGery4),
             hintText:
-                "간단한 자기소개와\n만나고 싶은 모모들을 조건을 작성해주세요 !\n \n[예시]\n 안녕하세요 모모대학교 모모과 \n 20학번 남자 3명입니다! 20~21학번 세 분 구해요\n 00대학교 구해요\n MBTI E인 분들 구해요\n 술 잘 마시는 분 구해요",
+                "간단한 자기소개와\n만나고 싶은 모모들을 조건을 작성해주세요 !\n \n[예시]\n안녕하세요~ 모모대학교 모모과 20학번 남자 3명입니다!\n21학번 여성 세 분 구해요/00대학교 구해요/MBTI E인 분들 구해요/술 잘 마시는 분 구해요",
             hintMaxLines: 10,
             contentPadding: EdgeInsets.fromLTRB(15, 70, 15, 70),
             focusedBorder: UnderlineInputBorder(
@@ -164,32 +162,33 @@ class _PostAddScreenState extends State<PostAddScreen> {
               ),
             ),
             keyboardType: TextInputType.number,
-            controller: _peopleController,
-            validator: (people) {
-              if (people!.isEmpty)
-                return '인원 수를 입력해주세요.';
-              else {
-                var value = int.tryParse(people);
-                if (value == null) {
-                  return '인원을 숫자 형식으로 입력해주세요.';
-                } else if (value < 1 || value > 5) {
-                  //나중에 바꿈
-                  return '인원 수는 2-5명 범위에서 가능합니다.';
-                } else {
-                  return null;
-                }
-              }
-            },
+            // controller: _peopleController,
+            // validator: (people) {
+            //   if (people!.isEmpty)
+            //     return '인원 수를 입력해주세요.';
+            //   else {
+            //     var value = int.tryParse(people);
+            //     if (value == null) {
+            //       return '인원을 숫자 형식으로 입력해주세요.';
+            //     } else if (value < 1 || value > 5) {
+            //       //나중에 바꿈
+            //       return '인원 수는 2-5명 범위에서 가능합니다.';
+            //     } else {
+            //       return null;
+            //     }
+            //   }
+            // },
           )),]),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 2, 50, 0),
-            child: SizedBox(
-              width: 200,
-              child: _peoplePicker(),
-            ),
-          ),),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                    width: 200,
+                    child: _peoplePicker(),
+                ),
+              ),]),
     ]);
   }
 
@@ -251,7 +250,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(15),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Colors.grey),
+                    borderSide: BorderSide(width: 1, color: app_systemGery4),
                   ),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(width: 1, color: app_systemGery4),
@@ -261,51 +260,53 @@ class _PostAddScreenState extends State<PostAddScreen> {
           ),
         ],
       ),
-      Align(
-        alignment: Alignment.centerRight,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 2, 50, 0),
-          child: SizedBox(
-            width: 200,
-            child: OutlinedButton(
-              child: place == ""
-                  ? Text("선택안함",style: TextStyle(color: app_systemGery4),)
-                  : Text(
-                      place,
-                      style: TextStyle(color: app_red),
-                    ),
-              onPressed: () {
-                showModalBottomSheet(
-                    clipBehavior: Clip.none,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) {
-                      return FractionallySizedBox(
-                        heightFactor: 0.2,
-                        child: Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30),
-                                    topRight: Radius.circular(30))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                _place("무관", context),
-                                _place("홍대", context),
-                                _place("신촌", context),
-                                _place("건대", context),
-                                _place("강남", context),
-                              ],
-                            )),
-                      );
-                    });
-              },
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: SizedBox(
+              width: 200,
+              child: OutlinedButton(
+                child: place == ""
+                    ? Text("선택안함",style: TextStyle(color: app_systemGery4),)
+                    : Text(
+                        place,
+                        style: TextStyle(color: app_red),
+                      ),
+                onPressed: () {
+                  showModalBottomSheet(
+                      clipBehavior: Clip.none,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) {
+                        return FractionallySizedBox(
+                          heightFactor: 0.2,
+                          child: Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30))),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  _place("무관", context),
+                                  _place("홍대", context),
+                                  _place("신촌", context),
+                                  _place("건대", context),
+                                  _place("강남", context),
+                                ],
+                              )),
+                        );
+                      });
+                },
+              ),
             ),
           ),
-        ),
+        ],
       ),
     ]);
   }
@@ -355,10 +356,10 @@ class _PostAddScreenState extends State<PostAddScreen> {
   }
 
   _onPressed() {
-    if (place == "") {
+    if (place == "" || people == 0) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text(
-          "장소를 입력해주세요 !",
+          "장소와 인원수를 확인해주세요 !",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -382,7 +383,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
                                 title: _titleController.text,
                                 content: _contentController.text,
                                 place: place,
-                                headCount: int.parse(_peopleController.text),
+                                headCount: people,
                                 createdDate: DateTime.now(),
                                 host: AuthController.to.user.value.uid!,
                                 hostpushToken: '');
