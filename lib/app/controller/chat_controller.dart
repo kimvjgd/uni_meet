@@ -11,7 +11,7 @@ class ChatController extends GetxController {
   Rx<ChatroomModel> chat_chatroomModel = ChatroomModel(
           allUser: [],
           createDate: DateTime.now(),
-          chatId: '',
+          chatroomId: '',
           postKey: '',
           postTitle: '',
           lastMessage: '',

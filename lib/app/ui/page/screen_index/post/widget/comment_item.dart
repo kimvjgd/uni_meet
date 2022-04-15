@@ -67,7 +67,7 @@ class CommentItem extends StatelessWidget {
                                  postTitle: post.title,
                                  place:post.place,
                                  lastMessage: '',
-                                 chatId: '',
+                                 chatroomId: '',
                                  lastMessageTime: DateTime.now()
                              ),
                              post.host.toString(),

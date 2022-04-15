@@ -4,7 +4,7 @@ import 'package:uni_meet/app/data/model/firestore_keys.dart';
 class ChatroomModel {
   List<dynamic>? allUser;
   DateTime? createDate;
-  String? chatId;
+  String? chatroomId;
   String? postKey;
   String? postTitle;
   String? lastMessage;
@@ -16,7 +16,7 @@ class ChatroomModel {
   ChatroomModel({
     required this.allUser,
     required this.createDate,
-    required this.chatId,
+    required this.chatroomId,
     required this.postKey,
     required this.postTitle,
     required this.lastMessage,
@@ -34,7 +34,7 @@ class ChatroomModel {
       createDate: json[KEY_CHATROOM_CREATEDDATE] == null
           ? DateTime.now()
           : json[KEY_CHATROOM_CREATEDDATE].toDate(),
-      chatId: json[KEY_CHATROOM_CHATROOMID] == null
+      chatroomId: json[KEY_CHATROOM_CHATROOMID] == null
           ? ''
           : json[KEY_CHATROOM_CHATROOMID] as String,
       postKey: json[KEY_CHATROOM_POSTKEY] == null
@@ -58,7 +58,7 @@ class ChatroomModel {
     return {
       KEY_CHATROOM_ALLUSER: allUser,
       KEY_CHATROOM_CREATEDDATE: createDate,
-      KEY_CHATROOM_CHATROOMID: chatId,
+      KEY_CHATROOM_CHATROOMID: chatroomId,
       KEY_CHATROOM_POSTKEY: postKey,
       KEY_CHATROOM_POSTTITLE: postTitle,
       KEY_CHATROOM_LASTMESSAGE: lastMessage,
