@@ -86,7 +86,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
           maxLines: 1,
           decoration: InputDecoration(
             hintText: "제목을 입력해주세요",
-            hintStyle: TextStyle(color: app_systemGery4),
+            hintStyle: TextStyle(color: app_systemGrey4),
             contentPadding: EdgeInsets.all(15),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(width: 1, color: Colors.grey),
@@ -118,7 +118,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
             child: TextFormField(
           maxLines: null,
           decoration: InputDecoration(
-              hintStyle: TextStyle(color: app_systemGery4),
+              hintStyle: TextStyle(color: app_systemGrey4),
               hintText:
                   "간단한 자기소개와\n만나고 싶은 모모들을 조건을 작성해주세요 !\n \n[예시]\n안녕하세요~ 모모대학교 모모과 20학번 남자 3명입니다!\n21학번 여성 세 분 구해요/00대학교 구해요/MBTI E인 분들 구해요/술 잘 마시는 분 구해요",
               hintMaxLines: 10,
@@ -160,7 +160,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
               borderSide: BorderSide(width: 1, color: Colors.grey),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 1, color: app_systemGery4),
+              borderSide: BorderSide(width: 1, color: app_systemGrey4),
             ),
           ),
           keyboardType: TextInputType.number,
@@ -262,10 +262,10 @@ class _PostAddScreenState extends State<PostAddScreen> {
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(15),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: app_systemGery4),
+                    borderSide: BorderSide(width: 1, color: app_systemGrey4),
                   ),
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: app_systemGery4),
+                    borderSide: BorderSide(width: 1, color: app_systemGrey4),
                   ),
                   hintText: "장소"),
             ),
@@ -283,7 +283,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
                 child: place == ""
                     ? Text(
                         "선택안함",
-                        style: TextStyle(color: app_systemGery4),
+                        style: TextStyle(color: app_systemGrey4),
                       )
                     : Text(
                         place,
@@ -402,6 +402,9 @@ class _PostAddScreenState extends State<PostAddScreen> {
                                 headCount: people,
                                 createdDate: DateTime.now(),
                                 host: AuthController.to.user.value.uid!,
+                                hostUni: AuthController.to.user.value.university.toString(),
+                                hostNick: AuthController.to.user.value.nickname.toString(),
+                                hostGrade: AuthController.to.user.value.grade.toString(),
                                 hostpushToken: '');
                             Get.back();
                             Get.back();

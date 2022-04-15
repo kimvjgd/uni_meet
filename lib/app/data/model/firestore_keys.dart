@@ -31,6 +31,9 @@ const KEY_POST_CONTENT = "content";
 const KEY_POST_CREATEDDATE = "created_date";
 const KEY_POST_NUMCOMMENTS = "num_comments";
 const KEY_POST_HOSTPUSHTOKEN = "host_push_token";
+const KEY_POST_HOSTNICK = "host_nick";
+const KEY_POST_HOSTGRADE = "host_grade";
+const KEY_POST_HOSTUNI = "host_uni";
 
 const KEY_COMMENT_HOST = "host";
 const KEY_COMMENT_COMMENTKEY = "comment_key";

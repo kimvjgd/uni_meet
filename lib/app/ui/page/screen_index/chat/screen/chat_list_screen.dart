@@ -34,119 +34,121 @@ class _ChatListScreenState extends State<ChatListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: app_color,
-        centerTitle: true,
-        title: Text(
-          '채팅',
-          style: TextStyle(color: Colors.black),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 2,
+          title: Text(
+            "채팅",
+            style: TextStyle(color: Colors.grey[800]),
+          ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showDialog(
-                    context: Get.context!,
-                    builder: (context) => Material(
-                          color: Colors.transparent,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(6),
-                                child: Container(
-                                  color: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 40, vertical: 10),
-                                  width: Get.width * 0.7,
-                                  child: Column(
-                                    children: [
-                                      const Text(
-                                        '채팅방 키를 입력하세요..',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17,
-                                            color: Colors.black),
-                                      ),
-                                      TextField(
-                                        controller: _addChatKey,
-
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                ChatRepository().enterExistedChatroom(_addChatKey.text);
-                                              },
-                                              child: Text('확인')),
-                                          const SizedBox(
-                                            width: 7,
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              /// TODO 동현
-                                              Get.back();
-                                            },
-                                            child: Text('취소'),
-                                            style: ElevatedButton.styleFrom(
-                                                primary: Colors.grey),
-                                          ),
-                                        ],
-                                      )
-                                    ],
+        body: FutureBuilder<List<ChatroomModel>>(
+            future: ChatRepository()
+                .getMyChatList(AuthController.to.user.value.uid!),
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return CircularProgressIndicator();
+              } else {
+                return ListView(
+                  children: List.generate(
+                      snapshot.data!.length,
+                      (index) => GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                  () => ChatroomScreen(
+                                      chatroomKey:
+                                          snapshot.data![index].chatroomId!),
+                                  binding: InitBinding.chatroomBinding(
+                                      snapshot.data![index].chatroomId!));
+                            },
+                            child: Card(
+                              color: Colors.deepPurpleAccent,
+                              child: Column(
+                                children: [
+                                  Text(snapshot.data![index].postTitle!),
+                                  Text(
+                                    snapshot.data![index].lastMessage!,
+                                    style: TextStyle(
+                                        fontSize: 30, color: Colors.black),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ));
-              },
-              icon: Icon(
-                Icons.message,
-                color: Colors.black,
-              ))
-        ],
-      ),
-      body: FutureBuilder<List<ChatroomModel>>(
-          future:
-              ChatRepository().getMyChatList(AuthController.to.user.value.uid!),
-          builder: (context, snapshot) {
-            if (snapshot.data == null) {
-              return CircularProgressIndicator();
-            } else {
-              return ListView(
-                children: List.generate(
-                    snapshot.data!.length,
-                    (index) => GestureDetector(
-                          onTap: () {
-                            Get.to(
-                                () => ChatroomScreen(
-                                    chatroomKey: snapshot.data![index].chatroomId!),
-                                binding: InitBinding.chatroomBinding(
-                                    snapshot.data![index].chatroomId!));
-                          },
-                          child: Card(
-                            color: Colors.deepPurpleAccent,
-                            child: Column(
-                              children: [
-                                Text(snapshot.data![index].postTitle!),
-                                Text(
-                                  snapshot.data![index].lastMessage!,
-                                  style: TextStyle(
-                                      fontSize: 30, color: Colors.black),
-                                ),
-                              ],
+                            ),
+                          )).toList(),
+                );
+              }
+            }),
+        floatingActionButton: FloatingActionButton(
+          foregroundColor: app_deepyellow,
+          backgroundColor: app_lightyellow,
+          hoverColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          elevation: 3,
+          onPressed: () {
+            showDialog(
+                context: Get.context!,
+                builder: (context) => Material(
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child: Container(
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 10),
+                              width: Get.width * 0.7,
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    '채팅방 키를 입력하세요..',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                        color: Colors.black),
+                                  ),
+                                  TextField(
+                                    controller: _addChatKey,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            ChatRepository()
+                                                .enterExistedChatroom(
+                                                    _addChatKey.text);
+                                          },
+                                          child: Text('확인')),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          /// TODO 동현
+                                          Get.back();
+                                        },
+                                        child: Text('취소'),
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.grey),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        )).toList(),
-              );
-            }
-          }),
-    );
+                        ],
+                      ),
+                    ));
+          },
+          child: Icon(Icons.mail_rounded),
+        ));
   }
 
   Widget _chatroomList() {
