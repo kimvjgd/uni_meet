@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
@@ -63,7 +64,7 @@ class ChatRepository {
 
     final DocumentSnapshot documentSnapshot = await chatroomReference.get();
     if (!documentSnapshot.exists) {
-      chatroom.chatId = chatroomReference.id;
+      chatroom.chatroomId = chatroomReference.id;
       chatroom.reference = chatroomReference;
       await FirebaseFirestore.instance.runTransaction((transaction) async {
         transaction.set(chatroomReference, chatroom.toMap());
@@ -201,5 +202,23 @@ class ChatRepository {
     });
     Logger().d(chatrooms);
     return chatrooms;
+  }
+
+  Future<void> enterExistedChatroom(String chatroomKey) async {
+    var prev_data = await FirebaseFirestore.instance
+        .collection(COLLECTION_CHATROOMS)
+        .doc(chatroomKey)
+        .get();
+
+    List<dynamic> data = await prev_data.get(KEY_CHATROOM_ALLUSER);
+
+    Set<dynamic> semiResult = data.toSet();
+    semiResult.add(AuthController.to.user.value.uid);
+    List<dynamic> result = semiResult.toList();
+    await FirebaseFirestore.instance
+        .collection(COLLECTION_CHATROOMS)
+        .doc(chatroomKey)
+        .update({KEY_CHATROOM_ALLUSER: result});
+    Logger().d(result);
   }
 }
