@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
+import 'package:uni_meet/app/ui/page/account/edit_info.dart';
 import 'package:uni_meet/local_notification_service.dart';
 import 'package:uni_meet/notification.dart';
 import 'package:uni_meet/notification_screen.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
       // home: RootPage(),
-      home: RootPage(),
+      home: EditInfo(uid: 'temptemptemptemp'),
     );
   }
 }

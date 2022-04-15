@@ -126,6 +126,7 @@ class NotificationController extends GetxController{
   Future<bool> NewCommentNotification(
       {required String title,required String receiver_token}) async {
     String url = "https://fcm.googleapis.com/fcm/send";
+    // 임시
     String _firebaseKey =firebase_FCM_key;
 
     await http.post(

@@ -4,12 +4,6 @@ import 'package:uni_meet/app/data/model/post_model.dart';
 
 class PostRepository {
 
-  // Singleton
-
-  // static final PostRepository _postRepository = PostRepository._internal();
-  // factory PostRepository() => _postRepository;
-  // PostRepository._internal();
-
   static Future<void> createPost(
       {required String title, required String content, required String place, required int headCount, required DateTime createdDate, required String host,required String hostpushToken }) async {
     DocumentReference postRef = FirebaseFirestore.instance.collection('posts').doc();

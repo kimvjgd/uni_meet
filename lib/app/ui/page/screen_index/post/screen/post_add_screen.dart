@@ -22,7 +22,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
   TextEditingController _titleController = TextEditingController();
   TextEditingController _contentController = TextEditingController();
   String place = "";
-  int people=0;
+  int people = 0;
 
   @override
   void dispose() {
@@ -36,13 +36,14 @@ class _PostAddScreenState extends State<PostAddScreen> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "글쓰기",
-          style: TextStyle(color: Colors.black),
-        ),
-        leading: BackButton(color: Colors.black,)
-      ),
+          centerTitle: true,
+          title: Text(
+            "글쓰기",
+            style: TextStyle(color: Colors.black),
+          ),
+          leading: BackButton(
+            color: Colors.black,
+          )),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -115,19 +116,19 @@ class _PostAddScreenState extends State<PostAddScreen> {
             child: TextFormField(
           maxLines: null,
           decoration: InputDecoration(
-            hintStyle: TextStyle(color: app_systemGery4),
-            hintText:
-                "간단한 자기소개와\n만나고 싶은 모모들을 조건을 작성해주세요 !\n \n[예시]\n안녕하세요~ 모모대학교 모모과 20학번 남자 3명입니다!\n21학번 여성 세 분 구해요/00대학교 구해요/MBTI E인 분들 구해요/술 잘 마시는 분 구해요",
-            hintMaxLines: 10,
-            contentPadding: EdgeInsets.fromLTRB(15, 70, 15, 70),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 0, color:Colors.transparent),
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 0, color: Colors.transparent),
-            ),
-            border: UnderlineInputBorder(borderSide: BorderSide(width: 0,color:Colors.transparent))
-          ),
+              hintStyle: TextStyle(color: app_systemGery4),
+              hintText:
+                  "간단한 자기소개와\n만나고 싶은 모모들을 조건을 작성해주세요 !\n \n[예시]\n안녕하세요~ 모모대학교 모모과 20학번 남자 3명입니다!\n21학번 여성 세 분 구해요/00대학교 구해요/MBTI E인 분들 구해요/술 잘 마시는 분 구해요",
+              hintMaxLines: 10,
+              contentPadding: EdgeInsets.fromLTRB(15, 70, 15, 70),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: 0, color: Colors.transparent),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: 0, color: Colors.transparent),
+              ),
+              border: UnderlineInputBorder(
+                  borderSide: BorderSide(width: 0, color: Colors.transparent))),
           controller: _contentController,
           validator: (content) {
             if (content!.isNotEmpty && content.length > 1) {
@@ -146,56 +147,55 @@ class _PostAddScreenState extends State<PostAddScreen> {
 
   Stack _peopleFormField() {
     return Stack(children: [
-      Row(
-        children: [
-          Flexible(
-              child: TextFormField(
-            enabled: false,
-            decoration: InputDecoration(
-              hintText: "인원 수",
-              contentPadding: EdgeInsets.all(15),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(width: 1, color: Colors.grey),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(width: 1, color: app_systemGery4),
-              ),
+      Row(children: [
+        Flexible(
+            child: TextFormField(
+          enabled: false,
+          decoration: InputDecoration(
+            hintText: "인원 수",
+            contentPadding: EdgeInsets.all(15),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: 1, color: Colors.grey),
             ),
-            keyboardType: TextInputType.number,
-            // controller: _peopleController,
-            // validator: (people) {
-            //   if (people!.isEmpty)
-            //     return '인원 수를 입력해주세요.';
-            //   else {
-            //     var value = int.tryParse(people);
-            //     if (value == null) {
-            //       return '인원을 숫자 형식으로 입력해주세요.';
-            //     } else if (value < 1 || value > 5) {
-            //       //나중에 바꿈
-            //       return '인원 수는 2-5명 범위에서 가능합니다.';
-            //     } else {
-            //       return null;
-            //     }
-            //   }
-            // },
-          )),]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: SizedBox(
-                    width: 200,
-                    child: _peoplePicker(),
-                ),
-              ),]),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: 1, color: app_systemGery4),
+            ),
+          ),
+          keyboardType: TextInputType.number,
+          // controller: _peopleController,
+          // validator: (people) {
+          //   if (people!.isEmpty)
+          //     return '인원 수를 입력해주세요.';
+          //   else {
+          //     var value = int.tryParse(people);
+          //     if (value == null) {
+          //       return '인원을 숫자 형식으로 입력해주세요.';
+          //     } else if (value < 1 || value > 5) {
+          //       //나중에 바꿈
+          //       return '인원 수는 2-5명 범위에서 가능합니다.';
+          //     } else {
+          //       return null;
+          //     }
+          //   }
+          // },
+        )),
+      ]),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: SizedBox(
+            width: 200,
+            child: _peoplePicker(),
+          ),
+        ),
+      ]),
     ]);
   }
 
   OutlinedButton _peoplePicker() {
-    List<int> peopleItem = [1,2,3,4,5,6,7,8,9,10];
+    List<int> peopleItem = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return OutlinedButton(
-      onPressed:(){
+      onPressed: () {
         showModalBottomSheet(
             context: context,
             builder: (_) {
@@ -204,7 +204,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.7,
-                    height:MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.grey[200]),
@@ -216,15 +216,19 @@ class _PostAddScreenState extends State<PostAddScreen> {
                           });
                         },
                         children: [
-                          ...peopleItem.map((e) => Align(child: Text(e.toString() + '명')))
+                          ...peopleItem.map(
+                              (e) => Align(child: Text(e.toString() + '명')))
                         ]),
                   ),
                   ElevatedButton(
-                    child:Padding(
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("완료",style: TextStyle(fontSize: 20),),
+                      child: Text(
+                        "완료",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       Get.back();
                       FocusScopeNode currentFocus = FocusScope.of(context);
                       currentFocus.unfocus();
@@ -234,9 +238,15 @@ class _PostAddScreenState extends State<PostAddScreen> {
               );
             });
       },
-      child:people == 0
-          ? Text("본인을 포함한 인원 수를 선택해 주세요!",style: TextStyle(fontSize:10,color: app_systemGrey2),)
-          : Text(people.toString() + "명",style: TextStyle(color:app_red),),
+      child: people == 0
+          ? Text(
+              "본인을 포함한 인원 수를 선택해 주세요!",
+              style: TextStyle(fontSize: 10, color: app_systemGrey2),
+            )
+          : Text(
+              people.toString() + "명",
+              style: TextStyle(color: app_red),
+            ),
     );
   }
 
@@ -269,7 +279,10 @@ class _PostAddScreenState extends State<PostAddScreen> {
               width: 200,
               child: OutlinedButton(
                 child: place == ""
-                    ? Text("선택안함",style: TextStyle(color: app_systemGery4),)
+                    ? Text(
+                        "선택안함",
+                        style: TextStyle(color: app_systemGery4),
+                      )
                     : Text(
                         place,
                         style: TextStyle(color: app_red),
@@ -291,7 +304,8 @@ class _PostAddScreenState extends State<PostAddScreen> {
                                       topLeft: Radius.circular(30),
                                       topRight: Radius.circular(30))),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   _place("무관", context),
                                   _place("홍대", context),

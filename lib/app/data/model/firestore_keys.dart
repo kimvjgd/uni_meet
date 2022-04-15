@@ -3,6 +3,7 @@ const COLLECTION_POSTS = "posts";
 const COLLECTION_COMMENTS = "comments";
 const COLLECTION_CHATROOMS = "chatrooms";
 const COLLECTION_CHATS = "chats";
+const COLLECTION_NOTICES = "notices";
 
 const KEY_USER_UID = "uid";
 const KEY_USER_AUTH = "auth";
@@ -21,7 +22,7 @@ const KEY_USER_LOCALIMAGE="localImage";
 const KEY_USER_PHONE = "phone";
 const KEY_USER_CHATROOMLIST = "chatroom_list";
 
-const KEY_POST_POSYKEY = "key";
+const KEY_POST_POSTKEY = "post_key";
 const KEY_POST_HOST = "host";
 const KEY_POST_PLACE = "place";
 const KEY_POST_HEADCOUNT = "headcount";
@@ -48,3 +49,9 @@ const KEY_CHATROOM_PLACE = "place";
 const KEY_CHAT_WRITER = "writer";
 const KEY_CHAT_MESSAGE = "message";
 const KEY_CHAT_CREATEDDATE = "created_date";
+
+const KEY_NOTICE_TITLE = 'title';
+const KEY_NOTICE_DESCRIPTION = 'description';
+const KEY_NOTICE_DATE = 'created_date';
+
+

@@ -27,9 +27,9 @@ class PostModel {
 
   factory PostModel.fromJson(String docId, Map<String, dynamic> json) {
     return PostModel(
-      postKey: json[KEY_POST_POSYKEY] == null
+      postKey: json[KEY_POST_POSTKEY] == null
           ? ''
-          : json[KEY_POST_POSYKEY] as String,
+          : json[KEY_POST_POSTKEY] as String,
       host: json[KEY_POST_HOST] == null ? '' : json[KEY_POST_HOST] as String,
       place: json[KEY_POST_PLACE] == null ? '' : json[KEY_POST_PLACE] as String,
       headCount: json[KEY_POST_HEADCOUNT] == null
@@ -53,7 +53,7 @@ class PostModel {
 
   Map<String, dynamic> toMap() {
     return {
-      KEY_POST_POSYKEY: postKey,
+      KEY_POST_POSTKEY: postKey,
       KEY_POST_HOST: host,
       KEY_POST_PLACE: place,
       KEY_POST_HEADCOUNT: headCount,
