@@ -28,4 +28,13 @@ class PostRepository {
     var data = await document.get();
     return data.docs.map<PostModel>((e) => PostModel.fromJson(e.id, e.data())).toList();
   }
+
+  static Future<void> deletePost(String PostKey) async {
+    CollectionReference post = FirebaseFirestore.instance.collection(COLLECTION_POSTS);
+    return post
+        .doc(PostKey)
+        .delete()
+        .then((value) => print("포스트 삭제 완료"))
+        .catchError((error) => print("포스트 삭제 실패: $error"));
+  }
 }
