@@ -106,7 +106,7 @@ class CommentItem extends StatelessWidget {
                     print(comment.commentKey);
                     commentRepository.deleteComment(post.postKey,comment.commentKey!);
                     Get.back();
-                    Get.back();
+
                   },
                   cancelCallback: Get.back,
                 ));
