@@ -8,6 +8,8 @@ import 'package:uni_meet/app/data/repository/post_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 
+import '../../../../../controller/bottom_nav_controller.dart';
+
 class PostAddScreen extends StatefulWidget {
   const PostAddScreen({Key? key}) : super(key: key);
 
@@ -403,6 +405,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
                                 hostpushToken: '');
                             Get.back();
                             Get.back();
+                            Get.put(BottomNavController()).changeBottomNav(1);
                             //  Get.offAll(() => PostListScreen());
                             //이렇게 써도 되남..
                           },

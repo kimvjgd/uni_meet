@@ -53,15 +53,6 @@ class PostItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Icon(CupertinoIcons.chat_bubble_text),
-                      SizedBox(width: 5,),
-                      Text("3(수정)")
-                    ],
-                  ))
             ],
           ),
         ),)

@@ -97,7 +97,20 @@ class CommentItem extends StatelessWidget {
               },))
           : AuthController.to.user.value.uid == comment.host
               ? IconButton(icon: Icon(Icons.cancel_outlined),onPressed: (){
-                commentRepository.deleteComment(post.postKey, comment.commentKey!);
+            showDialog(
+                context: Get.context!,
+                builder: (context) => MessagePopup(
+                  title: '모모두',
+                  message: '삭제하시겠습니까?',
+                  okCallback: () {
+                    print(comment.commentKey);
+                    commentRepository.deleteComment(post.postKey,comment.commentKey!);
+                    Get.back();
+                    Get.back();
+                  },
+                  cancelCallback: Get.back,
+                ));
+
           },)
               :  Container()
         ],
