@@ -13,4 +13,7 @@ const Color app_systemGery4 = Color(0xFFE5E5EA);
 const Color app_systemGrey5=Color(0xFFEFEFF4);
 const Color app_systemGrey6=Color(0xFFF2F2F7);
 
+const Color app_lightyellow = Color(0xFFFFEA9F);
+const Color app_deepyellow = Color(0xFFFFC452);
+
 const Color divider = Color.fromRGBO(60, 60, 67, 0.29);

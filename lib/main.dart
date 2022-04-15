@@ -10,6 +10,8 @@ import 'package:uni_meet/notification_screen.dart';
 import 'package:uni_meet/notification_second_screen.dart';
 import 'package:uni_meet/root_page.dart';
 
+import 'app/ui/components/app_color.dart';
+
 
 // Receive message when app ios in background solution for on message
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -35,7 +37,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     getToken();
     return GetMaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(
+              color: Colors.white,
+              shadowColor: Colors.white,
+          ),
+        dividerColor: Colors.transparent,
+      ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
       // home: RootPage(),
