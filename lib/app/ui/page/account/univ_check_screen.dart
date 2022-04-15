@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
@@ -209,7 +210,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                             ));
                           }
                           else if (uni_check==true) {
-                            users.update({'unicheck': true})
+                            users.update({KEY_USER_AUTH: true})
                                 .then((value) => print("User Updated"))
                                 .catchError((error) => print("Failed to update user: $error"));
                           }

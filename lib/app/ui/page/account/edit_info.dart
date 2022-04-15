@@ -101,7 +101,7 @@ class _EditInfoState extends State<EditInfo> {
                     else if (_formKey.currentState!.validate()) {
                       UserRepository.signup(AppUserModel(
                         uid:FirebaseAuth.instance.currentUser?.uid,
-                        unicheck:false,
+                        auth:false,
                         phone:FirebaseAuth.instance.currentUser?.phoneNumber,
                         name: _nameController.text,
                         gender: _gender.toString(),

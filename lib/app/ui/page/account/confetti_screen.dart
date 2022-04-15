@@ -28,6 +28,7 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
             children: [
               BackButton(),
               Spacer(flex:2,),
+              Confetti(),
               Center(
                   child: widget.selected_profile ==0 ? Column(
                     children: [
@@ -41,17 +42,15 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
                       SizedBox(height: 3,),
                     ],
                   )
-                      : widget.selected_profile ==1 ? Big_Momo('diamond.png')
-                      : widget.selected_profile ==2 ? Big_Momo('uniexample.png')
-                      : widget.selected_profile ==3 ? Big_Momo('diamond.png')
-                      : widget.selected_profile ==4 ? Big_Momo('diamond.png')
-                      : widget.selected_profile ==5 ? Big_Momo('diamond.png')
-                      : widget.selected_profile ==6 ? Big_Momo('diamond.png')
+                      : widget.selected_profile ==1 ? Big_Momo('momo1.png')
+                      : widget.selected_profile ==2 ? Big_Momo('momo2.png')
+                      : widget.selected_profile ==3 ? Big_Momo('momo3.png')
+                      : widget.selected_profile ==4 ? Big_Momo('momo4.png')
+                      : widget.selected_profile ==5 ? Big_Momo('momo5.png')
                       :Container(height:110, width:110)
               ),
               Spacer(flex: 1,),
               Center(child:Text(widget.nick_name+"님, 환영합니다!")),
-              Confetti(),
               Spacer(flex: 6,),
               BigButton(onPressed: onPressed, btnText: "학교 인증하러 가기")
             ],
@@ -68,6 +67,7 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
         height: 120,
         width: 120,
         child: CircleAvatar(
+          backgroundColor: Colors.transparent,
           backgroundImage: AssetImage('assets/images/'+url),
         ),
       ),

@@ -63,12 +63,12 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                     backgroundColor: Colors.grey[200],),
                 ),
               )
-                  : selected_profile ==1 ? Big_Momo('diamond.png')
-                  : selected_profile ==2 ? Big_Momo('uniexample.png')
-                  : selected_profile ==3 ? Big_Momo('diamond.png')
-                  : selected_profile ==4 ? Big_Momo('diamond.png')
-                  : selected_profile ==5 ? Big_Momo('diamond.png')
-                  : selected_profile ==6 ? Big_Momo('diamond.png')
+                  : selected_profile ==1 ? Big_Momo('momo1.png')
+                  : selected_profile ==2 ? Big_Momo('momo2.png')
+                  : selected_profile ==3 ? Big_Momo('momo3.png')
+                  : selected_profile ==4 ? Big_Momo('momo4.png')
+                  : selected_profile ==5 ? Big_Momo('momo5.png')
+                  : selected_profile ==6 ? Big_Momo('momo6.png')
                   :Container(height:120, width:120),
               Align(
                 alignment: Alignment.center,
@@ -86,7 +86,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                           selected_profile=1;
                         });
                       },
-                      child:Momo('diamond.png','모모1')
+                      child:Momo('momo1.png','적극적인 모모')
                   ),
                   InkWell(
                       onTap: (){
@@ -94,28 +94,29 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                           selected_profile=2;
                         });
                       },
-                      child: Momo('uniexample.png','모모2')
+                      child: Momo('momo2.png','쩝쩝박사 모모')
                   ),
-                  InkWell(
-                    onTap: (){
-                      setState(() {
-                        selected_profile=3;
-                      });
-                    },
-                    child: Momo('diamond.png','모모3'),
-                  ),],
+                  ],
               ),
               Spacer(flex: 1,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InkWell(
+                  onTap: (){
+                    setState(() {
+                      selected_profile=3;
+                    });
+                  },
+                  child: Momo('momo3.png','알콜저장소 모모'),
+                ),
+                  InkWell(
                       onTap: (){
                         setState(() {
                           selected_profile=4;
                         });
                       },
-                      child:Momo('diamond.png','모모4')
+                      child:Momo('momo4.png','알쓰 모모')
                   ),
                   InkWell(
                       onTap: (){
@@ -123,16 +124,8 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                           selected_profile=5;
                         });
                       },
-                      child: Momo('diamond.png','모모5')
-                  ),
-                  InkWell(
-                    onTap: (){
-                      setState(() {
-                        selected_profile=6;
-                      });
-                    },
-                    child: Momo('diamond.png','모모6'),
-                  ),],
+                      child: Momo('momo5.png','부끄러운 모모')
+                  ),]
               ),
               Spacer(flex: 6,),
               BigButton(
@@ -152,6 +145,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
         height: 120,
         width: 120,
         child: CircleAvatar(
+          backgroundColor: Colors.transparent,
           backgroundImage: AssetImage('assets/images/'+url),
         ),
       ),
@@ -164,6 +158,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
           height: 90,
           width:90,
           child: CircleAvatar(
+            backgroundColor: Colors.transparent,
             backgroundImage: AssetImage('assets/images/'+url),
           ),
         ),
