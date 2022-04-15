@@ -30,7 +30,7 @@ class RootPage extends GetView<AuthController> {
                   }
                 });
           } else {
-            return EditNumber();
+            return RootPage();
           }
         });
   }
