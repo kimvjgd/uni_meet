@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uni_meet/app/ui/page/screen_index/home/screen/game_screen.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -78,46 +80,52 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Text("술게임",style: Theme.of(context).textTheme.titleLarge),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Card(
-                      child: Container(
-                        height: 100,
-                        width: 130,
-                        child: Column(
-                          children: [
-                            SizedBox(height: 20,),
-                            Text("인원 수 별 술게임",style: Theme.of(context).textTheme.titleMedium,)
-                          ],
-                        ),
-                      ),),
-                    Card(
-                      child: Container(
-                        height: 100,
-                        width: 130,
-                        child: Column(
-                          children: [
-                            SizedBox(height: 20,),
-                            Text("난이도 별 술게임",style: Theme.of(context).textTheme.titleMedium,)
-                          ],
-                        ),
-                      ),),
-                    Card(
-                      child: Container(
-                        height: 100,
-                        width: 130,
-                        child: Column(
-                          children: [
-                            SizedBox(height: 20,),
-                            Text("상황 별 술게임",style: Theme.of(context).textTheme.titleMedium,)
-                          ],
-                        ),
-                      ),),
-                  ],),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  child: Image.asset("assets/images/game_banner.png"),
+                  onTap: (){Get.to(GameScreen());}
+                ),
               ),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(
+              //     children: [
+              //       Card(
+              //         child: Container(
+              //           height: 100,
+              //           width: 130,
+              //           child: Column(
+              //             children: [
+              //               SizedBox(height: 20,),
+              //               Text("인원 수 별 술게임",style: Theme.of(context).textTheme.titleMedium,)
+              //             ],
+              //           ),
+              //         ),),
+              //       Card(
+              //         child: Container(
+              //           height: 100,
+              //           width: 130,
+              //           child: Column(
+              //             children: [
+              //               SizedBox(height: 20,),
+              //               Text("난이도 별 술게임",style: Theme.of(context).textTheme.titleMedium,)
+              //             ],
+              //           ),
+              //         ),),
+              //       Card(
+              //         child: Container(
+              //           height: 100,
+              //           width: 130,
+              //           child: Column(
+              //             children: [
+              //               SizedBox(height: 20,),
+              //               Text("상황 별 술게임",style: Theme.of(context).textTheme.titleMedium,)
+              //             ],
+              //           ),
+              //         ),),
+              //     ],),
+              // ),
               Text("공지사항",style: Theme.of(context).textTheme.titleLarge),
               Container(height: 70,),
               Text("내가 쓴 글",style: Theme.of(context).textTheme.titleLarge),

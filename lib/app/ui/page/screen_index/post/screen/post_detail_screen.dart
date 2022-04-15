@@ -44,7 +44,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         'fdk-eOCoStGcgbfdH5zlKW:APA91bGKe9kX4-WVQugGrVRQ9XfcGUOVLZecXc2TmYRUuvWX-HQIIe8IGNIgYDFJDeKdgZwQwji3N_otI7kpP2KvRTvhr2y0OKFl1jqvf9xy36fNjtjUFKx-z2y1oEDb48BWthivCupn';
 
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: BackButton(color: Colors.black,),
+        ),
         body: Container(
           //padding: EdgeInsets.symmetric(horizontal: 20),
           height: _size.height,
@@ -69,11 +71,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 child: TextFormField(
                   controller: _commentController,
                   decoration: InputDecoration(
+                    border:UnderlineInputBorder(borderSide:BorderSide.none),
                       contentPadding: EdgeInsets.fromLTRB(15, 15, 3, 15),
-                      hintText: '댓글을 입력하세요',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      ),
+                      hintText: '댓글을 남겨주세요..',
+                      hintStyle: TextStyle(color: app_systemGery4),
                       suffixIcon: IconButton(
                         icon: Icon(Icons.send),
                         onPressed: () {
