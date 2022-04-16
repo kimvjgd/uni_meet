@@ -31,7 +31,7 @@ class PostModel {
     required this. hostGrade,
   });
 
-  factory PostModel.fromJson(String docId, Map<String, dynamic> json) {
+  factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
       postKey: json[KEY_POST_POSTKEY] == null
           ? ''
