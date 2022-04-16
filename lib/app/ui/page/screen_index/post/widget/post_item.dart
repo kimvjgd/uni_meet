@@ -41,12 +41,12 @@ class PostItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 7,),
-                    Text(
-                      post.content?? '내용 없음',
-                      style:Theme.of(context).textTheme.bodySmall,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,),
-                    SizedBox(height: 7,),
+                    // Text(
+                    //   post.content?? '내용 없음',
+                    //   style:Theme.of(context).textTheme.bodySmall,
+                    //   maxLines: 1,
+                    //   overflow: TextOverflow.ellipsis,),
+                    // SizedBox(height: 7,),
                     Row(children: [
                       Text(
                       post.hostUni!+' ' + post.hostGrade!+'학번 ' + post.hostNick!+' ',

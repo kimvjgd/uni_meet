@@ -4,15 +4,11 @@ import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
 import 'package:uni_meet/app/controller/comment_controller.dart';
-import 'package:uni_meet/app/controller/post_controller.dart';
-import 'package:uni_meet/app/data/model/chatroom_model.dart';
 import 'package:uni_meet/app/data/model/comment_model.dart';
 import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
 import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import 'package:uni_meet/app/data/repository/post_repository.dart';
-import 'package:uni_meet/app/ui/components/input_bar.dart';
-
 import '../../../../../controller/notification_controller.dart';
 import '../../../../../data/model/firestore_keys.dart';
 import '../../../../components/app_color.dart';
