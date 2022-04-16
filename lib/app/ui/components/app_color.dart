@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color app_color = Color(0xfffff3f1);
 const Color app_red = Color(0xFFF96155);
+const Color app_mostlightyellow = Color(0xFFFFF5DC);
 const Color app_lightyellow = Color(0xFFFFEA9F);
 const Color app_deepyellow = Color(0xFFFFC452);
 const Color app_green = Color(0xFF34C759);

@@ -33,14 +33,14 @@ class PostItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 7,),
+                    SizedBox(height: 2,),
                     Text(
                       post.title?? '빈 제목',
-                      style: Theme.of(context).textTheme.titleSmall,
+                      style: TextStyle(fontSize: 17),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 7,),
+                    SizedBox(height: 9,),
                     // Text(
                     //   post.content?? '내용 없음',
                     //   style:Theme.of(context).textTheme.bodySmall,
@@ -54,14 +54,14 @@ class PostItem extends StatelessWidget {
                     ),
                       Container(
                           decoration: BoxDecoration(
-                              color: app_red,
-                              borderRadius: BorderRadius.circular(2.0)),
+                              color: app_red.withOpacity(0.85),
+                              borderRadius: BorderRadius.circular(4.0)),
                           child: Text(' 외 ${post.headCount! - 1}명 ',style: TextStyle(color: Colors.white),)),
                       SizedBox(width: 2,),
                       Container(
                           decoration: BoxDecoration(
-                              color: app_deepyellow,
-                              borderRadius: BorderRadius.circular(2.0)),
+                              color: app_deepyellow.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(4.0)),
                           child: Text(" ${post.place} ",style: TextStyle(color: Colors.white),)),
                     ],)
 
