@@ -108,6 +108,7 @@ class _EditInfoState extends State<EditInfo> {
                         university: _univController.text,
                         major: _majorController.text,
                         grade: grade,
+                        mbti: mbti,
                       ));
                       //이렇게 쓰면 안될거같은데..
                       Get.to(ProfileImageScreen());
