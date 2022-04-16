@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:intl/intl.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/chatroom_controller.dart';
@@ -62,14 +63,42 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                       snapshot.data![index].chatroomId!));
                             },
                             child: Card(
-                              color: Colors.deepPurpleAccent,
+                              color: app_mostlightyellow,
+                              shadowColor: app_deepyellow,
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(13),
+                              ),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(snapshot.data![index].postTitle!),
-                                  Text(
-                                    snapshot.data![index].lastMessage!,
-                                    style: TextStyle(
-                                        fontSize: 30, color: Colors.black),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(snapshot.data![index].postTitle!,style: TextStyle(fontSize: 18),),
+                                        Text(snapshot.data![index].allUser!.length.toString()+'명 입장 완료'),
+                                          //  +(int.parse(snapshot.data![index].headCount.toString())*2).toString(),style: TextStyle(fontSize: 18)),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          snapshot.data![index].lastMessage!,
+                                          style: TextStyle(color: Colors.grey[700]),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(DateFormat.Hm().format(snapshot.data![index].lastMessageTime!),style: TextStyle(color: Colors.grey[600]),),
+                                      )
+                                    ],
                                   ),
                                 ],
                               ),

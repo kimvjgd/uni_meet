@@ -22,10 +22,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(title: Text("MOMODU"), actions: [
+        appBar: AppBar(
+          backgroundColor:Colors.white,
+          elevation: 2,
+          title: Text("홈",style: TextStyle(color:Colors.grey[800]),),
+            actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications_none_rounded),
+            icon: Icon(Icons.notifications_none_rounded,color: Colors.grey[800],),
           )
         ]),
         body: Padding(
