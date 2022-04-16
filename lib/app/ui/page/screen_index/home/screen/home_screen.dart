@@ -62,57 +62,57 @@ class HomeScreen extends StatelessWidget {
                               AuthController.to.user.value.major.toString(),
                           style: TextStyle(color: app_systemGrey1),
                         ),
-                        AuthController.to.user.value.auth!
-                            ? Text("학생 인증 완료")
-                            : Row(
-                                children: [
-                                  Text(
-                                    "학생 인증 미완료  ",
-                                    style: TextStyle(color: app_systemGrey1),
-                                  ),
-                                  TextButton(
-                                      style: TextButton.styleFrom(
-                                          padding: EdgeInsets.zero,
-                                          minimumSize: Size.zero,
-                                          tapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
-                                          alignment: Alignment.centerLeft),
-                                      onPressed: () {
-                                        showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder:
-                                                (BuildContext child_context) {
-                                              return AlertDialog(
-                                                content: Text(
-                                                    "에브리타임 캡쳐 스크린을 선택 후, 전송하기를 눌러주세요.\n 24시간 이내로 확인 도와드릴게요!"),
-                                                actions: [
-                                                  Center(
-                                                    child: Column(
-                                                      children: [
-                                                        ElevatedButton(
-                                                            onPressed: () {},
-                                                            child: Text(
-                                                                "파일 찾아보기")),
-                                                        ElevatedButton(
-                                                            onPressed: () {},
-                                                            child:
-                                                                Text("전송하기")),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              );
-                                            });
-                                      },
-                                      child: Text(
-                                        "인증에 실패하셨나요?",
-                                        style: TextStyle(
-                                          color: app_red.withOpacity(0.8),
-                                        ),
-                                      )),
-                                ],
-                              ),
+                        // AuthController.to.user.value.auth!
+                        //     ? Text("학생 인증 완료")
+                        //     : Row(
+                        //         children: [
+                        //           Text(
+                        //             "학생 인증 미완료  ",
+                        //             style: TextStyle(color: app_systemGrey1),
+                        //           ),
+                        //           TextButton(
+                        //               style: TextButton.styleFrom(
+                        //                   padding: EdgeInsets.zero,
+                        //                   minimumSize: Size.zero,
+                        //                   tapTargetSize:
+                        //                       MaterialTapTargetSize.shrinkWrap,
+                        //                   alignment: Alignment.centerLeft),
+                        //               onPressed: () {
+                        //                 showDialog(
+                        //                     context: context,
+                        //                     barrierDismissible: false,
+                        //                     builder:
+                        //                         (BuildContext child_context) {
+                        //                       return AlertDialog(
+                        //                         content: Text(
+                        //                             "에브리타임 캡쳐 스크린을 선택 후, 전송하기를 눌러주세요.\n 24시간 이내로 확인 도와드릴게요!"),
+                        //                         actions: [
+                        //                           Center(
+                        //                             child: Column(
+                        //                               children: [
+                        //                                 ElevatedButton(
+                        //                                     onPressed: () {},
+                        //                                     child: Text(
+                        //                                         "파일 찾아보기")),
+                        //                                 ElevatedButton(
+                        //                                     onPressed: () {},
+                        //                                     child:
+                        //                                         Text("전송하기")),
+                        //                               ],
+                        //                             ),
+                        //                           )
+                        //                         ],
+                        //                       );
+                        //                     });
+                        //               },
+                        //               child: Text(
+                        //                 "인증에 실패하셨나요?",
+                        //                 style: TextStyle(
+                        //                   color: app_red.withOpacity(0.8),
+                        //                 ),
+                        //               )),
+                        //         ],
+                        //       ),
                         Text(
                           AuthController.to.user.value.nickname.toString() +
                               "님",
@@ -135,55 +135,6 @@ class HomeScreen extends StatelessWidget {
                       Get.to(GameScreen());
                     }),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("공지사항", style: Theme.of(context).textTheme.titleLarge),
-                  IconButton(
-                      onPressed: () {
-                        Get.to(NoticeListScreen());
-                      },
-                      icon: Icon(Icons.add))
-                ],
-              ),
-              FutureBuilder<List<NoticeModel>>(
-                  initialData: [
-                    NoticeModel(
-                        title: '', description: '', createdDate: DateTime.now())
-                  ],
-                  future: NoticeRepository().getThreeNotices(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const CircularProgressIndicator();
-                    }
-                    Logger().d(snapshot.data!.length);
-                    return SizedBox(
-                      height: 200, // 하드코딩 수정 예정
-                      child: ListView.builder(
-                        itemBuilder: (context, index) => Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.to(NoticeDetailScreen(
-                                  data: snapshot.data![index],
-                                ));
-                                // snapshot.data![index];
-                              },
-                              child: ListTile(
-                                title: Text(
-                                  snapshot.data![index].title.toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        itemCount: snapshot.data!.length,
-                      ),
-                    );
-                  }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -220,6 +171,7 @@ class HomeScreen extends StatelessWidget {
                     return SizedBox(
                       height: 200, // 하드코딩 수정 예정
                       child: ListView.builder(
+                        physics:NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) => Column(
                           children: [
                             InkWell(
@@ -243,6 +195,57 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("공지사항", style: Theme.of(context).textTheme.titleLarge),
+                  IconButton(
+                      onPressed: () {
+                        Get.to(NoticeListScreen());
+                      },
+                      icon: Icon(Icons.add))
+                ],
+              ),
+              FutureBuilder<List<NoticeModel>>(
+                  initialData: [
+                    NoticeModel(
+                        title: '', description: '', createdDate: DateTime.now())
+                  ],
+                  future: NoticeRepository().getThreeNotices(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    Logger().d(snapshot.data!.length);
+                    return SizedBox(
+                      height: 200, // 하드코딩 수정 예정
+                      child: ListView.builder(
+                        physics:NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) => Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.to(NoticeDetailScreen(
+                                  data: snapshot.data![index],
+                                ));
+                                // snapshot.data![index];
+                              },
+                              child: ListTile(
+                                title: Text(
+                                  snapshot.data![index].title.toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        itemCount: snapshot.data!.length,
+                      ),
+                    );
+                  }),
+
             ],
           ),
         ));
