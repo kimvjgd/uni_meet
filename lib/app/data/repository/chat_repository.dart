@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
@@ -43,18 +42,15 @@ class ChatRepository {
     var commentUserData = await commentUserReference.get();
 
     List<dynamic> postUserChatroomList =
-        postUserData.data()!['chatroomList'] ?? [];
+        postUserData.data()![KEY_USER_CHATROOMLIST] ?? [];
     List<dynamic> commentUserChatroomList =
-        commentUserData.data()!['chatroomList'] ?? [];
+        commentUserData.data()![KEY_USER_CHATROOMLIST] ?? [];
 
     if (postUserChatroomList.contains(chatroomReference.id) ||
         commentUserChatroomList.contains(chatroomReference.id)) {
       Get.snackbar("알림", "이미 채팅방이 존재합니다.");
       return;
     }
-    Logger().d(postUserChatroomList.contains(chatroomReference.id) ||
-        commentUserChatroomList.contains(chatroomReference.id));
-    Logger().d(chatroomReference.id);
     // if (!postUserChatroomList.contains(chatroomReference.id)) {
     // }
     // if (!commentUserChatroomList.contains(chatroomReference.id)) {
@@ -113,8 +109,6 @@ class ChatRepository {
         KEY_CHATROOM_LASTMESSAGETIME: DateTime.now()
       });
     });
-    Logger().d(chat.reference);
-    Logger().d(chat.reference!.id);
   }
 
   Stream<ChatroomModel> connectChatroom(String chatroomKey) {
@@ -200,7 +194,6 @@ class ChatRepository {
     list.docs.forEach((documentSnapshot) {
       chatrooms.add(ChatroomModel.fromJson(documentSnapshot.data()));
     });
-    Logger().d(chatrooms);
     return chatrooms;
   }
 
@@ -219,6 +212,5 @@ class ChatRepository {
         .collection(COLLECTION_CHATROOMS)
         .doc(chatroomKey)
         .update({KEY_CHATROOM_ALLUSER: result});
-    Logger().d(result);
   }
 }
