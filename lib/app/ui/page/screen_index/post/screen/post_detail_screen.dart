@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:timeago/timeago.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
 import 'package:uni_meet/app/controller/comment_controller.dart';
@@ -9,12 +10,12 @@ import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
 import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import 'package:uni_meet/app/data/repository/post_repository.dart';
+import 'package:uni_meet/app/data/utils/timeago_util.dart';
 import '../../../../../controller/notification_controller.dart';
 import '../../../../../data/model/firestore_keys.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';
-import 'package:intl/intl.dart';
-
+import 'package:timeago/timeago.dart' as timeAgo;
 import '../widget/comment_item.dart';
 
 class PostDetailScreen extends StatefulWidget {
@@ -88,9 +89,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             children: [
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: _postContent()),
+                  child: _postContent(timeAgo.format(widget.post.createdDate!))),
               Divider(
-                thickness: 1,
+                thickness: 0.5,
                 color: divider,
               ),
               _commentContent(),
@@ -184,7 +185,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     );
   }
 
-  Column _postContent() {
+  Column _postContent(String cuteDong) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -204,7 +205,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         Align(
           alignment: Alignment.centerRight,
           child: Text(
-            DateFormat.Md().add_Hm().format(widget.post.createdDate!),
+              cuteDong
+            // DateFormat.Md().add_Hm().format(widget.post.createdDate!),
           ),
         ),
         Container(
