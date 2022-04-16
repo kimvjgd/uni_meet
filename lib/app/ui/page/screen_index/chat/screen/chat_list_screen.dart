@@ -79,6 +79,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
               }
             }),
         floatingActionButton: FloatingActionButton(
+          heroTag: 'invite',
           foregroundColor: app_deepyellow,
           backgroundColor: app_lightyellow,
           hoverColor: Colors.transparent,

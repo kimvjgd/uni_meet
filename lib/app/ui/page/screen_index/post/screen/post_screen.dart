@@ -54,6 +54,7 @@ class _PostScreenState extends State<PostScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'write',
         foregroundColor: app_deepyellow,
         backgroundColor: app_lightyellow,
         hoverColor: Colors.transparent,
