@@ -43,9 +43,9 @@ class ChatRepository {
     var commentUserData = await commentUserReference.get();
 
     List<dynamic> postUserChatroomList =
-        postUserData.data()!['chatroomList'] ?? [];
+        postUserData.data()![KEY_USER_CHATROOMLIST] ?? [];
     List<dynamic> commentUserChatroomList =
-        commentUserData.data()!['chatroomList'] ?? [];
+        commentUserData.data()![KEY_USER_CHATROOMLIST] ?? [];
 
     if (postUserChatroomList.contains(chatroomReference.id) ||
         commentUserChatroomList.contains(chatroomReference.id)) {
