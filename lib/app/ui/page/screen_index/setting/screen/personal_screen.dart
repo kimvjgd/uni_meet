@@ -4,8 +4,14 @@ class PersonalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("개인정보 이용약관"),
+    return Scaffold(
+      appBar:AppBar(
+        backgroundColor:Colors.white,
+        elevation: 2,
+        title: Text("개인정보 이용방침",style: TextStyle(color:Colors.grey[800]),),
+        leading: BackButton(color: Colors.grey[800],),
+      ),
+      body: Container(),
     );
   }
 }

@@ -4,8 +4,14 @@ class ServiceTermScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(" 서비스 이용 약관"),
+    return Scaffold(
+      appBar:AppBar(
+        backgroundColor:Colors.white,
+        elevation: 2,
+        title: Text("서비스 이용약관",style: TextStyle(color:Colors.grey[800]),),
+        leading: BackButton(color: Colors.grey[800],),
+      ),
+      body: Container(),
     );
   }
 }
