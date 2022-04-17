@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
+import 'package:uni_meet/app/ui/page/screen_index/widgets/profile_widget.dart';
 
 const roundedCorner = Radius.circular(20);
 
@@ -9,13 +10,12 @@ class ChatText extends StatelessWidget {
   final bool isMine;
   final ChatModel chatModel;
 
-  const ChatText(
-      {Key? key,
-      required this.size,
-      required this.isMine,
-      required this.chatModel,
-      })
-      : super(key: key);
+  const ChatText({
+    Key? key,
+    required this.size,
+    required this.isMine,
+    required this.chatModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +26,21 @@ class ChatText extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        IconButton(icon:Icon(Icons.face),onPressed: chatModel.writer!.split('_')[2]=='관리자'?(){}:(){
-          showDialog(
-              context: Get.context!,
-              builder: (context) => Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.face),
-                    Text(chatModel.writer!.split('_')[0]),
-                    Text(chatModel.writer!.split('_')[1]),
-                    Text(chatModel.writer!.split('_')[2]),
-                  ],
-                ),
-              ));
-        }, ),
+        IconButton(
+          icon: Icon(Icons.face),
+          onPressed: chatModel.writer!.split('_')[2] == '관리자'
+              ? () {}
+              : () {
+            Get.dialog(AlertDialog(
+              title: SizedBox(),
+              content: ProfileWidget(
+                  university: chatModel.writer!.split('_')[0],
+                  grade: chatModel.writer!.split('_')[1],
+                  nickname: chatModel.writer!.split('_')[2],
+                  localImage: chatModel.writer!.split('_')[3]),
+            ));
+          }
+        ),
         SizedBox(
           width: 6,
         ),
@@ -54,7 +54,7 @@ class ChatText extends StatelessWidget {
               children: [
                 Container(
                   child: Text(
-                    chatModel.message??'메세지 가려짐',
+                    chatModel.message ?? '메세지 가려짐',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!
@@ -95,7 +95,7 @@ class ChatText extends StatelessWidget {
         ),
         Container(
           child: Text(
-            chatModel.message??'메세지 가려짐',
+            chatModel.message ?? '메세지 가려짐',
             style: Theme.of(context)
                 .textTheme
                 .bodyText1!
@@ -113,7 +113,9 @@ class ChatText extends StatelessWidget {
                 bottomLeft: roundedCorner),
           ),
         ),
-        SizedBox(width: 5,)
+        SizedBox(
+          width: 5,
+        )
       ],
     );
   }

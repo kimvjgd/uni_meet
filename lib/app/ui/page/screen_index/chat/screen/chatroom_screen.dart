@@ -85,7 +85,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
 
   Future<void> onPress() async {
     ChatModel chat = ChatModel(
-      writer: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}',
+      writer: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}',
       message: _chatController.text,
       createdDate: DateTime.now(),
     ); // 여기서 에러?

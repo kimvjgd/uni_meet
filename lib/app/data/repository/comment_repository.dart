@@ -28,7 +28,8 @@ class CommentRepository {
     for (int i=0; i<data.size; i++){
 
       CommentModel comment = CommentModel(
-        host: data.docs[i].data()[KEY_COMMENT_HOST],
+        hostKey: data.docs[i].data()[KEY_COMMENT_HOSTKEY],
+        hostInfo: data.docs[i].data()[KEY_COMMENT_HOSTINFO],
         commentKey: data.docs[i].data()[KEY_COMMENT_COMMENTKEY],
         content: data.docs[i].data()[KEY_COMMENT_CONTENT],
         commentTime: data.docs[i].data()[KEY_COMMENT_COMMENTTIME].toDate(),

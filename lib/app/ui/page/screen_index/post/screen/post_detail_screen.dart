@@ -119,8 +119,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                     okCallback: () async {
                                       await commentRepository.createNewComment(
                                           widget.post.postKey, {
-                                        KEY_COMMENT_HOST:
+                                        KEY_COMMENT_HOSTKEY:
                                             AuthController.to.user.value.uid,
+                                        KEY_COMMENT_HOSTINFO:
+                                          '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}',
                                         KEY_COMMENT_CONTENT:
                                             _commentController.text,
                                         KEY_COMMENT_COMMENTTIME: DateTime.now()
@@ -143,18 +145,19 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             : SizedBox.shrink());
   }
 
-  void onPress() async {
-    CommentModel comment = CommentModel(
-      host: AuthController.to.user.value.uid,
-      content: CommentController.to.commentTextController.text,
-      commentTime: DateTime.now(),
-    );
-    await commentRepository.createNewComment(
-        widget.post.postKey, comment.toMap());
-    // 화면 새로고침
-    CommentController.to.commentTextController.clear();
-    setState(() {});
-  }
+  // void onPress() async {
+  //   CommentModel comment = CommentModel(
+  //     hostKey: AuthController.to.user.value.uid,
+  //     hostInfo: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}',
+  //     content: CommentController.to.commentTextController.text,
+  //     commentTime: DateTime.now(),
+  //   );
+  //   await commentRepository.createNewComment(
+  //       widget.post.postKey, comment.toMap());
+  //   // 화면 새로고침
+  //   CommentController.to.commentTextController.clear();
+  //   setState(() {});
+  // }
 
   Row _hostProfile() {
     return Row(
