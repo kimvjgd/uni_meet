@@ -23,7 +23,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  final List<String> title = <String>['알림 설정','고객센터','서비스 이용약관','개인정보 이용방침','오픈소스 라이센스',];
+  final List<String> _title = <String>['알림 설정','고객센터','서비스 이용약관','개인정보 이용방침','오픈소스 라이센스',];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                      title: Text(title[index]),
+                      title: Text(_title[index]),
                     onTap: (){
                         if(index==0) Get.to(AlarmScreen());
                         else if(index == 1) Get.to(CustomerServiceScreen());
@@ -57,6 +57,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
               )
           ),
+          TextButton(onPressed:signOut, child: Text("로그아웃"))
         ],
       ),
     );
