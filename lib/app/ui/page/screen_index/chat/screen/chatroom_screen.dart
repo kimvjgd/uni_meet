@@ -18,6 +18,7 @@ class ChatroomScreen extends StatefulWidget {
 
 class _ChatroomScreenState extends State<ChatroomScreen> {
   TextEditingController _chatController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -25,6 +26,16 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        ChatController.to.getOldMessages();
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +53,15 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                 color: Colors.white,
                 child: Obx(() => ListView.separated(
                     reverse: true,
+                    controller: _scrollController,
                     itemBuilder: (context, index) {
                       bool isMine =
-                          ChatController.to.chat_chatList.value[index].writer ==
-                              AuthController.to.user.value.uid;
+                          ChatController.to.chat_chatList[index].writer!.split('_')[2] ==
+                              AuthController.to.user.value.nickname;
                       return ChatText(
                         size: _size,
                         isMine: isMine,
-                        chatModel: ChatController.to.chat_chatList.value[index],
+                        chatModel: ChatController.to.chat_chatList[index],
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -57,18 +69,23 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                         height: 3,
                       );
                     },
-                    itemCount: ChatController.to.chat_chatList.value.length)),
+                    itemCount: ChatController.to.chat_chatList.length)),
               )),
-              InputBar(textEditingController: _chatController, icon: Icon(Icons.send), onPress: onPress, hintText: '메세지를 입력하세요.')
+              InputBar(
+                  textEditingController: _chatController,
+                  icon: Icon(Icons.send),
+                  onPress: onPress,
+                  hintText: '메세지를 입력하세요.')
             ],
           ),
         ),
       );
     });
   }
+
   Future<void> onPress() async {
     ChatModel chat = ChatModel(
-      writer: AuthController.to.user.value.uid,
+      writer: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}',
       message: _chatController.text,
       createdDate: DateTime.now(),
     ); // 여기서 에러?

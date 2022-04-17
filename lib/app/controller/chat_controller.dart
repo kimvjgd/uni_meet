@@ -30,9 +30,7 @@ class ChatController extends GetxController {
   void addNewChat(ChatModel chatModel) {
     chat_chatList.insert(0, chatModel);
     ChatRepository().createNewChat(chat_chatroomKey.value, chatModel);
-
   }
-
 
   @override
   void onInit() {
@@ -48,18 +46,25 @@ class ChatController extends GetxController {
           chat_chatList.addAll(chatList);
         });
       } else {
-        if (chat_chatList[0].reference == null){
+        if (chat_chatList[0].reference == null) {
           chat_chatList.removeAt(0);
         }
         ChatRepository()
             .getLatestChatList(
                 chat_chatroomKey.value, chat_chatList[0].reference!)
             .then((latestChats) {
-
           chat_chatList.insertAll(0, latestChats);
           update();
         });
       }
     });
+  }
+
+  void getOldMessages() {
+    ChatRepository()
+        .getOlderChatList(
+            chatroomKey, chat_chatList[chat_chatList.length-1].reference!)
+        .then((olderChats) => chat_chatList.insertAll(chat_chatList.length-1, olderChats));
+    update();
   }
 }

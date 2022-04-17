@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/repository/post_repository.dart';
@@ -18,7 +17,6 @@ class PostAddScreen extends StatefulWidget {
 }
 
 class _PostAddScreenState extends State<PostAddScreen> {
-  var logger = Logger();
   final GlobalKey<FormState> _PostformKey = GlobalKey();
 
   TextEditingController _titleController = TextEditingController();
@@ -120,7 +118,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
           decoration: InputDecoration(
               hintStyle: TextStyle(color: app_systemGrey4),
               hintText:
-                  "간단한 자기소개와\n만나고 싶은 모모들을 조건을 작성해주세요 !\n \n[예시]\n안녕하세요~ 모모대학교 모모과 20학번 남자 3명입니다!\n21학번 여성 세 분 구해요/00대학교 구해요/MBTI E인 분들 구해요/술 잘 마시는 분 구해요",
+                  "간단한 자기소개와\n만나고 싶은 모모들의 조건을 작성해주세요 !\n \n[예시]\n안녕하세요~ 모모대학교 모모과 20학번 남자 3명입니다!\n21학번 여성 세 분 구해요/00대학교 구해요/MBTI E인 분들 구해요/술 잘 마시는 분 구해요",
               hintMaxLines: 10,
               contentPadding: EdgeInsets.fromLTRB(15, 70, 15, 70),
               focusedBorder: UnderlineInputBorder(
@@ -393,8 +391,6 @@ class _PostAddScreenState extends State<PostAddScreen> {
                     children: [
                       ElevatedButton(
                           onPressed: () async {
-                            logger.d(
-                                "${_titleController.text} && ${_contentController.text}");
                             await PostRepository.createPost(
                                 title: _titleController.text,
                                 content: _contentController.text,

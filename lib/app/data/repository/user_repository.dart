@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:logger/logger.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
@@ -25,6 +26,14 @@ class UserRepository {
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  static Future<void> withdrawal(String uid) async {
+    try {
+      await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).delete();
+    } catch(e){
+      Logger().d(e);
     }
   }
 }

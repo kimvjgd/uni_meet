@@ -6,7 +6,7 @@ import 'package:uni_meet/app/ui/page/screen_index/home/screen/notice_detail_scre
 
 class NoticeListScreen extends StatelessWidget {
   const NoticeListScreen({Key? key}) : super(key: key);
-
+//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
