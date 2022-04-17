@@ -4,6 +4,8 @@ const COLLECTION_COMMENTS = "comments";
 const COLLECTION_CHATROOMS = "chatrooms";
 const COLLECTION_CHATS = "chats";
 const COLLECTION_NOTICES = "notices";
+const COLLECTION_REPORTS = 'reports';
+const COLLECTION_CONTACTS = 'contacts';
 
 const KEY_USER_UID = "uid";
 const KEY_USER_AUTH = "auth";
@@ -58,4 +60,11 @@ const KEY_NOTICE_TITLE = 'title';
 const KEY_NOTICE_DESCRIPTION = 'description';
 const KEY_NOTICE_DATE = 'created_date';
 
+const KEY_REPORT_CONTENT = 'content';
+const KEY_REPORT_CREATEDDATE = 'created_date';
+const KEY_REPORT_REPORTER = 'reporter';
+const KEY_REPORT_OFFENDER = 'offender';
 
+const KEY_CONTACT_RESPONSEEMAIL = 'response_email';
+const KEY_CONTACT_CONTENT = 'content';
+const KEY_CONTACT_CREATEDDATE = 'created_date';

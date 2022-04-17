@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:intl/intl.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
@@ -9,7 +8,6 @@ import 'package:uni_meet/app/data/model/chatroom_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/screen/chatroom_screen.dart';
-import 'package:uni_meet/app/ui/page/screen_index/message_popup.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);

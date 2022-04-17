@@ -184,11 +184,13 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
                   ),
                   controller: _nicknameController,
                   validator: (name) {
-                    if (name!.isNotEmpty && name.length > 1) {
+                    if (name!.isNotEmpty && name.length > 1 && !name.contains(' ')) {
                       return null;
                     } else {
                       if (name.isEmpty) {
                         return '닉네임을 입력해주세요.';
+                      }else if(name.contains(' ')){
+                        return '닉네임에 공백이 있습니다.';
                       }
                       return '닉네임이 너무 짧습니다.';
                     }
@@ -206,6 +208,22 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text(
           "닉네임과 프로필을 설정해주세요!",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ));
+    }else if(nickname.contains(' ')) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          "닉네임에 공백이 있습니다!",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ));
+    }else if(nickname.contains('_')) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          "닉네임에 _ 이 있습니다!",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,

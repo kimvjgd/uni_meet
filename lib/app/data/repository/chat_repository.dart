@@ -33,7 +33,7 @@ class ChatRepository {
     var chatRef = await chatroomReference.collection(COLLECTION_CHATS).doc();
 
     var chatData = chatRef.set(ChatModel(
-            writer: '관리자',
+            writer: '관리자_관리자_관리자',
             createdDate: DateTime.now(),
             message: '첫 메세지를 보내주세요.',
             reference: chatRef)

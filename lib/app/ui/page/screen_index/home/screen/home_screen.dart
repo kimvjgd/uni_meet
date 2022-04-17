@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:uni_meet/app/data/model/notice_model.dart';
 import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/repository/notice_repository.dart';
@@ -171,7 +170,6 @@ class HomeScreen extends StatelessWidget {
                     if (!snapshot.hasData) {
                       return const CircularProgressIndicator();
                     }
-                    Logger().d(snapshot.data!.length);
                     return SizedBox(
                       height: 200, // 하드코딩 수정 예정
                       child: ListView.builder(
@@ -220,7 +218,6 @@ class HomeScreen extends StatelessWidget {
                     if (!snapshot.hasData) {
                       return const CircularProgressIndicator();
                     }
-                    Logger().d(snapshot.data!.length);
                     return SizedBox(
                       height: 200, // 하드코딩 수정 예정
                       child: ListView.builder(

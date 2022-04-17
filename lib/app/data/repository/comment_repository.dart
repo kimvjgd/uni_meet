@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:logger/logger.dart';
 import 'package:uni_meet/app/data/model/comment_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
