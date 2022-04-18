@@ -36,6 +36,7 @@ class UserRepository {
   static Future<void> withdrawal(String uid) async {
     try {
       await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).delete();
+      await FirebaseAuth.instance.currentUser!.delete();
     } catch(e){
       Logger().d(e);
     }

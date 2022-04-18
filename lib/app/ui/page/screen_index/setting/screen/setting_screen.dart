@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
+import 'package:uni_meet/app/ui/page/account/univ_check_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/alarm_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/customer_service_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/open_source_screen.dart';
@@ -118,35 +119,10 @@ class _SettingScreenState extends State<SettingScreen> {
                               MaterialTapTargetSize.shrinkWrap,
                               alignment: Alignment.centerLeft),
                           onPressed: () {
-                            showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder:
-                                    (BuildContext child_context) {
-                                  return AlertDialog(
-                                    content: Text(
-                                        "에브리타임 캡쳐 스크린을 선택 후, 전송하기를 눌러주세요.\n 24시간 이내로 확인 도와드릴게요!"),
-                                    actions: [
-                                      Center(
-                                        child: Column(
-                                          children: [
-                                            ElevatedButton(
-                                                onPressed: () {},
-                                                child: Text(
-                                                    "파일 찾아보기")),
-                                            ElevatedButton(
-                                                onPressed: () {},
-                                                child:
-                                                Text("전송하기")),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                });
+                            Get.to(UnivCheckScreen());
                           },
                           child: Text(
-                            "인증에 실패하셨나요?",
+                            "인증하기",
                             style: TextStyle(
                               color: app_red.withOpacity(0.8),
                             ),

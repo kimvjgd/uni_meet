@@ -24,14 +24,18 @@ class RootPage extends GetView<AuthController> {
                     InitBinding.additionalBinding();
                     return const IndexScreen();
                   } else {
-                    return Obx(() => controller.user.value.uid != null
-                        ? index()
-                        : EditInfo(uid: user.data!.uid));
+                    return Obx(() => controller.user.value.uid == null
+                        ? EditInfo(uid: user.data!.uid)
+                       // ? EditNumber(isLogOut: true) //로그인 페이지
+                    : index());
                        // :EditNumber());
                   }
                 });
-          } else {
-            return EditNumber();
+          } else if(user.hasError) {
+            return Container(child: Text(user.error.toString()),);
+          }
+          else {
+            return EditNumber(isLogOut: false); //가입 페이지
           }
         });
   }

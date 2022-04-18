@@ -64,30 +64,43 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
     };
     var header = {"apikey": auth_image_key};
 
-    var post = await http.post(Uri.parse(url), body: payload, headers: header);
-    var result = jsonDecode(post.body);
+    try{
+      var post =
+          await http.post(Uri.parse(url), body: payload, headers: header);
+      var result = jsonDecode(post.body);
 
-    parsedtext = result['ParsedResults'][0]['ParsedText'];
-    flag1 = parsedtext.contains(_name);
-    flag2 = parsedtext.contains(_uni);
-    flag3 = parsedtext.contains(_everytime);
-    if (flag1 && flag2 && flag3)
-      return true;
-    else
+      parsedtext = result['ParsedResults'][0]['ParsedText'];
+      flag1 = parsedtext.contains(_name);
+      flag2 = parsedtext.contains(_uni);
+      flag3 = parsedtext.contains(_everytime);
+      if(flag1) print("이름인증 ㅇㅋ");
+      if(flag2) print("학교인증 ㅇㅋ");
+      if(flag3) print("에타인증 ㅇㅋ");
+      if (flag1 && flag2 && flag3){
+        users.update({KEY_USER_AUTH: true})
+            .then((value) => print("대학인증 성공"))
+            .catchError((error) => print("대학 인증 실패: $error"));
+        return true;
+      }
+      else
+        return false;
+    }catch(e){
+      print(e.toString());
       return false;
+    }
   }
 
-  // Future<void> uploadFB(File file) async {
-  //   try {
-  //     await firebase_storage.FirebaseStorage.instance
-  //         .ref('uploads/'+FirebaseAuth.instance.currentUser!.uid.toString()+'.png')
-  //         .putFile(file);
-  //     print("업로드성공");
-  //   } on FirebaseException catch (e) {
-  //     print("업로드실패");
-  //     print(e);
-  //   }
-  // }
+  Future<void> uploadFB(File file) async {
+    try {
+      await firebase_storage.FirebaseStorage.instance
+          .ref('uploads/'+FirebaseAuth.instance.currentUser!.uid.toString()+'.png')
+          .putFile(file);
+      print("업로드성공");
+    } on FirebaseException catch (e) {
+      print("업로드실패");
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,9 +234,9 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           //   ));
                           // }
                           // else if (uni_check==true) {
-                          //   users.update({KEY_USER_AUTH: true})
-                          //       .then((value) => print("User Updated"))
-                          //       .catchError((error) => print("Failed to update user: $error"));
+                          //
+
+
                           // }
                           // else {
                           //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -269,6 +282,36 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                   child: Column(
                     children: [
                       Text(" 2~3분 이내에 학교인증이 완료됩니다.",style: TextStyle(color: app_systemGrey2),),
+                      TextButton(onPressed: (){showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder:
+                              (BuildContext child_context) {
+                            return AlertDialog(
+                              content: Text(
+                                  "에브리타임 캡쳐 스크린을 선택 후, 전송하기를 눌러주세요.\n 24시간 이내로 확인 도와드릴게요!"),
+                              actions: [
+                                Center(
+                                  child: Column(
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            _getFromGallery();
+                                          },
+                                          child: Text(
+                                              "파일 찾아보기")),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            uploadFB(imageFile!);
+                                          },
+                                          child:
+                                          Text("전송하기")),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          });}, child: Text("인증에 실패하셨나요?")),
                       TextButton(onPressed: (){Get.to(IndexScreen());}, child: Text("둘러보기"))
                     ],
                   ),

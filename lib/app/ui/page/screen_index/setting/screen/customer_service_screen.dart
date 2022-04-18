@@ -188,11 +188,10 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                     okCallback: () {
                       // 탈퇴기능
                       // 파이어 베이스 auth에서 탈퇴
-                      // 굳이 안해줘도 되겠다는 생각이 들어..
 
                       // collection에서 제거
                       UserRepository.withdrawal(AuthController.to.user.value.uid!);
-                      Get.offAll(()=>EditNumber());
+                      Get.offAll(()=>EditNumber(isLogOut: false,));
                     },
                     cancelCallback: Get.back,
                   ));
