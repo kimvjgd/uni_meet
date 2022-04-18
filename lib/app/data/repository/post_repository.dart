@@ -77,6 +77,18 @@ class PostRepository {
     return posts;
   }
 
+  Future<PostModel> getAPost(String postKey) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection(COLLECTION_POSTS)
+        .where(KEY_POST_POSTKEY, isEqualTo: postKey).limit(1).get();
+    late PostModel post;
+    snapshot.docs.forEach((e) {
+      post = PostModel.fromJson(e.data());
+    });
+
+    return post;
+  }
 //
 //   QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
 //       .instance

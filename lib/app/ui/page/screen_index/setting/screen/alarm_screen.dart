@@ -6,14 +6,14 @@ enum Alarm_CHAT { ON, OFF }
 enum Alarm_COMMENT { ON, OFF }
 enum Alarm_NOTICE { ON, OFF }
 
-class AlarmScreen extends StatefulWidget {
-  const AlarmScreen({Key? key}) : super(key: key);
+class AlarmSettingScreen extends StatefulWidget {
+  const AlarmSettingScreen({Key? key}) : super(key: key);
 
   @override
-  State<AlarmScreen> createState() => _AlarmScreenState();
+  State<AlarmSettingScreen> createState() => _AlarmSettingScreenState();
 }
 
-class _AlarmScreenState extends State<AlarmScreen> {
+class _AlarmSettingScreenState extends State<AlarmSettingScreen> {
   bool chat_ON = true;
   bool comment_ON = true;
   bool notice_ON = true;
@@ -21,8 +21,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
   Alarm_NOTICE _notice = Alarm_NOTICE.ON;
 
   final List<String> _title = <String>[
-    '채팅방 알림',
-    '댓글 알림',
+    '채팅방 개설 알림',
+    '새 댓글 알림',
     '공지사항 알림',
   ];
 

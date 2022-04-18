@@ -5,6 +5,7 @@ import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/repository/notice_repository.dart';
 import 'package:uni_meet/app/data/repository/post_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
+import 'package:uni_meet/app/ui/page/screen_index/home/screen/alarm_list_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/game_screen.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/mypost_detail_screen.dart';
@@ -22,12 +23,11 @@ class HomeScreen extends StatelessWidget {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor:Colors.white,
           elevation: 2,
           title: Text("홈",style: TextStyle(color:Colors.grey[800]),),
             actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {Get.to(AlarmList());},
             icon: Icon(Icons.notifications_none_rounded,color: Colors.grey[800],),
           )
         ]),

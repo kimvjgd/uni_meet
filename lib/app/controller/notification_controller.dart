@@ -38,17 +38,16 @@ class NotificationController extends GetxController{
   /// 디바이스 고유 토큰을 얻기 위한 메소드, 처음 한번만 사용해서 토큰을 확보하자.
   /// 이는 파이어베이스 콘솔에서 손쉽게 디바이스에 테스팅을 할 때 쓰인다.
   void _getToken() async{
-
-    // String? token= await messaging.getToken();
-    // try{
-    //   print("토큰은"+token!);
-    //   FirebaseFirestore.instance
-    //       .collection(COLLECTION_USERS)
-    //       .doc(AuthController.to.user.value.uid)
-    //       .update({KEY_USER_TOKEN: token}); //바꾸기
-    // } catch(e) {
-    //   print("토큰 에러 "+ e.toString());
-    // }
+    String? token= await messaging.getToken();
+    try{
+      print("토큰은"+token!);
+      FirebaseFirestore.instance
+          .collection(COLLECTION_USERS)
+          .doc(AuthController.to.user.value.uid)
+          .update({KEY_USER_TOKEN: token}); //바꾸기
+    } catch(e) {
+      print("토큰 에러 "+ e.toString());
+    }
 
   }
   /// ----------------------------------------------------------------------------
@@ -105,7 +104,7 @@ class NotificationController extends GetxController{
                     channel.name,
                     channelDescription: channel.description
                 )
-              // ,iOS: IOSNotificationDetails()
+              ,iOS: IOSNotificationDetails()
             ),
             // 넘겨줄 데이터가 있으면 아래 코드를 써주면 됨.
             //   payload: json.encode(message)
@@ -123,8 +122,8 @@ class NotificationController extends GetxController{
     });
   }
 
-  Future<bool> NewCommentNotification(
-      {required String title,required String receiver_token}) async {
+  Future<bool> SendNewNotification(
+      {required String receiver_token}) async {
     String url = "https://fcm.googleapis.com/fcm/send";
     // 임시
     String _firebaseKey =firebase_FCM_key;
@@ -138,8 +137,8 @@ class NotificationController extends GetxController{
       body: jsonEncode(
         <String, dynamic>{
           'notification': <String, dynamic>{
-            'body': '${title}에 새 댓글이 달렸습니다.',
-            'title': '모모두'
+            'body': '새 소식을 확인하세요!',
+            'title': 'MOMODU'
           },
           'priority': 'high',
           'data': <String, dynamic>{
@@ -151,8 +150,39 @@ class NotificationController extends GetxController{
         },
       ),
     );
-    print("타이틀"+title);
+
     return true;
   }
 
+  Future<bool> NewChatBubbleNotification(
+      {required String sender_token,required List<String> receiver_token}) async {
+    String url = "https://fcm.googleapis.com/fcm/send";
+    // 임시
+    String _firebaseKey =firebase_FCM_key;
+
+    await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$_firebaseKey',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': '새로운 채팅이 왔어요 !',
+            'title': 'MOMODU'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          'to':"$receiver_token",
+        },
+      ),
+    );
+
+    return true;
+  }
 }

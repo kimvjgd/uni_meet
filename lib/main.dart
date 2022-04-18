@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import 'package:uni_meet/notification_screen.dart';
 import 'package:uni_meet/notification_second_screen.dart';
 import 'package:uni_meet/root_page.dart';
 
+import 'app/controller/auth_controller.dart';
+import 'app/data/model/firestore_keys.dart';
 import 'app/ui/components/app_color.dart';
 
 
@@ -28,10 +31,14 @@ Future<void> main() async {
 
 
 class MyApp extends StatelessWidget {
-  Future<String?> getToken() async {
+  Future<void> getToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     print('@@@@@@@@@@@@@@@@@@$token@@@@@@@@@@@@@@@@@@');
-    return token;
+    FirebaseFirestore.instance
+        .collection(COLLECTION_USERS)
+        .doc(AuthController.to.user.value.uid)
+        .update({KEY_USER_TOKEN: token});
+   // return token;
   }
   @override
   Widget build(BuildContext context) {

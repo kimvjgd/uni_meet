@@ -27,6 +27,7 @@ class RootPage extends GetView<AuthController> {
                     return Obx(() => controller.user.value.uid != null
                         ? index()
                         : EditInfo(uid: user.data!.uid));
+                       // :EditNumber());
                   }
                 });
           } else {

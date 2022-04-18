@@ -13,6 +13,7 @@ import 'package:uni_meet/app/data/repository/post_repository.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
 import '../../../../../controller/notification_controller.dart';
 import '../../../../../data/model/firestore_keys.dart';
+import '../../../../../data/repository/news_repository.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
@@ -128,11 +129,13 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                         KEY_COMMENT_COMMENTTIME: DateTime.now()
                                       });
 
+                                      // 푸시 알림
                                       await Get.put(NotificationController())
-                                          .NewCommentNotification(
-                                              title:
-                                                  widget.post.title.toString(),
+                                          .SendNewNotification(
                                               receiver_token: writer_token);
+
+                                      NewsRepository().createCommentNews(widget.post);
+
                                       Get.back();
                                       _commentController.clear();
                                     },

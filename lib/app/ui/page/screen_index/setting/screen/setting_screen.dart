@@ -47,7 +47,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   return ListTile(
                       title: Text(_title[index]),
                     onTap: (){
-                        if(index==0) Get.to(AlarmScreen());
+                        if(index==0) Get.to(AlarmSettingScreen());
                         else if(index == 1) Get.to(CustomerServiceScreen());
                         else if(index == 2) Get.to(ServiceTermScreen());
                         else if(index == 3) Get.to(PersonalScreen());

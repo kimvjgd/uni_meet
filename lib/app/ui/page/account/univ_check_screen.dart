@@ -10,12 +10,14 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
 import '../../../../secret/secret_keys.dart';
 import '../screen_index/index_screen.dart';
+import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
 
 class UnivCheckScreen extends StatefulWidget {
@@ -27,16 +29,17 @@ class UnivCheckScreen extends StatefulWidget {
 
 class _UnivCheckScreenState extends State<UnivCheckScreen> {
 
-  DocumentReference users = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid);
+  DocumentReference users = FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(AuthController.to.user.value.uid);
 
   File? imageFile;
   String parsedtext = '';
-  String name = '';
-  String uni ='';
-  String grade = "";
-  String everytime = "학교 인증";
+  String _name = '';
+  String _uni ='';
+  String _grade = "";
+  String _everytime = "학교 인증";
   bool flag1 = false, flag2 = false, flag3 = false;
-  bool? uni_check;
+  late bool uni_check;
+  bool _isLoading=false;
 
   Future _getFromGallery() async {
     final pickedFile =
@@ -46,11 +49,11 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
 
     setState(() {
       this.imageFile = image_temporary;
-      _Recognition(imageFile);
+      //_Recognition(imageFile);
     });
   }
 
-  Future _Recognition(pickedFile) async {
+  Future<bool> _Recognition(pickedFile) async {
     var bytes = File(pickedFile.path.toString()).readAsBytesSync();
     String img64 = base64Encode(bytes);
 
@@ -64,61 +67,64 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
     var post = await http.post(Uri.parse(url), body: payload, headers: header);
     var result = jsonDecode(post.body);
 
-    setState(() {
-      parsedtext = result['ParsedResults'][0]['ParsedText'];
-      uni_check = txtCheck();
-    });
-  }
-
-  bool txtCheck() {
-    flag1 = parsedtext.contains(name);
-    flag2 = parsedtext.contains(uni);
-    flag3 = parsedtext.contains(everytime);
-    /*if (flag1) print("이름 확인");
-    if (flag2) print("학교 확인");
-    if (flag3) print("에타 확인");*/
-
+    parsedtext = result['ParsedResults'][0]['ParsedText'];
+    flag1 = parsedtext.contains(_name);
+    flag2 = parsedtext.contains(_uni);
+    flag3 = parsedtext.contains(_everytime);
     if (flag1 && flag2 && flag3)
       return true;
     else
       return false;
   }
 
-  Future<void> uploadFB(File file) async {
-    try {
-      await firebase_storage.FirebaseStorage.instance
-          .ref('uploads/'+FirebaseAuth.instance.currentUser!.uid.toString()+'.png')
-          .putFile(file);
-      print("업로드성공");
-    } on FirebaseException catch (e) {
-      print("업로드실패");
-      print(e);
-    }
-  }
+  // Future<void> uploadFB(File file) async {
+  //   try {
+  //     await firebase_storage.FirebaseStorage.instance
+  //         .ref('uploads/'+FirebaseAuth.instance.currentUser!.uid.toString()+'.png')
+  //         .putFile(file);
+  //     print("업로드성공");
+  //   } on FirebaseException catch (e) {
+  //     print("업로드실패");
+  //     print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
-      future: users.get(),
+      future: FirebaseFirestore.instance
+          .collection(COLLECTION_USERS)
+          .doc(AuthController.to.user.value.uid)
+          .get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return Text("데이터 오류 발생");
         }
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
+        else if (snapshot.hasData){
+          //**********************에러 자주 뜸 고쳐야 함 ****************//
+          //**********************에러 자주 뜸 고쳐야 함 ****************//
+          //**********************에러 자주 뜸 고쳐야 함 ****************//
+          if(!snapshot.data!.exists) {return Text(snapshot.error.toString());}
+          //**********************에러 자주 뜸 고쳐야 함 ****************//
+          //**********************에러 자주 뜸 고쳐야 함 ****************//
+          //**********************에러 자주 뜸 고쳐야 함 ****************//
+          else {
+            if (snapshot.connectionState == ConnectionState.done) {
+              Map<String, dynamic> data =
+                  snapshot.data!.data() as Map<String, dynamic>;
+              _name = data[KEY_USER_NAME];
+              _uni = data[KEY_USER_UNIVERSITY];
+              _grade = data[KEY_USER_GRADE].toString() + "학번";
+              return Scaffold(
+                body: body(),
+              );
+            }
+            else if(snapshot.connectionState ==ConnectionState.waiting) {return LinearProgressIndicator();}
+            else {return Container(child: Text("연결 오류 발생 "));}
+          }
         }
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-          name = data['name'];
-          uni = data['university'];
-          grade = data['grade'].toString() + "학번";
-          return Scaffold(
-            body: body(),
-          );
-        }
-        //로딩화면 수정 필요 !!!!!!!
-        return LinearProgressIndicator(backgroundColor: Colors.white,color: Colors.purple,);
+        else return Container();
       },
     );
 
@@ -133,7 +139,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BackButton(),
-             // Text("임시 텍스트" + uni + grade + name),
+              Text("임시 텍스트 " + _uni + _grade + _name),
               BigText(headText: "먼저, 학교 인증을 해야 해요!"),
               Spacer(
                 flex: 1,
@@ -189,7 +195,11 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                   width: MediaQuery.of(context).size.width*0.85,
                   height: MediaQuery.of(context).size.height*0.06,
                   child: BigButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        setState(() {
+                          _isLoading = true;
+                        });
+
                         if (imageFile == null) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: const Text(
@@ -200,35 +210,53 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           ));
                         }
                         else {
-                          if(uni_check==null){
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text(
-                                "인식이 진행중입니다.",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Colors.black,
-                            ));
-                          }
-                          else if (uni_check==true) {
+                          var result = await _Recognition(imageFile);
+                          // if(uni_check==null){
+                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //     content: const Text(
+                          //       "인식이 진행중입니다.",
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //     backgroundColor: Colors.black,
+                          //   ));
+                          // }
+                          // else if (uni_check==true) {
+                          //   users.update({KEY_USER_AUTH: true})
+                          //       .then((value) => print("User Updated"))
+                          //       .catchError((error) => print("Failed to update user: $error"));
+                          // }
+                          // else {
+                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //     content: const Text(
+                          //       "인증에 실패하였습니다. 다시 시도해 주세요.",
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //     backgroundColor: Colors.black,
+                          //   ));
+                          // }
+                          if(result == null)
+                          if(result) {
                             users.update({KEY_USER_AUTH: true})
-                                .then((value) => print("User Updated"))
-                                .catchError((error) => print("Failed to update user: $error"));
+                                   .then((value) => print("대학인증 성공"))
+                                   .catchError((error) => print("대학 인증 실패: $error"));
+                            Get.to(IndexScreen());
                           }
                           else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: const Text(
-                                "인증에 실패하였습니다. 다시 시도해 주세요.",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Colors.black,
-                            ));
-                            uni_check=null;
-                          }
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: const Text(
+                                  "인증에 실패하였습니다. 다시 시도해 주세요.",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.black,
+                              ));
+                              setState(() {
+                                _isLoading = false;
+                              });
 
-                          Get.to(IndexScreen());
-                      }
+                          }
+                        }
                         },
-                      btnText: "인증하기",)
+                      btnText: _isLoading?  "인증중입니다 . . ." :"인증하기" )
                 ),
                 ),
               Spacer(
@@ -238,7 +266,12 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                 alignment: Alignment.center,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(" 2~3분 이내에 학교인증이 완료됩니다.",style: TextStyle(color: app_systemGrey2),),
+                  child: Column(
+                    children: [
+                      Text(" 2~3분 이내에 학교인증이 완료됩니다.",style: TextStyle(color: app_systemGrey2),),
+                      TextButton(onPressed: (){Get.to(IndexScreen());}, child: Text("둘러보기"))
+                    ],
+                  ),
                 ),
               ),
               Spacer(
