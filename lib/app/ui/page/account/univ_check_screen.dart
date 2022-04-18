@@ -17,8 +17,6 @@ import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
 import '../../../../secret/secret_keys.dart';
 import '../screen_index/index_screen.dart';
-import 'package:uni_meet/app/data/model/firestore_keys.dart';
-
 
 class UnivCheckScreen extends StatefulWidget {
   const UnivCheckScreen({Key? key}) : super(key: key);
@@ -65,9 +63,10 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
     var header = {"apikey": auth_image_key};
 
     try{
-      var post =
-          await http.post(Uri.parse(url), body: payload, headers: header);
-      var result = jsonDecode(post.body);
+        var post =
+            await http.post(Uri.parse(url), body: payload, headers: header);
+        var result = jsonDecode(post.body);
+        print("http 전송완료");
 
       parsedtext = result['ParsedResults'][0]['ParsedText'];
       flag1 = parsedtext.contains(_name);
@@ -223,7 +222,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           ));
                         }
                         else {
-                          var result = await _Recognition(imageFile);
+
                           // if(uni_check==null){
                           //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           //     content: const Text(
@@ -247,11 +246,11 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           //     backgroundColor: Colors.black,
                           //   ));
                           // }
-                          if(result == null)
-                          if(result) {
-                            users.update({KEY_USER_AUTH: true})
-                                   .then((value) => print("대학인증 성공"))
-                                   .catchError((error) => print("대학 인증 실패: $error"));
+
+                          if(await _Recognition(imageFile)) {
+                            // users.update({KEY_USER_AUTH: true})
+                            //        .then((value) => print("대학인증 성공"))
+                            //        .catchError((error) => print("대학 인증 실패: $error"));
                             Get.to(IndexScreen());
                           }
                           else {
