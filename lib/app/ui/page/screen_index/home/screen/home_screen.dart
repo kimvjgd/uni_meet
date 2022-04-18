@@ -12,7 +12,7 @@ import 'package:uni_meet/app/ui/page/screen_index/home/screen/mypost_detail_scre
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/mypost_list_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/notice_detail_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/notice_list_screen.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import '../../../../../controller/auth_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Row(
                   children: [
                     Container(
@@ -126,9 +126,24 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: _size.height * 0.2,
-                color: Colors.grey,
+              CarouselSlider.builder(
+                itemCount: 3,
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  height: 200,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  reverse: false,
+                  viewportFraction:0.85,
+                  //aspectRatio: 4.0,
+                ),
+                itemBuilder: (context, i, id){
+                  //for onTap to redirect to another screen
+                  return GestureDetector(
+                    child: Image.asset("assets/images/manual_banner.png"),
+                    onTap: (){},
+                  );
+                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),

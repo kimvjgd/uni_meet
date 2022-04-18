@@ -33,16 +33,48 @@ class _GameScreenState extends State<GameScreen> {
               padding: const EdgeInsets.fromLTRB(50, 0, 10, 10),
               child: Image.asset("assets/images/game_title.png"),
             ),
-            Container(
-              child: Text("난이도 낮음"),
-            ),
             Expanded(
               child: ListView(
                 children: [
-                  for (int i = 0; i < gameTitleList.length; i++) _gameCard(i),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RichText(
+                      text:TextSpan(children: [
+                        TextSpan(text: "난이도 낮음 ", style: TextStyle(color: app_green,fontSize: 17)),
+                        TextSpan(
+                            text: "슬슬 분위기를 풀어볼까 ~?",
+                            style: TextStyle(color: Colors.black))
+                      ]),
+                    ),
+                  ),
+                  for (int i = 0; i < 3; i++) _gameCard(i),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RichText(
+                      text:TextSpan(children: [
+                        TextSpan(text: "난이도 중간 ", style: TextStyle(color: app_green,fontSize: 17)),
+                        TextSpan(
+                            text: "분위기 좋고 ~!",
+                            style: TextStyle(color: Colors.black))
+                      ]),
+                    ),
+                  ),
+                  for (int i = 3; i < 8; i++) _gameCard(i),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RichText(
+                      text:TextSpan(children: [
+                        TextSpan(text: "난이도 높음 ", style: TextStyle(color: app_green,fontSize: 17)),
+                        TextSpan(
+                            text: "잘봐 고수들의 대결이다",
+                            style: TextStyle(color: Colors.black))
+                      ]),
+                    ),
+                  ),
+                  for (int i = 8; i < 10; i++) _gameCard(i),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
