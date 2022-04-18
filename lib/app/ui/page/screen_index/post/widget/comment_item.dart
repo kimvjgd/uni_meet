@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +12,7 @@ import '../../../../../data/model/chatroom_model.dart';
 import '../../../../../data/model/comment_model.dart';
 import '../../../../../data/model/post_model.dart';
 import '../../../../../data/repository/chat_repository.dart';
+import '../../../../../data/repository/news_repository.dart';
 import '../../message_popup.dart';
 
 class CommentItem extends StatelessWidget {
@@ -107,6 +109,20 @@ class CommentItem extends StatelessWidget {
                                             lastMessageTime: DateTime.now()),
                                         post.host.toString(),
                                         comment.hostKey.toString());
+                                    FirebaseFirestore
+                                        .instance
+                                        .collection(COLLECTION_CHATROOMS)
+                                        .where(KEY_CHATROOM_ALLUSER,isEqualTo:[post.host,
+                                      comment.hostKey])
+                                        .get()
+                                        .then((value) {
+                                        value.docs.forEach((element) {
+                                          print("채팅 룸 키"+element.id);
+                                          NewsRepository().createChatOpenNews(post.title.toString(),comment.hostKey.toString(),element.id.toString());
+                                        });
+                                      });
+
+
                                   } else {
                                     Get.snackbar("알림", "탈퇴한 회원입니다.");
                                   }

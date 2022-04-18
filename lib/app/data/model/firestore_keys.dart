@@ -6,6 +6,7 @@ const COLLECTION_CHATS = "chats";
 const COLLECTION_NOTICES = "notices";
 const COLLECTION_REPORTS = 'reports';
 const COLLECTION_CONTACTS = 'contacts';
+const COLLECTION_NEWSLIST = 'news_list';
 
 const KEY_USER_UID = "uid";
 const KEY_USER_AUTH = "auth";
@@ -23,6 +24,11 @@ const KEY_USER_IMAGEPATH = "image_path";
 const KEY_USER_LOCALIMAGE="localImage";
 const KEY_USER_PHONE = "phone";
 const KEY_USER_CHATROOMLIST = "chatroom_list";
+
+const KEY_NEWS_NEWS="news";
+const KEY_NEWS_ADDRESS = "address";
+const KEY_NEWS_TYPE = "type";
+const KEY_NEWS_CREATEDDATE = "created_date";
 
 const KEY_POST_POSTKEY = "post_key";
 const KEY_POST_HOST = "host";

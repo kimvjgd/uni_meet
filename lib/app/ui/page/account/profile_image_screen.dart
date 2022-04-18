@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/page/account/confetti_screen.dart';
@@ -231,14 +232,20 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
     }
     else {
       var uid = FirebaseAuth.instance.currentUser!.uid;
-      FirebaseFirestore.instance.collection(COLLECTION_USERS)
-          .doc(uid)
-          .update({
-        KEY_USER_NICKNAME: nickname,
-        KEY_USER_LOCALIMAGE: selected_profile
-      });
-
-      Get.to(() => ConfettiScreen(selected_profile: selected_profile,nick_name: nickname,));
-    }
+      try {
+        AuthController().pickImage(selected_profile);
+        AuthController().nickName(nickname);
+        FirebaseFirestore.instance.collection(COLLECTION_USERS)
+            .doc(uid)
+            .update({
+          KEY_USER_NICKNAME: nickname,
+          KEY_USER_LOCALIMAGE: selected_profile
+        });
+        Get.to(() => ConfettiScreen(selected_profile: selected_profile,nick_name: nickname,));
+      }
+      catch(e){
+        print(e);
+      }
+     }
   }
 }

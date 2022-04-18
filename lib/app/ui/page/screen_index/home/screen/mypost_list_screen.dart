@@ -18,7 +18,6 @@ class MyPostListScreen extends StatelessWidget {
             if (!snapshot.hasData) {
               return const CircularProgressIndicator();
             }
-
             return ListView.builder(
               itemBuilder: (context, index) => Column(
                 children: [

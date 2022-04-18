@@ -4,6 +4,8 @@ import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
 import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/controller/chatroom_controller.dart';
 import 'package:uni_meet/app/controller/comment_controller.dart';
+import 'package:uni_meet/app/controller/news_controller.dart';
+import 'package:uni_meet/app/controller/notification_controller.dart';
 import 'package:uni_meet/app/controller/post_controller.dart';
 
 class InitBinding extends Bindings {
@@ -11,6 +13,8 @@ class InitBinding extends Bindings {
   void dependencies() {
     Get.put(AuthController(), permanent: true);
     Get.put(BottomNavController(), permanent: true);
+    Get.put(NewsController(),permanent: true);
+    Get.put(NotificationController(),permanent: true); // 이거 맞나
   }
 
 

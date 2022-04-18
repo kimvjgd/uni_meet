@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
@@ -23,8 +25,10 @@ class UserRepository {
           .collection(COLLECTION_USERS)
           .doc(user.uid)
           .set(user.toMap());
+      print("정보 저장 성공");
       return true;
     } catch (e) {
+      print(e);
       return false;
     }
   }

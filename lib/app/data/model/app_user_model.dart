@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
 class AppUserModel {
@@ -60,6 +61,7 @@ class AppUserModel {
       phone: json[KEY_USER_PHONE] == null ? '' : json[KEY_USER_PHONE] as String,
       chatroomList:
           json[KEY_USER_CHATROOMLIST] == null ? [] : json[KEY_USER_CHATROOMLIST] as List,
+    //  newsList: json[KEY_USER_NEWSLIST] == null ? [] : json[KEY_USER_NEWSLIST] as List,
     );
   }
 
@@ -81,6 +83,7 @@ class AppUserModel {
       KEY_USER_LOCALIMAGE : localImage,
       KEY_USER_PHONE: phone,
       KEY_USER_CHATROOMLIST: chatroomList,
+     // KEY_USER_NEWSLIST : newsList,
     };
   }
 
@@ -101,6 +104,7 @@ class AppUserModel {
     int? localImage,
     String? phone,
     List<dynamic>? chatroomList,
+   // List<dynamic>? newsList,
   }) {
     return AppUserModel(
       uid: uid ?? this.uid,
@@ -119,6 +123,7 @@ class AppUserModel {
       localImage: localImage ?? this.localImage,
       phone: phone ?? this.phone,
       chatroomList: chatroomList ?? this.chatroomList,
+    //  newsList: newsList ?? this.newsList,
     );
   }
 }

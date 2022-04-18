@@ -335,6 +335,7 @@ class _EditInfoState extends State<EditInfo> {
               flex: 4,
               child: OutlinedButton(
                 onPressed:(){
+                  FocusScope.of(context).unfocus();
                   showModalBottomSheet(
                       context: context,
                       builder: (_) {

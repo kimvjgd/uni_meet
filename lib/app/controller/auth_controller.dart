@@ -17,7 +17,6 @@ class AuthController extends GetxController {
     user.value = AppUserModel();
   }
 
-
   Future<AppUserModel?> loginUser(String uid) async {
     var userData = await UserRepository.loginUserByUid(uid);
     if(userData != null){
@@ -36,22 +35,31 @@ class AuthController extends GetxController {
 
   }
 
-  void signup(AppUserModel signupUser, XFile? thumbnail) async {
-    if(thumbnail==null){
-      _submitSignup(signupUser);
-    }else {
-
-      var task = uploadXFile(thumbnail, '${signupUser.uid}/profile.${thumbnail.path.split('.').last}');
-      task.snapshotEvents.listen((event) async {
-        if(event.bytesTransferred == event.totalBytes && event.state == TaskState.success){
-          var downloadUrl = await event.ref.getDownloadURL();     // 이미지의 도메인을 받아올 수 있다.
-          var updatedUserData = signupUser.copyWith(imagePath: downloadUrl);
-          _submitSignup(updatedUserData);
-        }
-      });
-    }
-
+  void signup(AppUserModel User) async {
+    _submitSignup(User);
   }
+
+  void pickImage(value){
+    user(AppUserModel(localImage: value));
+  }
+  void nickName(value){
+    user(AppUserModel(nickname: value));
+  }
+  // void signup(AppUserModel signupUser, XFile? thumbnail) async {
+  //   if(thumbnail==null){
+  //     _submitSignup(signupUser);
+  //   }else {
+  //     var task = uploadXFile(thumbnail, '${signupUser.uid}/profile.${thumbnail.path.split('.').last}');
+  //     task.snapshotEvents.listen((event) async {
+  //       if(event.bytesTransferred == event.totalBytes && event.state == TaskState.success){
+  //         var downloadUrl = await event.ref.getDownloadURL();     // 이미지의 도메인을 받아올 수 있다.
+  //         var updatedUserData = signupUser.copyWith(imagePath: downloadUrl);
+  //         _submitSignup(updatedUserData);
+  //       }
+  //     });
+  //   }
+  // }
+
   UploadTask uploadXFile(XFile file, String filename){
     var f = File(file.path);
     var ref = FirebaseStorage.instance.ref().child('users').child(filename);
