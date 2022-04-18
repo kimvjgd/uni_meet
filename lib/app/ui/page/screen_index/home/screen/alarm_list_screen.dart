@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/repository/news_repository.dart';
+import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/screen/chatroom_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/game_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/post/screen/post_detail_screen.dart';
@@ -29,7 +30,7 @@ class _AlarmListState extends State<AlarmList> {
       appBar: AppBar(
           elevation: 2,
           leading: BackButton(
-            color: Colors.black,
+            color: Colors.grey[800],
           ),
           title: Text(
             "알림",
@@ -46,43 +47,46 @@ class _AlarmListState extends State<AlarmList> {
               ),
             )
           ]),
-      body: FutureBuilder<List<NewsModel>>(
-          future: NewsRepository().getAllNews(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting)
-              return const CircularProgressIndicator();
-            if (!snapshot.hasData) {
-              return Center(child: Text("새 소식이 없습니다 !"));
-            } else if (snapshot.hasError) {
-              return Container(child: Text("오류 발생"));
-            } else {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          _onTap(snapshot.data![index].type,
-                              snapshot.data![index].address);
-                        },
-                        child: ListTile(
-                          leading: Icon(Icons.bubble_chart_outlined),
-                          title: Text(snapshot.data![index].news.toString()),
-                          subtitle: Text("이동하기"),
-                          trailing: Text("날짜"),
-                          //_onTap(snapshot.data![index].type, snapshot.data![index].address);
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            NewsRepository.deleteALLNEWS();
-                          },
-                          child: Text("모두지우기"))
-                    ]),
-              );
-            }
-          }),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextButton(
+            onPressed: () {
+              NewsRepository.deleteALLNEWS();
+            },
+            child: Text("모두지우기")),
+          Expanded(
+            child: FutureBuilder<List<NewsModel>>(
+                future: NewsRepository().getAllNews(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting)
+                    return const CircularProgressIndicator();
+                  if (!snapshot.hasData) {
+                    return Center(child: Text("새 소식이 없습니다 !"));
+                  } else if (snapshot.hasError) {
+                    return Container(child: Text("오류 발생"));
+                  } else {
+                    return ListView.separated(
+                      itemCount: snapshot.data!.length,
+                      separatorBuilder: (context,index){return Divider(color: divider,);},
+                      itemBuilder: (BuildContext context, int index) =>
+                            InkWell(
+                              onTap: () {
+                                _onTap(snapshot.data![index].type,
+                                    snapshot.data![index].address);
+                              },
+                              child: ListTile(
+                           //     leading: Icon(Icons.bubble_chart_outlined),
+                                title: Text(snapshot.data![index].news.toString()),
+                                trailing: Text("날짜"),
+                              ),
+                            ),
+                    );
+                  }
+                }),
+          ),
+        ],
+      ),
     );
   }
 

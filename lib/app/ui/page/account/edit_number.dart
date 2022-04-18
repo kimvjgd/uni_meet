@@ -12,14 +12,14 @@ import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import '../../components/app_color.dart';
 
 class EditNumber extends StatefulWidget {
-  const EditNumber({Key? key,required this.isLogOut}) : super(key: key,);
-  final bool isLogOut;
+  const EditNumber({Key? key}) : super(key: key,);
   @override
   _EditNumberState createState() => _EditNumberState();
 }
 
 class _EditNumberState extends State<EditNumber> {
-  bool? _isagreed = false;
+  bool _isagreed_A = false;
+  bool _isagreed_B = false;
   var _enterPhoneNumber = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   bool cuteMin = true;
@@ -27,10 +27,10 @@ class _EditNumberState extends State<EditNumber> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:
-      widget.isLogOut
-          ? Text("로그인",style: TextStyle(color: Colors.black),)
-          :Text("회원가입",style: TextStyle(color: Colors.black),),),
+      appBar: AppBar(
+        leading: BackButton(color: Colors.black,),
+        title: Text("회원가입",style: TextStyle(color: Colors.black),),
+      ),
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
@@ -93,10 +93,10 @@ class _EditNumberState extends State<EditNumber> {
               Spacer(
                 flex: 1,
               ),
-              if(widget.isLogOut==false) Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("이용 약관 및 개인정보 처리 방침"),
+                  Text("이용 약관"),
                   TextButton(onPressed: () async {
                     final url = "https://naver.com/";
                     if(await canLaunch(url)){
@@ -105,32 +105,52 @@ class _EditNumberState extends State<EditNumber> {
                         enableJavaScript:true,
                       );
                     }
-                  }, child: Text("전문보기"))
-                ],
-              ),
-              if(widget.isLogOut==false) Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:[
-                  Text("확인했습니다"),
+                  }, child: Text("전문보기")),
+                  Text("동의합니다"),
                   Checkbox(
                     checkColor: Colors.black,
                     activeColor: Colors.white,
-                    value:_isagreed,
+                    value:_isagreed_A,
                     onChanged: (value){
                       setState(() {
 
-                        _isagreed = value;
+                        _isagreed_A = value!;
 
                       });
                     },
                   )
-                ]
-
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("개인정보 처리방침"),
+                  TextButton(onPressed: () async {
+                    final url = "https://naver.com/";
+                    if(await canLaunch(url)){
+                      await launch(
+                        url,forceWebView:true,
+                        enableJavaScript:true,
+                      );
+                    }
+                  }, child: Text("전문보기")),
+                  Text("동의합니다"),
+                  Checkbox(
+                    checkColor: Colors.black,
+                    activeColor: Colors.white,
+                    value:_isagreed_B,
+                    onChanged: (value){
+                      setState(() {
+                        _isagreed_B = value!;
+                      });
+                    },
+                  )
+                ],
               ),
               BigButton(
                   onPressed: () {
                       if (_formKey.currentState!.validate()){
-                        if(widget.isLogOut == true || _isagreed == true){
+                        if(_isagreed_A && _isagreed_B){
                         Get.to(VerifyNumber(number: "+8210" + _enterPhoneNumber.text.trim()));
                         }
                       }else {

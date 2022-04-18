@@ -67,7 +67,10 @@ class PostRepository {
   }
   Future<List<PostModel>> getAllPosts() async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-        .instance.collection(COLLECTION_POSTS).where(KEY_POST_HOST, isEqualTo: AuthController.to.user.value.uid).get();
+        .instance.collection(COLLECTION_POSTS)
+        .where(KEY_POST_HOST, isEqualTo: AuthController.to.user.value.uid)
+        //.orderBy(KEY_POST_CREATEDDATE,descending: true)
+        .get();
 
     List<PostModel> posts = [];
     snapshot.docs.forEach((e) {

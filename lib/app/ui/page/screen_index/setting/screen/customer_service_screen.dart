@@ -10,6 +10,7 @@ import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/page/account/edit_number.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/personal_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/service_term_screen.dart';
+import 'package:uni_meet/app/ui/start.dart';
 import 'package:uni_meet/root_page.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';
@@ -191,7 +192,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
 
                       // collection에서 제거
                       UserRepository.withdrawal(AuthController.to.user.value.uid!);
-                      Get.offAll(()=>EditNumber(isLogOut: false,));
+                      Get.offAll(()=>StartScreen());
                     },
                     cancelCallback: Get.back,
                   ));

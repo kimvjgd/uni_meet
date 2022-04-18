@@ -9,6 +9,4 @@ class NewsController extends GetxController{
   void onInit() {
     super.onInit();
   }
-
-
 }
