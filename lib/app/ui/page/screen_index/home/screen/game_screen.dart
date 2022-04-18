@@ -19,63 +19,69 @@ class _GameScreenState extends State<GameScreen> {
       backgroundColor: app_lightyellow,
       appBar: AppBar(
         leading: BackButton(
-          color: Colors.black,
+          color: Colors.grey[800],
         ),
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
-      body: Container(
-        width: _size.width,
-        height: _size.height,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(50, 0, 10, 10),
-              child: Image.asset("assets/images/game_title.png"),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RichText(
-                      text:TextSpan(children: [
-                        TextSpan(text: "난이도 낮음 ", style: TextStyle(color: app_green,fontSize: 17)),
-                        TextSpan(
-                            text: "슬슬 분위기를 풀어볼까 ~?",
-                            style: TextStyle(color: Colors.black))
-                      ]),
-                    ),
-                  ),
-                  for (int i = 0; i < 3; i++) _gameCard(i),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RichText(
-                      text:TextSpan(children: [
-                        TextSpan(text: "난이도 중간 ", style: TextStyle(color: app_green,fontSize: 17)),
-                        TextSpan(
-                            text: "분위기 좋고 ~!",
-                            style: TextStyle(color: Colors.black))
-                      ]),
-                    ),
-                  ),
-                  for (int i = 3; i < 8; i++) _gameCard(i),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RichText(
-                      text:TextSpan(children: [
-                        TextSpan(text: "난이도 높음 ", style: TextStyle(color: app_green,fontSize: 17)),
-                        TextSpan(
-                            text: "잘봐 고수들의 대결이다",
-                            style: TextStyle(color: Colors.black))
-                      ]),
-                    ),
-                  ),
-                  for (int i = 8; i < 10; i++) _gameCard(i),
-                ],
+      body: Center(
+        child: Container(
+          width: _size.width*0.94,
+          height: _size.height,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 10, 10),
+                child: Image.asset("assets/images/game_title.png"),
               ),
-            ),
-          ],
+              Expanded(
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RichText(
+                        text:TextSpan(children: [
+                          TextSpan(text: "난이도 낮음 ", style: TextStyle(color: app_green,fontSize: 17)),
+                          TextSpan(
+                              text: "슬슬 분위기를 풀어볼까 ~?",
+                              style: TextStyle(color: Colors.grey[800]))
+                        ]),
+                      ),
+                    ),
+                    for (int i = 0; i < 3; i++) _gameCard(i),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RichText(
+                        text:TextSpan(children: [
+                          TextSpan(text: "난이도 중간 ", style: TextStyle(color: app_green,fontSize: 17)),
+                          TextSpan(
+                              text: "분위기 좋고 ~!",
+                              style: TextStyle(color: Colors.grey[800]))
+                        ]),
+                      ),
+                    ),
+                    for (int i = 3; i < 8; i++) _gameCard(i),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RichText(
+                        text:TextSpan(children: [
+                          TextSpan(text: "난이도 높음 ", style: TextStyle(color: app_green,fontSize: 17)),
+                          TextSpan(
+                              text: "잘봐 고수들의 대결이다",
+                              style: TextStyle(color: Colors.grey[800]))
+                        ]),
+                      ),
+                    ),
+                    for (int i = 8; i < 10; i++) _gameCard(i),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(70,20,70,20),
+                      child: Image.asset("assets/images/game_tail.png"),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

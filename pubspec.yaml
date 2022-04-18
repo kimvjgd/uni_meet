@@ -59,10 +59,12 @@ flutter:
     - assets/images/diamond.png
     - assets/images/game_banner.png
     - assets/images/game_title.png
+    - assets/images/game_tail.png
     - assets/images/momo1.png
     - assets/images/momo2.png
     - assets/images/momo3.png
     - assets/images/momo4.png
     - assets/images/momo5.png
     - assets/images/manual_banner.png
-  #   - images/a_dot_ham.jpeg
+    - assets/images/logo.png
+    - assets/images/splash.png

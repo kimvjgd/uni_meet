@@ -5,6 +5,7 @@ import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/ui/page/account/edit_number.dart';
+import 'package:uni_meet/app/ui/start.dart';
 import 'app/ui/page/account/edit_info.dart';
 import 'app/ui/page/screen_index/index_screen.dart';
 
@@ -35,7 +36,7 @@ class RootPage extends GetView<AuthController> {
             return Container(child: Text(user.error.toString()),);
           }
           else {
-            return EditNumber(isLogOut: false); //가입 페이지
+            return StartScreen(); //가입 페이지
           }
         });
   }
