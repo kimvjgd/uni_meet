@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
+import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/home_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/screen/chat_list_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/message_popup.dart';
@@ -39,45 +40,21 @@ class IndexScreen extends GetView<BottomNavController> {
               },
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                   // color: Colors.black,
-                  ),
-                  activeIcon: Icon(
-                    Icons.home,
-                   // color: Colors.black,
-                  ),
+                  icon: ImageIcon(AssetImage("assets/images/icons/home_icon.png")),
+                  activeIcon: ImageIcon(AssetImage("assets/images/icons/home_icon.png"),color: app_deepyellow,),
                   label: 'home',
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.view_list_rounded,
-                    //  color: Colors.black,
-                    ),
-                    activeIcon: Icon(
-                      Icons.view_list_rounded,
-                     // color: Colors.black,
-                    ),
+                    icon:  ImageIcon(AssetImage("assets/images/icons/post_icon.png")),
+                    activeIcon: ImageIcon(AssetImage("assets/images/icons/post_icon.png",),color: app_deepyellow,),
                     label: 'list'),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.black,
-                    ),
-                    activeIcon: Icon(
-                      Icons.chat_bubble_outline,
-                      color: Colors.black,
-                    ),
+                    icon:  ImageIcon(AssetImage("assets/images/icons/chat_icon.png")),
+                    activeIcon: ImageIcon(AssetImage("assets/images/icons/chat_icon.png",),color: app_deepyellow,),
                     label: 'chat'),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.settings,
-                      color: Colors.black,
-                    ),
-                    activeIcon: Icon(
-                      Icons.settings,
-                      color: Colors.black,
-                    ),
+                    icon:  ImageIcon(AssetImage("assets/images/icons/myroom_icon.png")),
+                    activeIcon: ImageIcon(AssetImage("assets/images/icons/myroom_icon.png",),color: app_deepyellow,),
                     label: 'setting'),
               ],
             ),

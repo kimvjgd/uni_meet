@@ -68,3 +68,14 @@ flutter:
     - assets/images/manual_banner.png
     - assets/images/logo.png
     - assets/images/splash.png
+    - assets/images/icons/chat_icon.png
+    - assets/images/icons/home_icon.png
+    - assets/images/icons/post_icon.png
+    - assets/images/icons/myroom_icon.png
+    - assets/images/icons/send_chat_icon.png
+
+
+  fonts:
+    - family: Game
+      fonts:
+        - asset: assets/fonts/LeeSeoyun.otf

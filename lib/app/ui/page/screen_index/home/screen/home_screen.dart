@@ -155,7 +155,7 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("공지사항", style: Theme.of(context).textTheme.titleLarge),
+                    Text("공지사항",style: TextStyle(fontSize: 20), ),
                     IconButton(
                         onPressed: () {
                           Get.to(NoticeListScreen());

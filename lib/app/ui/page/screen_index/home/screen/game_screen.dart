@@ -15,6 +15,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: app_lightyellow,
       appBar: AppBar(
@@ -41,10 +42,10 @@ class _GameScreenState extends State<GameScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: RichText(
                         text:TextSpan(children: [
-                          TextSpan(text: "난이도 낮음 ", style: TextStyle(color: app_green,fontSize: 17)),
+                          TextSpan(text: "난이도 낮음 ", style: TextStyle(color: app_green,fontSize: 17,fontFamily: 'Game')),
                           TextSpan(
                               text: "슬슬 분위기를 풀어볼까 ~?",
-                              style: TextStyle(color: Colors.grey[800]))
+                              style: TextStyle(color: Colors.grey[800],fontFamily: 'Game'))
                         ]),
                       ),
                     ),
@@ -53,10 +54,10 @@ class _GameScreenState extends State<GameScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: RichText(
                         text:TextSpan(children: [
-                          TextSpan(text: "난이도 중간 ", style: TextStyle(color: app_green,fontSize: 17)),
+                          TextSpan(text: "난이도 중간 ", style: TextStyle(color: app_green,fontSize: 17,fontFamily: 'Game')),
                           TextSpan(
                               text: "분위기 좋고 ~!",
-                              style: TextStyle(color: Colors.grey[800]))
+                              style: TextStyle(color: Colors.grey[800],fontFamily: 'Game'))
                         ]),
                       ),
                     ),
@@ -65,10 +66,10 @@ class _GameScreenState extends State<GameScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: RichText(
                         text:TextSpan(children: [
-                          TextSpan(text: "난이도 높음 ", style: TextStyle(color: app_green,fontSize: 17)),
+                          TextSpan(text: "난이도 높음 ", style: TextStyle(color: app_green,fontSize: 17,fontFamily: 'Game')),
                           TextSpan(
                               text: "잘봐 고수들의 대결이다",
-                              style: TextStyle(color: Colors.grey[800]))
+                              style: TextStyle(color: Colors.grey[800],fontFamily: 'Game'))
                         ]),
                       ),
                     ),
@@ -109,12 +110,14 @@ class _GameScreenState extends State<GameScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
             Text(gameTitleList[index]['title'].toString(),
-                style: TextStyle(color: Colors.black, fontSize: 18)),
+                style: TextStyle(color: Colors.black, fontSize: 20,fontFamily: "Game")),
             Text(gameTitleList[index]['sub'].toString(),
                 style: TextStyle(
                     color: app_red.withOpacity(0.8),
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold)),
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                 // fontFamily: 'Game'
+                )),
           ]),
           children: [_contents(index)]),
     );
@@ -139,7 +142,8 @@ class _GameScreenState extends State<GameScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: RichText(
-                text: TextSpan(children: [
+                text: TextSpan
+                  (children: [
               TextSpan(text: "인트로 ", style: TextStyle(color: app_deepyellow)),
               TextSpan(
                   text: gameTitleList[index]['intro'].toString(),
@@ -149,14 +153,23 @@ class _GameScreenState extends State<GameScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                  text: gameTitleList[index]['description'].toString(),
-                  style: TextStyle(color: Colors.black))
-            ])),
+                text: TextSpan(
+                    children: _Split(gameTitleList[index]['description'].toString())
+                )),
           ),
         ],
       ),
     );
+  }
+
+  List<TextSpan> _Split(String str){
+    var parts = str.split('_');
+    List<TextSpan> textWidgets = [];
+    for(var element in parts){
+      if(element.contains("Step")) {textWidgets.add(TextSpan(text: element,style: TextStyle(color: app_red)));}
+      else textWidgets.add(TextSpan(text: element,style: TextStyle(color: Colors.black)));
+    }
+
+    return textWidgets;
   }
 }
