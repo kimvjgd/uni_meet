@@ -1,28 +1,36 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/ui/page/account/verify_number.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 
 import '../../components/app_color.dart';
 
 class EditNumber extends StatefulWidget {
-  const EditNumber({Key? key}) : super(key: key);
-
+  const EditNumber({Key? key,required this.isLogOut}) : super(key: key,);
+  final bool isLogOut;
   @override
   _EditNumberState createState() => _EditNumberState();
 }
 
 class _EditNumberState extends State<EditNumber> {
+  bool? _isagreed = false;
   var _enterPhoneNumber = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-  bool cuteDong = true;
+  bool cuteMin = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title:
+      widget.isLogOut
+          ? Text("로그인",style: TextStyle(color: Colors.black),)
+          :Text("회원가입",style: TextStyle(color: Colors.black),),),
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
@@ -57,7 +65,7 @@ class _EditNumberState extends State<EditNumber> {
                         style: TextStyle(
                             color: CupertinoColors.secondaryLabel, fontSize: 25),
                       ),
-                      cuteDong?SizedBox():SizedBox(height: 23,),
+                      cuteMin?SizedBox():SizedBox(height: 23,),
                     ],
                   ),
                   Expanded(
@@ -85,16 +93,50 @@ class _EditNumberState extends State<EditNumber> {
               Spacer(
                 flex: 1,
               ),
+              if(widget.isLogOut==false) Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("이용 약관 및 개인정보 처리 방침"),
+                  TextButton(onPressed: () async {
+                    final url = "https://naver.com/";
+                    if(await canLaunch(url)){
+                      await launch(
+                        url,forceWebView:true,
+                        enableJavaScript:true,
+                      );
+                    }
+                  }, child: Text("전문보기"))
+                ],
+              ),
+              if(widget.isLogOut==false) Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  Text("확인했습니다"),
+                  Checkbox(
+                    checkColor: Colors.black,
+                    activeColor: Colors.white,
+                    value:_isagreed,
+                    onChanged: (value){
+                      setState(() {
+
+                        _isagreed = value;
+
+                      });
+                    },
+                  )
+                ]
+
+              ),
               BigButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()){
-
-                      Get.to(VerifyNumber(
-                          number: "+8210" + _enterPhoneNumber.text.trim()));
-                    }else {
-                      cuteDong = false;
-                      setState(() {});
-                    }
+                      if (_formKey.currentState!.validate()){
+                        if(widget.isLogOut == true || _isagreed == true){
+                        Get.to(VerifyNumber(number: "+8210" + _enterPhoneNumber.text.trim()));
+                        }
+                      }else {
+                        cuteMin = false;
+                        setState(() {});
+                      }
                   },
                   btnText: "코드 전송하기"),
               Spacer(

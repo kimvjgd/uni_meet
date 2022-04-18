@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uni_meet/root_page.dart';
 
 import '../../components/app_color.dart';
 import 'edit_info.dart';
@@ -52,7 +53,8 @@ class _VerifyNumberState extends State<VerifyNumber> {
       await _auth
           .signInWithCredential(credential)
           .then((value){
-            Get.offAll(() => EditInfo(uid: _auth.currentUser!.uid));
+            Get.offAll(RootPage());
+            //Get.offAll(() => EditInfo(uid: _auth.currentUser!.uid));
       })
           .whenComplete(() {})
           .onError((error, stackTrace) {
