@@ -43,9 +43,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    String writer_token =
-        'fdk-eOCoStGcgbfdH5zlKW:APA91bGKe9kX4-WVQugGrVRQ9XfcGUOVLZecXc2TmYRUuvWX-HQIIe8IGNIgYDFJDeKdgZwQwji3N_otI7kpP2KvRTvhr2y0OKFl1jqvf9xy36fNjtjUFKx-z2y1oEDb48BWthivCupn';
-
     return Scaffold(
         appBar: AppBar(
           leading: BackButton(
@@ -139,17 +136,20 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                           widget.post.postKey, {
                                         KEY_COMMENT_HOSTKEY:
                                             AuthController.to.user.value.uid,
+                                        KEY_COMMENT_HOSTPUSHTOKEN:
+                                            AuthController.to.user.value.token,
                                         KEY_COMMENT_HOSTINFO:
-                                          '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}',
+                                          '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
                                         KEY_COMMENT_CONTENT:
                                             _commentController.text,
                                         KEY_COMMENT_COMMENTTIME: DateTime.now()
                                       });
 
                                       // 푸시 알림
+                                      print("게시글 작성자 토큰"+widget.post.hostpushToken.toString());
                                       await Get.put(NotificationController())
-                                          .SendNewNotification(
-                                              receiver_token: writer_token);
+                                          .SendNewCommentNotification(
+                                          Title: widget.post.title.toString(),receiver_token: widget.post.hostpushToken.toString());
 
                                       NewsRepository().createCommentNews(widget.post);
 

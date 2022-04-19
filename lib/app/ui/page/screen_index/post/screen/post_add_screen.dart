@@ -401,7 +401,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
                                 hostUni: AuthController.to.user.value.university.toString(),
                                 hostNick: AuthController.to.user.value.nickname.toString(),
                                 hostGrade: AuthController.to.user.value.grade.toString(),
-                                hostpushToken: '');
+                                hostpushToken: AuthController.to.user.value.token.toString());
                             Get.back();
                             Get.back();
                             Get.put(BottomNavController()).changeBottomNav(1);

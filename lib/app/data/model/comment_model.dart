@@ -5,6 +5,7 @@ class CommentModel {
   DocumentReference? commentKey;
   String? hostKey;
   String? hostInfo;
+  String? hostPushToken;
   String? content;
   DateTime? commentTime;
   // DocumentReference? reference;
@@ -13,6 +14,7 @@ class CommentModel {
     this.commentKey,
     this.hostKey,
     this.hostInfo,
+    this.hostPushToken,
     this.content,
     this.commentTime,
     // this.reference,
@@ -23,6 +25,7 @@ class CommentModel {
         commentKey:json[KEY_COMMENT_COMMENTKEY] == null ? '' as DocumentReference: json[KEY_COMMENT_COMMENTKEY] as DocumentReference,
       hostKey:json[KEY_COMMENT_HOSTKEY] == null ? '' : json[KEY_COMMENT_HOSTKEY] as String,
       hostInfo:json[KEY_COMMENT_HOSTINFO] == null ? '' : json[KEY_COMMENT_HOSTINFO] as String,
+      hostPushToken:json[KEY_COMMENT_HOSTPUSHTOKEN] == null ? '' : json[KEY_COMMENT_HOSTPUSHTOKEN] as String,
         content:json[KEY_COMMENT_CONTENT] == null ? '' : json[KEY_COMMENT_CONTENT] as String,
         commentTime:json[KEY_COMMENT_COMMENTTIME] == null ? DateTime.now() : json[KEY_COMMENT_COMMENTTIME].toDate(),
     );
@@ -33,6 +36,7 @@ class CommentModel {
     : commentKey = map?[KEY_COMMENT_COMMENTKEY],
         hostKey = map?[KEY_COMMENT_HOSTKEY],
   hostInfo = map?[KEY_COMMENT_HOSTINFO],
+        hostPushToken = map?[KEY_COMMENT_HOSTPUSHTOKEN],
       content = map?[KEY_COMMENT_CONTENT],
       commentTime = map?[KEY_COMMENT_COMMENTTIME].toUtc();
 
@@ -44,6 +48,7 @@ class CommentModel {
       KEY_COMMENT_COMMENTKEY:commentKey,
       KEY_COMMENT_HOSTKEY: hostKey,
       KEY_COMMENT_HOSTINFO: hostInfo,
+      KEY_COMMENT_HOSTPUSHTOKEN:hostPushToken,
       KEY_COMMENT_CONTENT: content,
       KEY_COMMENT_COMMENTTIME: commentTime,
     };

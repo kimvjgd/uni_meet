@@ -30,6 +30,7 @@ class CommentRepository {
       CommentModel comment = CommentModel(
         hostKey: data.docs[i].data()[KEY_COMMENT_HOSTKEY],
         hostInfo: data.docs[i].data()[KEY_COMMENT_HOSTINFO],
+        hostPushToken: data.docs[i].data()[KEY_COMMENT_HOSTPUSHTOKEN],
         commentKey: data.docs[i].data()[KEY_COMMENT_COMMENTKEY],
         content: data.docs[i].data()[KEY_COMMENT_CONTENT],
         commentTime: data.docs[i].data()[KEY_COMMENT_COMMENTTIME].toDate(),
