@@ -2,6 +2,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
+import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -53,14 +55,14 @@ class ProfileWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(
-                  onPressed: () {},     ///TODO
-                  child: Text('신고'),
-                ),
-                TextButton(
-                  onPressed: () {},     ///TODO
+                Spacer(),
+                nickname==AuthController.to.user.value.nickname ? SizedBox():TextButton(
+                  onPressed: () async {
+                    await UserRepository.addBlackUser(nickname);
+                    Get.back();
+                  },
                   child: Text('차단'),
-                )
+                ),
               ],
             ),
           )

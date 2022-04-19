@@ -27,20 +27,21 @@ class ChatText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IconButton(
-            icon: Icon(Icons.face),
-            onPressed: chatModel.writer!.split('_')[2] == '관리자'
-                ? () {}
-                : () {
-              Get.dialog(AlertDialog(
-                title: SizedBox(),
-                content: ProfileWidget(
-                    university: chatModel.writer!.split('_')[0],
-                    grade: chatModel.writer!.split('_')[1]+'학번',
-                    mbti: chatModel.writer!.split('_')[4],
-                    nickname: chatModel.writer!.split('_')[2],
-                    localImage: chatModel.writer!.split('_')[3]),
-              ));
-            }
+          icon: Icon(Icons.face),
+          onPressed: chatModel.writer!.split('_')[2] == '관리자'
+              ? () {print('asdsa');}
+              : () {
+            print('@@@@aaa');
+            Get.dialog(AlertDialog(
+              title: SizedBox(),
+              content: ProfileWidget(
+                  university: chatModel.writer!.split('_')[0],
+                  grade: chatModel.writer!.split('_')[1]+'학번',
+                  mbti: chatModel.writer!.split('_')[4],
+                  nickname: chatModel.writer!.split('_')[2],
+                  localImage: chatModel.writer!.split('_')[3]),
+            ));
+          }
         ),
         SizedBox(
           width: 6,

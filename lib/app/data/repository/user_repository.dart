@@ -41,4 +41,15 @@ class UserRepository {
       Logger().d(e);
     }
   }
+
+  static Future<void> addBlackUser(String blackNickname) async {
+    var prev_data = await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(AuthController.to.user.value.uid).get();
+
+    List<dynamic> data = await prev_data.get(KEY_USER_BLACKLIST)??[];
+
+    Set<dynamic> semiResult = data.toSet();
+    semiResult.add(blackNickname);
+    List<dynamic> result = semiResult.toList();
+    await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(AuthController.to.user.value.uid).update({KEY_USER_BLACKLIST: result});
+  }
 }
