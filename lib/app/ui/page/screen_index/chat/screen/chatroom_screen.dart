@@ -1,4 +1,5 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
@@ -46,7 +47,6 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
       return Scaffold(
         appBar: AppBar(
           leading: BackButton(color: Colors.grey[800],),
-          title: Text(widget.chatroomKey, style: TextStyle(color: Colors.black),),
           actions: [
             TextButton(child: Text("초대하기"),
               onPressed: () {
@@ -67,7 +67,25 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                 });
 
 
-        },)
+        },),
+            TextButton(child: Text("나가기"),
+              onPressed: () {
+                showDialog(context: context,
+                    builder:(BuildContext context) {
+                      return AlertDialog(
+                        title: Text("초대하기"),
+                        content: Text("설명설명"),
+                        actions: [
+                          IconButton(onPressed: () async {
+                            ChatRepository().exitChatroom(widget.chatroomKey);
+                          }, icon: Icon(Icons.exit_to_app))
+                        ],
+                      );
+                    });
+
+
+              },)
+
           ],
         ),
         body: SafeArea(

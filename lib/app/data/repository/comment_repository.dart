@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:logger/logger.dart';
 import 'package:uni_meet/app/data/model/comment_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
@@ -47,6 +48,10 @@ class CommentRepository {
         .catchError((error) => print("Failed to delete user: $error"));
   }
 
+  Future<bool> checkCommentPossible(String commentUid) async {
+    var test2 = await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(commentUid).get();
+    return test2.exists;
+  }
 
 }
 CommentRepository commentRepository = CommentRepository();

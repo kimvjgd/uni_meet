@@ -231,4 +231,47 @@ class ChatRepository {
         .doc(chatroomKey)
         .update({KEY_CHATROOM_ALLUSER: result});
   }
+
+  Future<void> exitChatroom(String chatroomKey) async {
+    bool emptyChatroom = false;
+    var chatroom_prev_data = await FirebaseFirestore.instance
+        .collection(COLLECTION_CHATROOMS)
+        .doc(chatroomKey)
+        .get();
+    var user_prev_data = await FirebaseFirestore.instance
+        .collection(COLLECTION_USERS)
+        .doc(AuthController.to.user.value.uid)
+        .get();
+    List<dynamic> chatroom_data =
+        await chatroom_prev_data.get(KEY_CHATROOM_ALLUSER);
+    List<dynamic> user_data = await user_prev_data.get(KEY_USER_CHATROOMLIST);
+
+    chatroom_data.remove(AuthController.to.user.value.uid);
+    user_data.remove(chatroomKey);
+    if(chatroom_data.isEmpty){
+      emptyChatroom = true;
+    }
+
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      if(emptyChatroom){
+        transaction.delete(FirebaseFirestore.instance
+            .collection(COLLECTION_CHATROOMS)
+            .doc(chatroomKey));
+        transaction.update(FirebaseFirestore.instance
+            .collection(COLLECTION_USERS)
+            .doc(AuthController.to.user.value.uid)
+            , {KEY_USER_CHATROOMLIST: user_data});
+      }else{
+
+      transaction.update(FirebaseFirestore.instance
+          .collection(COLLECTION_CHATROOMS)
+          .doc(chatroomKey), {KEY_CHATROOM_ALLUSER: chatroom_data});
+      transaction.update(FirebaseFirestore.instance
+          .collection(COLLECTION_USERS)
+          .doc(AuthController.to.user.value.uid)
+          , {KEY_USER_CHATROOMLIST: user_data});
+      }
+    });
+
+  }
 }
