@@ -41,6 +41,7 @@ class NoticeRepository {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
         .collection(COLLECTION_NOTICES)
+        //.orderBy(KEY_NOTICE_DATE,descending: true)
         .get();
     List<NoticeModel> notices = [];
     snapshot.docs.forEach((e) {

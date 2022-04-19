@@ -42,6 +42,7 @@ dependencies:
   url_launcher: ^6.0.20
   extended_image: ^6.0.2+1
   webview_flutter: ^3.0.0
+  carousel_slider: ^4.0.0
 
 
 
@@ -60,9 +61,23 @@ flutter:
     - assets/images/diamond.png
     - assets/images/game_banner.png
     - assets/images/game_title.png
+    - assets/images/game_tail.png
     - assets/images/momo1.png
     - assets/images/momo2.png
     - assets/images/momo3.png
     - assets/images/momo4.png
     - assets/images/momo5.png
-  #   - images/a_dot_ham.jpeg
+    - assets/images/manual_banner.png
+    - assets/images/logo.png
+    - assets/images/splash.png
+    - assets/images/icons/chat_icon.png
+    - assets/images/icons/home_icon.png
+    - assets/images/icons/post_icon.png
+    - assets/images/icons/myroom_icon.png
+    - assets/images/icons/send_chat_icon.png
+
+
+  fonts:
+    - family: Game
+      fonts:
+        - asset: assets/fonts/LeeSeoyun.otf
