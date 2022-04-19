@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
-      home: ErrorScreen(),
+      home: RootPage(),
     );
   }
 }
