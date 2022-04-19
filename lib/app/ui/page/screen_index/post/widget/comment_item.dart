@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import 'package:uni_meet/app/ui/page/screen_index/widgets/profile_widget.dart';
+import '../../../../../controller/notification_controller.dart';
 import '../../../../../data/model/chatroom_model.dart';
 import '../../../../../data/model/comment_model.dart';
 import '../../../../../data/model/post_model.dart';
@@ -39,7 +40,8 @@ class CommentItem extends StatelessWidget {
                         title: SizedBox(),
                         content: ProfileWidget(
                             university: comment.hostInfo!.split('_')[0],
-                            grade: comment.hostInfo!.split('_')[1]+'학번',
+                            grade: comment.hostInfo!.split('_')[1] + '학번',
+                            mbti: comment.hostInfo!.split('_')[4],
                             nickname: comment.hostInfo!.split('_')[2],
                             localImage: comment.hostInfo!.split('_')[3]),
                       ));
@@ -109,18 +111,30 @@ class CommentItem extends StatelessWidget {
                                             lastMessageTime: DateTime.now()),
                                         post.host.toString(),
                                         comment.hostKey.toString());
-                                    FirebaseFirestore
-                                        .instance
+
+                                    FirebaseFirestore.instance
                                         .collection(COLLECTION_CHATROOMS)
-                                        .where(KEY_CHATROOM_ALLUSER,isEqualTo:[post.host,
-                                      comment.hostKey])
+                                        .where(KEY_CHATROOM_ALLUSER,
+                                            isEqualTo: [
+                                              post.host,
+                                              comment.hostKey
+                                            ])
                                         .get()
                                         .then((value) {
-                                        value.docs.forEach((element) {
-                                          print("채팅 룸 키"+element.id);
-                                          NewsRepository().createChatOpenNews(post.title.toString(),comment.hostKey.toString(),element.id.toString());
+                                          value.docs.forEach((element) {
+                                            print("채팅 룸 키" + element.id);
+                                            NewsRepository().createChatOpenNews(
+                                                post.title.toString(),
+                                                comment.hostKey.toString(),
+                                                element.id.toString());
+                                          });
                                         });
-                                      });
+
+                                    //푸시 알림
+                                    await Get.put(NotificationController())
+                                    .SendNewChatNotification(
+                                        info: post.hostUni.toString()+" "+post.hostGrade.toString()+"학번 "+post.hostNick.toString(),
+                                        receiver_token: comment.hostPushToken.toString());
 
 
                                   } else {

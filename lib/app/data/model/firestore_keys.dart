@@ -45,6 +45,7 @@ const KEY_POST_HOSTUNI = "host_uni";
 
 const KEY_COMMENT_HOSTKEY = "host_key";
 const KEY_COMMENT_HOSTINFO = "host_info";
+const KEY_COMMENT_HOSTPUSHTOKEN = "host_push_token";
 const KEY_COMMENT_COMMENTKEY = "comment_key";
 const KEY_COMMENT_CONTENT = "content";
 const KEY_COMMENT_COMMENTTIME = "comment_time";
