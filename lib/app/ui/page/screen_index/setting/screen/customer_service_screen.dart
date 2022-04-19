@@ -8,7 +8,6 @@ import 'package:uni_meet/app/data/repository/contact_repository.dart';
 import 'package:uni_meet/app/data/repository/report_repository.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/page/account/edit_number.dart';
-import 'package:uni_meet/app/ui/page/screen_index/setting/screen/personal_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/service_term_screen.dart';
 import 'package:uni_meet/root_page.dart';
 import '../../../../components/app_color.dart';

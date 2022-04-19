@@ -9,7 +9,7 @@ import 'package:uni_meet/app/ui/page/account/univ_check_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/alarm_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/customer_service_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/open_source_screen.dart';
-import 'package:uni_meet/app/ui/page/screen_index/setting/screen/personal_screen.dart';
+import 'package:uni_meet/app/ui/page/screen_index/setting/screen/personal_info_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/setting/screen/service_term_screen.dart';
 import 'package:uni_meet/root_page.dart';
 
@@ -51,7 +51,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         if(index==0) Get.to(AlarmSettingScreen());
                         else if(index == 1) Get.to(CustomerServiceScreen());
                         else if(index == 2) Get.to(ServiceTermScreen());
-                        else if(index == 3) Get.to(PersonalScreen());
+                        else if(index == 3) Get.to(PersonalInfoScreen());
                         else Get.to(OpneSourceScreen());
                     },
                   );

@@ -41,6 +41,8 @@ dependencies:
   settings_ui: ^2.0.2
   url_launcher: ^6.0.20
   extended_image: ^6.0.2+1
+  webview_flutter: ^3.0.0
+
 
 
 dev_dependencies:

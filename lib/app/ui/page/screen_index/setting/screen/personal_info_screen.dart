@@ -1,44 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+class PersonalInfoScreen extends StatelessWidget {
+    WebViewController? controller;
 
-class ServiceTermScreen extends StatefulWidget {
-  @override
-  State<ServiceTermScreen> createState() => _ServiceTermScreenState();
-}
-
-class _ServiceTermScreenState extends State<ServiceTermScreen> {
-  WebViewController? controller;
-
-  String url = 'https://sites.google.com/view/momodu-terms-system-ap/%ED%99%88';
-
-  // ios
-  // 서비스 이용약관
-  // https://sites.google.com/view/momodu-terms-system-ap/%ED%99%88
-
-  // aos
-  // 서비스 이용약관
-  // https://sites.google.com/view/momodu-terms-system-gg/%ED%99%88
-
-  // @override
-  // void initState() {
-  //   init();
-  //   super.initState();
-  // }
-
-  Future<void> init() async {
-    if (controller == null) {}
-    await controller!.loadUrl(url);
-  }
+    String url = 'https://sites.google.com/view/momodu-pi-ap/%ED%99%88';
 
   @override
   Widget build(BuildContext context) {
+
+
+    // ios
+    // 개인정보처리동의서
+    // https://sites.google.com/view/momodu-pi-ap/%ED%99%88
+
+    // aos
+    // 개인정보처리동의서
+    // https://sites.google.com/view/momodu-pi-gg/%ED%99%88
+
+    Future<void> init() async {
+      if (controller == null) {}
+      await controller!.loadUrl(url);
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 2,
         title: Text(
-          "서비스 이용약관",
+          "개인정보처리 동의서",
           style: TextStyle(color: Colors.grey[800]),
         ),
         leading: BackButton(
