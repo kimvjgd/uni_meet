@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:uni_meet/root_page.dart';
 
 import '../../components/app_color.dart';
@@ -31,13 +32,13 @@ class _VerifyNumberState extends State<VerifyNumber> {
   }
 
   Future _verifyPhoneNumber() async {
-    _auth.verifyPhoneNumber(
+    await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (phoneCuthCredentials) async {},
         verificationFailed: (verificationFailed) async {},
         codeSent: (verificationId,resendingToken) async {
           setState(() {
-            this._verificationId = verificationId;
+            _verificationId = verificationId;
           });
 
         },
@@ -46,20 +47,23 @@ class _VerifyNumberState extends State<VerifyNumber> {
   }
 
   Future _sendCodeToFirebase({String? code}) async {
-    if(this._verificationId != null){
+    if(_verificationId != null){
       var credential = PhoneAuthProvider.credential(
           verificationId: _verificationId, smsCode: code!);
 
       await _auth
           .signInWithCredential(credential)
           .then((value){
-            Get.offAll(RootPage());
+        Logger().d('여기가 나온다.');
+
+        Get.offAll(RootPage());
             //Get.offAll(() => EditInfo(uid: _auth.currentUser!.uid));
       })
           .whenComplete(() {})
           .onError((error, stackTrace) {
+            Logger().d('여기서 에러가 뜬다.');
             setState(() {
-              this._status = Status.Error;
+              _status = Status.Error;
             });
       });
     }
@@ -96,10 +100,11 @@ class _VerifyNumberState extends State<VerifyNumber> {
             keyboardType: TextInputType.number,
             autofillHints: <String>[AutofillHints.telephoneNumber],
             onChanged: (value) async {
-              print(value);
-              if(value.length == 6){
-                _sendCodeToFirebase(code: value);
-              }
+              // print(value);
+              // if(value.length == 6){
+              //   Logger().d('length 6');
+              //   await _sendCodeToFirebase(code: value);
+              // }
             },
           ),
           Row(
@@ -125,13 +130,20 @@ class _VerifyNumberState extends State<VerifyNumber> {
                 child: Text("재전송하기"),
                 onPressed: () async {
               setState(() {
-              this._status = Status.Waiting;
+              _status = Status.Waiting;
               });
               _verifyPhoneNumber();
               }
-              )
+              ),
             ],
           ),
+          MaterialButton(
+              child: Text("입력"),
+              onPressed: () async {
+                await _sendCodeToFirebase(code:_textEditingController.text);
+              }
+          ),
+
           Spacer(flex: 4,),
         ],
       ),)
