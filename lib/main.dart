@@ -4,17 +4,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
-import 'package:uni_meet/app/ui/page/account/edit_info.dart';
-import 'package:uni_meet/local_notification_service.dart';
-import 'package:uni_meet/notification.dart';
-import 'package:uni_meet/notification_screen.dart';
-import 'package:uni_meet/notification_second_screen.dart';
+import 'package:uni_meet/app/data/utils/timeago_util.dart';
 import 'package:uni_meet/root_page.dart';
 
 import 'app/controller/auth_controller.dart';
 import 'app/data/model/firestore_keys.dart';
-import 'app/ui/components/app_color.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 
 // Receive message when app ios in background solution for on message
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -24,6 +19,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  TimeAgo.setLocalMessages();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(MyApp());
