@@ -74,6 +74,8 @@ class ChatRepository {
     }
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////
+
   static Future<List<ChatroomModel>> loadChatroomList(String userKey) async {
     var documentReference =
         FirebaseFirestore.instance.collection(COLLECTION_CHATROOMS);
@@ -85,6 +87,8 @@ class ChatRepository {
         .map<ChatroomModel>((e) => ChatroomModel.fromJson(e.data()))
         .toList();
   }
+
+  /////////////////////////////////////////////////////////////////////////////////////
 
   Future createNewChat(String chatroomKey, ChatModel chat) async {
     DocumentReference<Map<String, dynamic>> chatsReference = FirebaseFirestore
@@ -111,6 +115,8 @@ class ChatRepository {
     });
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////
+
   Stream<ChatroomModel> connectChatroom(String chatroomKey) {
     return FirebaseFirestore.instance
         .collection(COLLECTION_CHATROOMS)
@@ -119,12 +125,16 @@ class ChatRepository {
         .transform(snapshotToChatroom);
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////
+
   var snapshotToChatroom = StreamTransformer<
       DocumentSnapshot<Map<String, dynamic>>,
       ChatroomModel>.fromHandlers(handleData: (snapshot, sink) {
     ChatroomModel chatroom = ChatroomModel.fromJson(snapshot.data()!);
     sink.add(chatroom);
   });
+
+  /////////////////////////////////////////////////////////////////////////////////////
 
   Future<List<ChatModel>> getChatList(String chatroomKey) async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
@@ -143,6 +153,8 @@ class ChatRepository {
     });
     return chatList;
   }
+
+  /////////////////////////////////////////////////////////////////////////////////////
 
   Future<List<ChatModel>> getLatestChatList(
       String chatroomKey, DocumentReference currentLatestChatRef) async {
@@ -164,6 +176,8 @@ class ChatRepository {
     return chatList;
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////
+
   Future<List<ChatModel>> getOlderChatList(
       String chatroomKey, DocumentReference oldestChatRef) async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
@@ -184,6 +198,8 @@ class ChatRepository {
     return chatList;
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////
+
   Future<List<ChatroomModel>> getMyChatList(String myUid) async {
     List<ChatroomModel> chatrooms = [];
     QuerySnapshot<Map<String, dynamic>> list = await FirebaseFirestore.instance
@@ -196,6 +212,8 @@ class ChatRepository {
     });
     return chatrooms;
   }
+
+  /////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> enterExistedChatroom(String chatroomKey) async {
     var prev_data = await FirebaseFirestore.instance
