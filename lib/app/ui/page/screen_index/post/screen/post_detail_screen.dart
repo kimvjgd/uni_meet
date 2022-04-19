@@ -18,7 +18,6 @@ import '../../../../../data/model/firestore_keys.dart';
 import '../../../../../data/repository/news_repository.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';
-import 'package:timeago/timeago.dart' as timeAgo;
 import '../widget/comment_item.dart';
 
 class PostDetailScreen extends StatefulWidget {
@@ -104,7 +103,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             children: [
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: _postContent(timeAgo.format(widget.post.createdDate!))),
+                  // child: _postContent(timeAgo.format(widget.post.createdDate!))),
+        child: _postContent(TimeAgo.timeCustomFormat(widget.post.createdDate!))),
               Divider(
                 thickness: 0.5,
                 color: divider,
