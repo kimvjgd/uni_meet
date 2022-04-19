@@ -117,7 +117,6 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
               )),
               InputBar(
                   textEditingController: _chatController,
-                  icon: Icon(Icons.send),
                   onPress: onPress,
                   hintText: '메세지를 입력하세요.')
             ],

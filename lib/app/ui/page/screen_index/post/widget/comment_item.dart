@@ -14,6 +14,7 @@ import '../../../../../data/model/comment_model.dart';
 import '../../../../../data/model/post_model.dart';
 import '../../../../../data/repository/chat_repository.dart';
 import '../../../../../data/repository/news_repository.dart';
+import '../../../account/widget/big_button.dart';
 import '../../message_popup.dart';
 
 class CommentItem extends StatelessWidget {
@@ -46,54 +47,34 @@ class CommentItem extends StatelessWidget {
                             localImage: comment.hostInfo!.split('_')[3]),
                       ));
                     },
-                    child: Row(
-                      children: [
-                        //Icon(Icons.face), // localimage는 [3] 나중에 프로필에 넣을예정
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${comment.hostInfo!.split('_')[0]} ${comment
-                                  .hostInfo!.split('_')[1]} ${comment.hostInfo!
-                                  .split('_')[2]}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
-                            ),
-                            Text(
-                                DateFormat.Md()
-                                    .add_Hm()
-                                    .format(comment.commentTime!),
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .labelSmall),
-                          ],
-                        ),
-                      ],
+                    child: Text(
+                       '${comment.hostInfo!.split('_')[0]} ${comment
+                           .hostInfo!.split('_')[1]}학번 ${comment.hostInfo!
+                           .split('_')[2]}',
+                       style: TextStyle(
+                           fontWeight: FontWeight.bold,
+                           color: Colors.blue),
+                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      comment.content.toString(),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleSmall,
+                      maxLines: null,
                     ),
                   ),
-                  SizedBox(
-                    height: 7,
-                  ),
-                  Text(
-                    comment.content.toString(),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleSmall,
-                    maxLines: null,
-                  ),
-                  SizedBox(
-                    height: 7,
-                  ),
+                  Text(DateFormat.Md().add_Hm().format(comment.commentTime!),),
                 ],
               )),
           AuthController.to.user.value.uid == post.host
               ? Expanded(
               flex: 2,
-              child: ElevatedButton(
-                child: Text("채팅 신청"),
+              child: BigButton(
+                btnText: "채팅 신청",
                 onPressed: () {
                   showDialog(
                       context: Get.context!,
@@ -188,7 +169,7 @@ class CommentItem extends StatelessWidget {
               ))
               : AuthController.to.user.value.uid == comment.hostKey
               ? IconButton(
-            icon: Icon(Icons.cancel_outlined),
+            icon: Icon(Icons.clear),
             onPressed: () {
               showDialog(
                   context: Get.context!,

@@ -12,6 +12,7 @@ import 'package:uni_meet/app/data/repository/chat_repository.dart';
 import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import 'package:uni_meet/app/data/repository/post_repository.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
+import 'package:uni_meet/app/ui/widgets/input_bar.dart';
 import 'package:uni_meet/app/ui/widgets/report_dialog.dart';
 import '../../../../../controller/notification_controller.dart';
 import '../../../../../data/model/firestore_keys.dart';
@@ -113,60 +114,49 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           ),
         ),
         bottomSheet: widget.post.host != AuthController.to.user.value.uid
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _commentController,
-                  decoration: InputDecoration(
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-                      contentPadding: EdgeInsets.fromLTRB(15, 15, 3, 15),
-                      hintText: '댓글을 남겨주세요..',
-                      hintStyle: TextStyle(color: app_systemGrey4),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.send),
-                        onPressed: () {
-                          showDialog(
-                              context: Get.context!,
-                              builder: (context) => MessagePopup(
-                                    title: '시스템',
-                                    message: "댓글을 작성하시겠습니까?",
-                                    okCallback: () async {
-                                      await commentRepository.createNewComment(
-                                          widget.post.postKey, {
-                                        KEY_COMMENT_HOSTKEY:
-                                            AuthController.to.user.value.uid,
-                                        KEY_COMMENT_HOSTPUSHTOKEN:
-                                            AuthController.to.user.value.token,
-                                        KEY_COMMENT_HOSTINFO:
-                                            '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
-                                        KEY_COMMENT_CONTENT:
-                                            _commentController.text,
-                                        KEY_COMMENT_COMMENTTIME: DateTime.now()
-                                      });
+            ? InputBar(
+              hintText: '댓글을 남겨주세요..',
+              textEditingController: _commentController,
+              onPress: () {                   showDialog(
+                  context: Get.context!,
+                  builder: (context) => MessagePopup(
+                    title: '시스템',
+                    message: "댓글을 작성하시겠습니까?",
+                    okCallback: () async {
+                      await commentRepository.createNewComment(
+                          widget.post.postKey, {
+                        KEY_COMMENT_HOSTKEY:
+                        AuthController.to.user.value.uid,
+                        KEY_COMMENT_HOSTPUSHTOKEN:
+                        AuthController.to.user.value.token,
+                        KEY_COMMENT_HOSTINFO:
+                        '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
+                        KEY_COMMENT_CONTENT:
+                        _commentController.text,
+                        KEY_COMMENT_COMMENTTIME: DateTime.now()
+                      });
 
-                                      // 푸시 알림
-                                      print("게시글 작성자 토큰" +
-                                          widget.post.hostpushToken.toString());
-                                      await Get.put(NotificationController())
-                                          .SendNewCommentNotification(
-                                              Title:
-                                                  widget.post.title.toString(),
-                                              receiver_token: widget
-                                                  .post.hostpushToken
-                                                  .toString());
+                      // 푸시 알림
+                      print("게시글 작성자 토큰" +
+                          widget.post.hostpushToken.toString());
+                      await Get.put(NotificationController())
+                          .SendNewCommentNotification(
+                          Title:
+                          widget.post.title.toString(),
+                          receiver_token: widget
+                              .post.hostpushToken
+                              .toString());
 
-                                      NewsRepository()
-                                          .createCommentNews(widget.post);
+                      NewsRepository()
+                          .createCommentNews(widget.post);
 
-                                      Get.back();
-                                      _commentController.clear();
-                                    },
-                                    cancelCallback: Get.back,
-                                  ));
-                        },
-                      )),
-                ),
-              )
+                      Get.back();
+                      _commentController.clear();
+                    },
+                    cancelCallback: Get.back,
+                  )); },
+
+            )
             : SizedBox.shrink());
   }
 
