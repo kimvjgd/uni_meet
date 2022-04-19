@@ -29,8 +29,9 @@ class ChatText extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.face),
           onPressed: chatModel.writer!.split('_')[2] == '관리자'
-              ? () {}
+              ? () {print('asdsa');}
               : () {
+            print('@@@@aaa');
             Get.dialog(AlertDialog(
               title: SizedBox(),
               content: ProfileWidget(

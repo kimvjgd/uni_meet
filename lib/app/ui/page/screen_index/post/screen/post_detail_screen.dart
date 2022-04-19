@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:timeago/timeago.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
@@ -11,6 +12,7 @@ import 'package:uni_meet/app/data/repository/chat_repository.dart';
 import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import 'package:uni_meet/app/data/repository/post_repository.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
+import 'package:uni_meet/app/ui/widgets/report_dialog.dart';
 import '../../../../../controller/notification_controller.dart';
 import '../../../../../data/model/firestore_keys.dart';
 import '../../../../../data/repository/news_repository.dart';
@@ -29,6 +31,8 @@ class PostDetailScreen extends StatefulWidget {
 
 class _PostDetailScreenState extends State<PostDetailScreen> {
   TextEditingController _commentController = TextEditingController();
+  TextEditingController reportOffenderController = TextEditingController();
+  TextEditingController reportContentController = TextEditingController();
 
   @override
   void dispose() {
@@ -74,7 +78,20 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       Icons.block,
                       color: app_systemGrey1,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            Logger().d(widget.post.hostNick!);
+                            return ReportDialog(
+                                reportOffenderController: reportOffenderController,
+                                reportContentController: reportContentController,
+                                reporter: AuthController.to.user.value.nickname!,
+                                offender: widget.post.hostNick!,
+                                content: reportContentController.text,
+                            );
+                          });
+                    },
                   )
           ],
         ),
