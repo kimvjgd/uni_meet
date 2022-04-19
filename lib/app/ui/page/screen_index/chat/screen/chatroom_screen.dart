@@ -45,10 +45,31 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
       Size _size = MediaQuery.of(context).size;
       return Scaffold(
         appBar: AppBar(
+          leading: BackButton(color: Colors.grey[800],),
           title: Text(widget.chatroomKey, style: TextStyle(color: Colors.black),),
-          actions: [IconButton(icon: Icon(Icons.copy,color: Colors.black,), onPressed: () async{
-          await FlutterClipboard.copy(widget.chatroomKey);
-        },)],),
+          actions: [
+            TextButton(child: Text("초대하기"),
+              onPressed: () {
+              showDialog(context: context,
+                builder:(BuildContext context) {
+                return AlertDialog(
+                  title: Text("초대하기"),
+                  content: Text("설명설명"),
+                  actions: [
+                    IconButton(
+                        onPressed: () async{
+                          await FlutterClipboard.copy(widget.chatroomKey);
+                        },
+                        icon: Icon(Icons.copy)
+                    )
+                  ],
+                );
+                });
+
+
+        },)
+          ],
+        ),
         body: SafeArea(
           child: Column(
             children: [
@@ -90,7 +111,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
 
   Future<void> onPress() async {
     ChatModel chat = ChatModel(
-      writer: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}',
+      writer: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
       message: _chatController.text,
       createdDate: DateTime.now(),
     ); // 여기서 에러?
