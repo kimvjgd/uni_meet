@@ -97,7 +97,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                             content: contactContentController.text);
                                         Get.back();
                                       },
-                                      child: Text("제출하기"))
+                                      child: Text("제출하기")) //
                                 ],
                               )),
                         );
