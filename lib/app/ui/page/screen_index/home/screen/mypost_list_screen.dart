@@ -6,6 +6,7 @@ import 'package:uni_meet/app/data/repository/post_repository.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/mypost_detail_screen.dart';
 
 import '../../../../components/app_color.dart';
+import '../../post/screen/post_detail_screen.dart';
 
 class MyPostListScreen extends StatelessWidget {
   const MyPostListScreen({Key? key}) : super(key: key);
@@ -33,8 +34,8 @@ class MyPostListScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.to(MyPostDetailScreen(
-                          data: snapshot.data![index],
+                        Get.to(PostDetailScreen(
+                          post: snapshot.data![index],
                         ));
                       },
                       child: ListTile(

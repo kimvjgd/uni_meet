@@ -14,7 +14,9 @@ import 'package:uni_meet/app/ui/page/screen_index/home/screen/mypost_list_screen
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/notice_detail_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/notice_list_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../controller/auth_controller.dart';
+import '../../post/screen/post_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -125,21 +127,57 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               CarouselSlider.builder(
+
                 itemCount: 3,
                 options: CarouselOptions(
                   enlargeCenterPage: true,
                   height: 200,
                   autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayInterval: Duration(seconds: 4),
                   reverse: false,
                   viewportFraction:0.85,
                   //aspectRatio: 4.0,
                 ),
                 itemBuilder: (context, i, id){
                   //for onTap to redirect to another screen
+                  if(i==0)
                   return GestureDetector(
+                    child: Image.asset("assets/images/beta_banner.png"),
+                    onTap: () async {
+                        final url = "https://sites.google.com/view/momodu-beta/%ED%99%88";
+                        if(await canLaunch(url)){
+                        await launch(
+                        url,forceWebView:true,
+                        enableJavaScript:true,
+                        );
+                        }
+                    },
+                  );
+                  else if(i==1)
+                    return GestureDetector(
                     child: Image.asset("assets/images/manual_banner.png"),
-                    onTap: (){},
+                    onTap: () async {
+                      final url = "https://sites.google.com/view/momodu-manuel/%ED%99%88";
+                      if(await canLaunch(url)){
+                        await launch(
+                          url,forceWebView:true,
+                          enableJavaScript:true,
+                        );
+                      }
+                    },
+                  );
+                  else
+                    return GestureDetector(
+                    child: Image.asset("assets/images/team_banner.png"),
+                    onTap: () async {
+                      final url = "https://sites.google.com/view/momodu-intro/%ED%99%88";
+                      if(await canLaunch(url)){
+                        await launch(
+                          url,forceWebView:true,
+                          enableJavaScript:true,
+                        );
+                      }
+                    },
                   );
                 },
               ),
@@ -244,8 +282,9 @@ class HomeScreen extends StatelessWidget {
                           physics:NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) => InkWell(
                             onTap: () {
-                              Get.to(MyPostDetailScreen(
-                                data: snapshot.data![index],
+                              Get.to(
+                                  PostDetailScreen(
+                                post: snapshot.data![index],
                               ));
                             },
                             child: ListTile(

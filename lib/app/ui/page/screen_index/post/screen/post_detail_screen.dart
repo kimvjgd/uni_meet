@@ -12,6 +12,7 @@ import 'package:uni_meet/app/data/repository/chat_repository.dart';
 import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import 'package:uni_meet/app/data/repository/post_repository.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
+import 'package:uni_meet/app/ui/widgets/input_bar.dart';
 import 'package:uni_meet/app/ui/widgets/report_dialog.dart';
 import '../../../../../controller/notification_controller.dart';
 import '../../../../../data/model/firestore_keys.dart';
@@ -83,11 +84,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           builder: (BuildContext context) {
                             Logger().d(widget.post.hostNick!);
                             return ReportDialog(
-                                reportOffenderController: reportOffenderController,
-                                reportContentController: reportContentController,
-                                reporter: AuthController.to.user.value.nickname!,
-                                offender: widget.post.hostNick!,
-                                content: reportContentController.text,
+                              reportOffenderController:
+                                  reportOffenderController,
+                              reportContentController: reportContentController,
+                              reporter: AuthController.to.user.value.nickname!,
+                              offender: widget.post.hostNick!,
+                              content: reportContentController.text,
                             );
                           });
                     },
@@ -95,7 +97,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           ],
         ),
         body: Container(
-          //padding: EdgeInsets.symmetric(horizontal: 20),
           height: _size.height,
           width: _size.width,
           child: Column(
@@ -103,8 +104,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             children: [
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  // child: _postContent(timeAgo.format(widget.post.createdDate!))),
-        child: _postContent(TimeAgo.timeCustomFormat(widget.post.createdDate!))),
+                  child: _postContent(TimeAgo.timeCustomFormat(widget.post.createdDate!))),
               Divider(
                 thickness: 0.5,
                 color: divider,
@@ -114,54 +114,49 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           ),
         ),
         bottomSheet: widget.post.host != AuthController.to.user.value.uid
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: _commentController,
-                  decoration: InputDecoration(
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-                      contentPadding: EdgeInsets.fromLTRB(15, 15, 3, 15),
-                      hintText: '댓글을 남겨주세요..',
-                      hintStyle: TextStyle(color: app_systemGrey4),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.send),
-                        onPressed: () {
-                          showDialog(
-                              context: Get.context!,
-                              builder: (context) => MessagePopup(
-                                    title: '시스템',
-                                    message: "댓글을 작성하시겠습니까?",
-                                    okCallback: () async {
-                                      await commentRepository.createNewComment(
-                                          widget.post.postKey, {
-                                        KEY_COMMENT_HOSTKEY:
-                                            AuthController.to.user.value.uid,
-                                        KEY_COMMENT_HOSTPUSHTOKEN:
-                                            AuthController.to.user.value.token,
-                                        KEY_COMMENT_HOSTINFO:
-                                          '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
-                                        KEY_COMMENT_CONTENT:
-                                            _commentController.text,
-                                        KEY_COMMENT_COMMENTTIME: DateTime.now()
-                                      });
+            ? InputBar(
+              hintText: '댓글을 남겨주세요..',
+              textEditingController: _commentController,
+              onPress: () {                   showDialog(
+                  context: Get.context!,
+                  builder: (context) => MessagePopup(
+                    title: '시스템',
+                    message: "댓글을 작성하시겠습니까?",
+                    okCallback: () async {
+                      await commentRepository.createNewComment(
+                          widget.post.postKey, {
+                        KEY_COMMENT_HOSTKEY:
+                        AuthController.to.user.value.uid,
+                        KEY_COMMENT_HOSTPUSHTOKEN:
+                        AuthController.to.user.value.token,
+                        KEY_COMMENT_HOSTINFO:
+                        '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
+                        KEY_COMMENT_CONTENT:
+                        _commentController.text,
+                        KEY_COMMENT_COMMENTTIME: DateTime.now()
+                      });
 
-                                      // 푸시 알림
-                                      print("게시글 작성자 토큰"+widget.post.hostpushToken.toString());
-                                      await Get.put(NotificationController())
-                                          .SendNewCommentNotification(
-                                          Title: widget.post.title.toString(),receiver_token: widget.post.hostpushToken.toString());
+                      // 푸시 알림
+                      print("게시글 작성자 토큰" +
+                          widget.post.hostpushToken.toString());
+                      await Get.put(NotificationController())
+                          .SendNewCommentNotification(
+                          Title:
+                          widget.post.title.toString(),
+                          receiver_token: widget
+                              .post.hostpushToken
+                              .toString());
 
-                                      NewsRepository().createCommentNews(widget.post);
+                      NewsRepository()
+                          .createCommentNews(widget.post);
 
-                                      Get.back();
-                                      _commentController.clear();
-                                    },
-                                    cancelCallback: Get.back,
-                                  ));
-                        },
-                      )),
-                ),
-              )
+                      Get.back();
+                      _commentController.clear();
+                    },
+                    cancelCallback: Get.back,
+                  )); },
+
+            )
             : SizedBox.shrink());
   }
 
@@ -183,17 +178,33 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     return Row(
       children: [
         Text(
-    widget.post.hostUni!+' ' + widget.post.hostGrade!+'학번 ' + widget.post.hostNick!+' ',
+          widget.post.hostUni! +
+              ' ' +
+              widget.post.hostGrade! +
+              '학번 ' +
+              widget.post.hostNick! +
+              ' ',
           style: Theme.of(context).textTheme.labelLarge,
         ),
         Container(
             decoration: BoxDecoration(
-                color: Color(0xFFC4C4C4),
-                borderRadius: BorderRadius.circular(2.0)),
+                color: app_red.withOpacity(0.85),
+                borderRadius: BorderRadius.circular(4.0)),
             child: Text(
               ' 외 ${widget.post.headCount! - 1}명 ',
               style: TextStyle(color: Colors.white),
-            ))
+            )),
+        SizedBox(
+          width: 2,
+        ),
+        Container(
+            decoration: BoxDecoration(
+                color: app_deepyellow.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(4.0)),
+            child: Text(
+              " ${widget.post.place} ",
+              style: TextStyle(color: Colors.white),
+            )),
       ],
     );
   }
@@ -202,43 +213,30 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(
-          height: 10,
-        ),
-        Container(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 18),
           child: Text(
             widget.post.title.toString(),
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 23),
           ),
         ),
-        SizedBox(
-          height: 10,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: _hostProfile(),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(cuteDong
+                  // DateFormat.Md().add_Hm().format(widget.post.createdDate!),
+                  ),
+            ),
+          ],
         ),
-        Container(child: _hostProfile(),),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-              cuteDong
-            // DateFormat.Md().add_Hm().format(widget.post.createdDate!),
-          ),
-        ),
-        Container(
-          child: RichText(
-              text: TextSpan(children: [
-            TextSpan(text: '장소 ', style: TextStyle(color: app_systemGrey1)),
-            TextSpan(
-                text: widget.post.place.toString(),
-                style: TextStyle(color: Colors.black)),
-          ])),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
           child: Text(widget.post.content.toString(), maxLines: null),
-        ),
-        SizedBox(
-          height: 20,
         ),
       ],
     );
