@@ -41,4 +41,10 @@ class UserRepository {
       Logger().d(e);
     }
   }
+
+  static Future<void> addBlackUser(String blackUid) async {
+
+  }
+
+
 }

@@ -47,14 +47,13 @@ class ProfileWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Spacer(),
                 TextButton(
-                  onPressed: () {},     ///TODO
-                  child: Text('신고'),
-                ),
-                TextButton(
-                  onPressed: () {},     ///TODO
+                  onPressed: () {
+
+                  },     ///TODO
                   child: Text('차단'),
-                )
+                ),
               ],
             ),
           )

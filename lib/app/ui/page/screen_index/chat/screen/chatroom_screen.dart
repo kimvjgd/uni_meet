@@ -4,7 +4,7 @@ import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
-import 'package:uni_meet/app/ui/components/input_bar.dart';
+import 'package:uni_meet/app/ui/widgets/input_bar.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/widget/chatText.dart';
 
 class ChatroomScreen extends StatefulWidget {
