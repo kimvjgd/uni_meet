@@ -28,7 +28,7 @@ class MyPostListScreen extends StatelessWidget {
             return ListView.separated(
               separatorBuilder: (_, __) => Divider(color: divider,),
               itemBuilder: (context, index){
-                if(snapshot.data!.length > 1 && index == snapshot.data!.length) return SizedBox(width: 0,);
+                //if(snapshot.data!.length > 1 && index == snapshot.data!.length) return SizedBox(width: 0,);
                 return Column(
                   children: [
                     InkWell(
@@ -46,11 +46,11 @@ class MyPostListScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if(snapshot.data!.length == 1) Divider(color: divider,)
+                   // if(snapshot.data!.length == 1) Divider(color: divider,)
                   ],
                 );
               },
-              itemCount: snapshot.data!.length+1,
+              itemCount: snapshot.data!.length,
             );
           }
       ),
