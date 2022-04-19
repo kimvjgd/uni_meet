@@ -27,20 +27,20 @@ class ChatText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IconButton(
-          icon: Icon(Icons.face),
-          onPressed: chatModel.writer!.split('_')[2] == '관리자'
-              ? () {}
-              : () {
-            Get.dialog(AlertDialog(
-              title: SizedBox(),
-              content: ProfileWidget(
-                  university: chatModel.writer!.split('_')[0],
-                  grade: chatModel.writer!.split('_')[1]+'학번',
-                  mbti: chatModel.writer!.split('_')[4],
-                  nickname: chatModel.writer!.split('_')[2],
-                  localImage: chatModel.writer!.split('_')[3]),
-            ));
-          }
+            icon: Icon(Icons.face),
+            onPressed: chatModel.writer!.split('_')[2] == '관리자'
+                ? () {}
+                : () {
+              Get.dialog(AlertDialog(
+                title: SizedBox(),
+                content: ProfileWidget(
+                    university: chatModel.writer!.split('_')[0],
+                    grade: chatModel.writer!.split('_')[1]+'학번',
+                    mbti: chatModel.writer!.split('_')[4],
+                    nickname: chatModel.writer!.split('_')[2],
+                    localImage: chatModel.writer!.split('_')[3]),
+              ));
+            }
         ),
         SizedBox(
           width: 6,
@@ -63,7 +63,7 @@ class ChatText extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   constraints:
-                      BoxConstraints(minHeight: 40, maxWidth: size.width * 0.5),
+                  BoxConstraints(minHeight: 40, maxWidth: size.width * 0.5),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.only(
@@ -104,7 +104,7 @@ class ChatText extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           constraints:
-              BoxConstraints(minHeight: 40, maxWidth: size.width * 0.6),
+          BoxConstraints(minHeight: 40, maxWidth: size.width * 0.6),
           decoration: BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.only(
