@@ -64,7 +64,7 @@ class ChatText extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   constraints:
-                      BoxConstraints(minHeight: 40, maxWidth: size.width * 0.5),
+                  BoxConstraints(minHeight: 40, maxWidth: size.width * 0.5),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.only(
@@ -105,7 +105,7 @@ class ChatText extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           constraints:
-              BoxConstraints(minHeight: 40, maxWidth: size.width * 0.6),
+          BoxConstraints(minHeight: 40, maxWidth: size.width * 0.6),
           decoration: BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.only(
