@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/repository/contact_repository.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
-import 'package:uni_meet/app/ui/start.dart';
+import 'package:uni_meet/app/ui/start_screen.dart';
 import 'package:uni_meet/app/ui/widgets/report_dialog.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
+import 'package:uni_meet/app/ui/error_screen.dart';
 import 'package:uni_meet/root_page.dart';
 
 import 'app/controller/auth_controller.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
-      home: RootPage(),
+      home: ErrorScreen(),
     );
   }
 }
