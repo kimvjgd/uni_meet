@@ -1,21 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/repository/contact_repository.dart';
-import 'package:uni_meet/app/data/repository/report_repository.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
-import 'package:uni_meet/app/ui/page/account/edit_number.dart';
-import 'package:uni_meet/app/ui/page/screen_index/setting/screen/service_term_screen.dart';
 import 'package:uni_meet/app/ui/start.dart';
 import 'package:uni_meet/app/ui/widgets/report_dialog.dart';
-import 'package:uni_meet/root_page.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';
-import 'alarm_screen.dart';
-import 'open_source_screen.dart';
 
 class CustomerServiceScreen extends StatefulWidget {
   const CustomerServiceScreen({Key? key}) : super(key: key);
