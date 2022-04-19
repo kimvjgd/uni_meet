@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
@@ -43,7 +44,11 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
         builder: (BuildContext context, BoxConstraints constraints) {
       Size _size = MediaQuery.of(context).size;
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(widget.chatroomKey, style: TextStyle(color: Colors.black),),
+          actions: [IconButton(icon: Icon(Icons.copy,color: Colors.black,), onPressed: () async{
+          await FlutterClipboard.copy(widget.chatroomKey);
+        },)],),
         body: SafeArea(
           child: Column(
             children: [
