@@ -35,7 +35,7 @@ class ChatText extends StatelessWidget {
               title: SizedBox(),
               content: ProfileWidget(
                   university: chatModel.writer!.split('_')[0],
-                  grade: chatModel.writer!.split('_')[1],
+                  grade: chatModel.writer!.split('_')[1]+'학번',
                   nickname: chatModel.writer!.split('_')[2],
                   localImage: chatModel.writer!.split('_')[3]),
             ));

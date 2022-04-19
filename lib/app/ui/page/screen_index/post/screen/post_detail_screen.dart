@@ -165,16 +165,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
   Row _hostProfile() {
     return Row(
       children: [
-        Container(
-          width: 30,
-          height: 30,
-          child: CircleAvatar(
-            backgroundColor: Colors.green,
-          ),
-        ),
-        SizedBox(
-          width: 5,
-        ),
         Text(
     widget.post.hostUni!+' ' + widget.post.hostGrade!+'학번 ' + widget.post.hostNick!+' ',
           style: Theme.of(context).textTheme.labelLarge,
