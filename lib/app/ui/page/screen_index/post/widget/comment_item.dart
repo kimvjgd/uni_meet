@@ -39,14 +39,14 @@ class CommentItem extends StatelessWidget {
                         title: SizedBox(),
                         content: ProfileWidget(
                             university: comment.hostInfo!.split('_')[0],
-                            grade: comment.hostInfo!.split('_')[1],
+                            grade: comment.hostInfo!.split('_')[1]+'학번',
                             nickname: comment.hostInfo!.split('_')[2],
                             localImage: comment.hostInfo!.split('_')[3]),
                       ));
                     },
                     child: Row(
                       children: [
-                        Icon(Icons.face), // localimage는 [3] 나중에 프로필에 넣을예정
+                        //Icon(Icons.face), // localimage는 [3] 나중에 프로필에 넣을예정
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

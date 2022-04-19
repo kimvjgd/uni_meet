@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -18,36 +19,44 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width / 2,
-      height: Get.height / 3,
+    return SizedBox(
+      height: Get.height/3,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ExtendedImage.asset(
-              'assets/images/momo${localImage}.png',
-              width: Get.width / 4,
-              height: Get.height / 6,
+          Expanded(
+            flex: 3,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(image:AssetImage('assets/images/momo${localImage}.png')),
+              ),
             ),
           ),
-          Spacer(),
-          Text(university),
-          Text(grade),
-          Text(nickname),
-          Row(
+          Expanded(
+            flex: 3,
+              child: Column(
             children: [
-              TextButton(
-                onPressed: () {},     ///TODO
-                child: Text('신고'),
-              ),
-              Spacer(),
-              TextButton(
-                onPressed: () {},     ///TODO
-                child: Text('차단'),
-              )
+              Text("모모 이름 넣기"),
+              Text(university+' '+grade),
+              Text("mbti넣기"),
+              Text(nickname),
             ],
+          )),
+          Expanded(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () {},     ///TODO
+                  child: Text('신고'),
+                ),
+                TextButton(
+                  onPressed: () {},     ///TODO
+                  child: Text('차단'),
+                )
+              ],
+            ),
           )
         ],
       ),

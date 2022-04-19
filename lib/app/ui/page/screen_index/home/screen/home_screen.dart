@@ -45,7 +45,8 @@ class HomeScreen extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       backgroundImage: AssetImage('assets/images/momo' +
                           AuthController.to.user.value.localImage.toString() +
-                          '.png'),
+                          '.png'
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -256,7 +257,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          itemCount: 1,
+                          itemCount: snapshot.data!.length,
                         ),
                       ); }
               ),
