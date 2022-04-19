@@ -65,12 +65,43 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return ReportDialog(
-                            reportOffenderController: reportOffenderController,
-                            reportContentController: reportContentController,
-                            reporter: AuthController.to.user.value.nickname!,
-                            offender: reportOffenderController.text,
-                            content: reportContentController.text);
+                        return AlertDialog(
+                          content: Container(
+                              height: _size.height * 0.5,
+                              child: Column(
+                                children: [
+                                  Expanded(flex: 1, child: Text("문의하기")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: TextFormField(
+                                        controller: contactEmailController,
+                                        decoration: InputDecoration(
+                                            hintText: '회신받을 이메일을 입력해주세요'),
+                                      )),
+                                  Expanded(
+                                    flex: 5,
+                                    child: TextFormField(
+                                      maxLines: 10,
+                                      controller: contactContentController,
+                                      decoration: InputDecoration(
+                                        hintText:
+                                        '\n\n모모두에게 문의나 건의할 사항이 있다면 자유롭게 작성해주세요! 모모두 운영진이 3일 내로 확인 후 답변을 전달할 예정이예요',
+                                      ),
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () async {
+                                        await ContactRepository.createdContact(
+                                            responseEmail:
+                                            contactEmailController.text,
+                                            content: contactContentController.text);
+                                        Get.back();
+                                      },
+                                      child: Text("제출하기"))
+                                ],
+                              )),
+                        );
+
                       });
                 },
               ),
@@ -84,48 +115,12 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Container(
-                              height: _size.height * 0.5,
-                              child: Column(
-                                children: [
-                                  Expanded(flex: 1, child: Text("신고하기")),
-                                  Expanded(
-                                      flex: 1,
-                                      child: TextFormField(
-                                        controller: reportOffenderController,
-                                        decoration: InputDecoration(
-                                            hintText: '신고 대상의 닉네임을 입력해주세요'),
-                                      )),
-                                  Expanded(
-                                    flex: 5,
-                                    child: TextFormField(
-                                      maxLines: 10,
-                                      controller: reportContentController,
-                                      decoration: InputDecoration(
-                                        hintText:
-                                        '신고 내용을 작성해주세요!\n이미지 첨부 시, team.momodu@gmail.com\n으로 첨부를 부탁드립니다!',
-                                      ),
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                      onPressed: () async {
-                                        await ReportRepository.createdReport(
-                                            reporter: AuthController
-                                                .to.user.value.nickname!,
-                                            content: reportContentController
-                                                .text,
-                                            offender:
-                                            reportOffenderController.text);
-
-                                        /// TODO 1
-                                        // Form으로 내용이 비어있을때는 막아줘야하는데... 나중에   위의 문의하기도
-                                        Get.back();
-                                      },
-                                      child: Text("제출하기"))
-                                ],
-                              )),
-                        );
+                        return ReportDialog(
+                            reportOffenderController: reportOffenderController,
+                            reportContentController: reportContentController,
+                            reporter: AuthController.to.user.value.nickname!,
+                            offender: reportOffenderController.text,
+                            content: reportContentController.text);
                       });
                 },
               ),
