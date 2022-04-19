@@ -22,11 +22,11 @@ class RootPage extends GetView<AuthController> {
                 future: controller.loginUser(user.data!.uid),
                 builder: (context, snapshot) {                // auth_uid와 같은 uid가 user collection안에 있으면 그 IUser, 없으면 snapshot==null
                   if (snapshot.hasData) {
-                    InitBinding.additionalBinding();
+                    // InitBinding.additionalBinding();
                     return const IndexScreen();
-                  } else {
+                  } else {      // snapshot.has No!!!Data
                     return Obx(() => controller.user.value.uid == null
-                        ? EditInfo(uid: user.data!.uid)
+                        ? EditInfo(uid: user.data!.uid)     // 살짝 loading을 줄까...?
                        // ? EditNumber(isLogOut: true) //로그인 페이지
                     : index());
                        // :EditNumber());

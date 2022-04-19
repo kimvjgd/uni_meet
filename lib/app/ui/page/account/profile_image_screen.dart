@@ -245,32 +245,6 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
   }
 
   void onPressed() async {
-    //nickname = _nicknameController.text.trim();
-    // if (selected_profile == 0 || nickname == '') {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content: const Text(
-    //       "닉네임과 프로필을 설정해주세요!",
-    //       style: TextStyle(color: Colors.black),
-    //     ),
-    //     backgroundColor: Colors.white,
-    //   ));
-    // }else if(nickname.contains(' ')) {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content: const Text(
-    //       "닉네임에 공백이 있습니다!",
-    //       style: TextStyle(color: Colors.black),
-    //     ),
-    //     backgroundColor: Colors.white,
-    //   ));
-    // }else if(nickname.contains('_')) {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content: const Text(
-    //       "닉네임에 _ 이 있습니다!",
-    //       style: TextStyle(color: Colors.black),
-    //     ),
-    //     backgroundColor: Colors.white,
-    //   ));
-    // }
     if (selected_profile == 0) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text(
@@ -285,7 +259,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
       var uid = FirebaseAuth.instance.currentUser!.uid;
       AuthController().pickImage(selected_profile);
       AuthController().nickName(_nicknameController.text);
-      FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).update({
+      await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).update({
         KEY_USER_NICKNAME: _nicknameController.text,
         KEY_USER_LOCALIMAGE: selected_profile
       });

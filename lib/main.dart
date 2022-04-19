@@ -27,19 +27,19 @@ Future<void> main() async {
 
 
 class MyApp extends StatelessWidget {
-  Future<void> getToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print('@@@@@@@@@@@@@@@@@@$token@@@@@@@@@@@@@@@@@@');
-    FirebaseFirestore.instance
-        .collection(COLLECTION_USERS)
-        .doc(AuthController.to.user.value.uid)
-        .update({KEY_USER_TOKEN: token});
-   // return token;
-  }
+  // Future<void> getToken() async {
+  //   String? token = await FirebaseMessaging.instance.getToken();
+  //   print('@@@@@@@@@@@@@@@@@@$token@@@@@@@@@@@@@@@@@@');
+  //   FirebaseFirestore.instance
+  //       .collection(COLLECTION_USERS)
+  //       .doc(AuthController.to.user.value.uid)
+  //       .update({KEY_USER_TOKEN: token});
+  //  // return token;
+  // }
 
   @override
   Widget build(BuildContext context) {
-    getToken();
+    // getToken();
     return GetMaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
