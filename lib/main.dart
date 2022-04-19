@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         .update({KEY_USER_TOKEN: token});
    // return token;
   }
+
   @override
   Widget build(BuildContext context) {
     getToken();

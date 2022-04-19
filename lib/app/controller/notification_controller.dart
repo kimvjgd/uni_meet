@@ -35,6 +35,7 @@ class NotificationController extends GetxController{
     _onMessage();
     super.onInit();
   }
+
   /// 디바이스 고유 토큰을 얻기 위한 메소드, 처음 한번만 사용해서 토큰을 확보하자.
   /// 이는 파이어베이스 콘솔에서 손쉽게 디바이스에 테스팅을 할 때 쓰인다.
   void _getToken() async{
@@ -90,40 +91,31 @@ class NotificationController extends GetxController{
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+      var androidNotiDetails = AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        channelDescription: channel.description,
+      );
+      var iOSNotiDetails = const IOSNotificationDetails();
+      var details =
+      NotificationDetails(android: androidNotiDetails, iOS: iOSNotiDetails);
+      if (notification != null) {
+        _notifications.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          details,
+        );
+      }
 
-      // android 일 때만 flutterLocalNotification 을 대신 보여주는 거임. 그래서 아래와 같은 조건문 설정.
-      if (notification != null){
-        if(android != null) {
-          _notifications.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-                android: AndroidNotificationDetails(
-                    channel.id,
-                    channel.name,
-                    channelDescription: channel.description
-                )
-              ,iOS: IOSNotificationDetails()
-            ),
-            // 넘겨줄 데이터가 있으면 아래 코드를 써주면 됨.
-            //   payload: json.encode(message)
-          );
-        }
-      }
-      // 개발 확인 용으로 print 구문 추가
-      print('foreground 상황에서 메시지를 받았다.');
-      // 데이터 유무 확인
-      print('Message data: ${message.data}');
-      // notification 유무 확인
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification!.body}');
-      }
+
+
     });
   }
 
-  Future<bool> SendNewNotification(
-      {required String receiver_token}) async {
+
+  Future<bool> SendNewCommentNotification(
+      {required String Title,required String receiver_token}) async {
     String url = "https://fcm.googleapis.com/fcm/send";
     // 임시
     String _firebaseKey =firebase_FCM_key;
@@ -137,7 +129,40 @@ class NotificationController extends GetxController{
       body: jsonEncode(
         <String, dynamic>{
           'notification': <String, dynamic>{
-            'body': '새 소식을 확인하세요!',
+            'body': '${Title}에 새 댓글이 달렸습니다.',
+            'title': 'MOMODU'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done',
+            "screen": "AlarmPage",
+          },
+          'to':"$receiver_token",
+        },
+      ),
+    );
+
+    return true;
+  }
+
+  Future<bool> SendNewChatNotification(
+      {required String info,required String receiver_token}) async {
+    String url = "https://fcm.googleapis.com/fcm/send";
+    // 임시
+    String _firebaseKey =firebase_FCM_key;
+
+    await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$_firebaseKey',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': info+'님이 새로운 채팅방을 개설했어요!',
             'title': 'MOMODU'
           },
           'priority': 'high',
@@ -154,35 +179,5 @@ class NotificationController extends GetxController{
     return true;
   }
 
-  Future<bool> NewChatBubbleNotification(
-      {required String sender_token,required List<String> receiver_token}) async {
-    String url = "https://fcm.googleapis.com/fcm/send";
-    // 임시
-    String _firebaseKey =firebase_FCM_key;
 
-    await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'key=$_firebaseKey',
-      },
-      body: jsonEncode(
-        <String, dynamic>{
-          'notification': <String, dynamic>{
-            'body': '새로운 채팅이 왔어요 !',
-            'title': 'MOMODU'
-          },
-          'priority': 'high',
-          'data': <String, dynamic>{
-            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-            'id': '1',
-            'status': 'done'
-          },
-          'to':"$receiver_token",
-        },
-      ),
-    );
-
-    return true;
-  }
 }

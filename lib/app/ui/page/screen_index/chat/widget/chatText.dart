@@ -36,6 +36,7 @@ class ChatText extends StatelessWidget {
               content: ProfileWidget(
                   university: chatModel.writer!.split('_')[0],
                   grade: chatModel.writer!.split('_')[1]+'학번',
+                  mbti: chatModel.writer!.split('_')[4],
                   nickname: chatModel.writer!.split('_')[2],
                   localImage: chatModel.writer!.split('_')[3]),
             ));
