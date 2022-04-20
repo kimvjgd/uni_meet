@@ -109,7 +109,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 thickness: 0.5,
                 color: divider,
               ),
-              _commentContent(),
+               _commentContent(),
             ],
           ),
         ),
@@ -184,7 +184,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               '학번 ' +
               widget.post.hostNick! +
               ' ',
-          style: Theme.of(context).textTheme.labelLarge,
         ),
         Container(
             decoration: BoxDecoration(
@@ -217,7 +216,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           padding: const EdgeInsets.symmetric(vertical: 18),
           child: Text(
             widget.post.title.toString(),
-            style: TextStyle(fontSize: 23),
+            style: TextStyle(fontSize: 20),
           ),
         ),
         Row(
@@ -228,14 +227,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Text(cuteDong
+              child: Text(cuteDong,style: TextStyle(color: app_systemGrey1),
                   // DateFormat.Md().add_Hm().format(widget.post.createdDate!),
                   ),
             ),
           ],
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.fromLTRB(0, 20,0,5),
           child: Text(widget.post.content.toString(), maxLines: null),
         ),
       ],

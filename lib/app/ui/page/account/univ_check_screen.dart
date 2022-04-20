@@ -111,6 +111,10 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return _builder();
+  }
+
+  FutureBuilder<DocumentSnapshot> _builder(){
     return FutureBuilder<DocumentSnapshot>(
       future: FirebaseFirestore.instance
           .collection(COLLECTION_USERS)
@@ -121,20 +125,14 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
         if (snapshot.hasError) {
           return Text("데이터 오류 발생");
         } else if (snapshot.hasData) {
-          //**********************에러 자주 뜸 고쳐야 함 ****************//
-          //**********************에러 자주 뜸 고쳐야 함 ****************//
-          //**********************에러 자주 뜸 고쳐야 함 ****************//
           if (!snapshot.data!.exists) {
-            // return Text(snapshot.error.toString());
-            return Text('에러가 납니다');
+            print('데이터를 못받아옴');
+            return LinearProgressIndicator();
           }
-          //**********************에러 자주 뜸 고쳐야 함 ****************//
-          //**********************에러 자주 뜸 고쳐야 함 ****************//
-          //**********************에러 자주 뜸 고쳐야 함 ****************//
           else {
             if (snapshot.connectionState == ConnectionState.done) {
               Map<String, dynamic> data =
-                  snapshot.data!.data() as Map<String, dynamic>;
+              snapshot.data!.data() as Map<String, dynamic>;
               _name = data[KEY_USER_NAME];
               _uni = data[KEY_USER_UNIVERSITY];
               _grade = data[KEY_USER_GRADE].toString() + "학번";
@@ -162,14 +160,17 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BackButton(),
-          Text("임시 텍스트 " + _uni + _grade + _name),
+        //  Text("임시 텍스트 " + _uni + _grade + _name),
           BigText(headText: "먼저, 학교 인증을 해야 해요!"),
           Spacer(
             flex: 1,
           ),
-          Text(
-            "에브리타임 앱 > 내 정보 에 들어가서\n이름, 대학명, 학번이 보이게 스크린샷을 찍어주세요\n크롭 된 파일이 아닌, 전체 스크린 샷을 업로드 해주세요",
-            style: TextStyle(color: app_label_grey),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              "에브리타임 앱 > 내 정보 에 들어가서\n이름, 대학명, 학번이 보이게 스크린샷을 찍어주세요\n크롭 된 파일이 아닌, 전체 스크린 샷을 업로드 해주세요",
+              style: TextStyle(color: app_label_grey),
+            ),
           ),
           Spacer(
             flex: 1,
@@ -226,9 +227,6 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                 height: MediaQuery.of(context).size.height * 0.06,
                 child: BigButton(
                     onPressed: () async {
-                      setState(() {
-                        _isLoading = true;
-                      });
 
                       if (imageFile == null) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -238,7 +236,8 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           ),
                           backgroundColor: Colors.blue,
                         ));
-                      } else {
+                      }
+                      else {
                         // if(uni_check==null){
                         //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         //     content: const Text(
@@ -261,8 +260,10 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                         //     backgroundColor: Colors.black,
                         //   ));
                         // }
-
                         if (await _Recognition(imageFile)) {
+                          setState(() {
+                            _isLoading = true;
+                          });
                           // users.update({KEY_USER_AUTH: true})
                           //        .then((value) => print("대학인증 성공"))
                           //        .catchError((error) => print("대학 인증 실패: $error"));
@@ -283,7 +284,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                         }
                       }
                     },
-                    btnText: _isLoading ? "인증중입니다 . . ." : "인증하기")),
+                    btnText: _isLoading ? "인증중입니다 . . ." : "인증하기디자인수정")),
           ),
           Spacer(
             flex: 1,
@@ -328,12 +329,9 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                               );
                             });
                       },
-                      child: Text("인증에 실패하셨나요?")),
-                  TextButton(
-                      onPressed: () {
-                        Get.to(IndexScreen());
-                      },
-                      child: Text("둘러보기"))
+                      child: Text("인증에 실패하셨나요?",style: TextStyle(color: app_deepyellow),)),
+                  BigButton(onPressed: (){Get.to(IndexScreen());}, btnText:"홈 입장"),
+
                 ],
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/repository/news_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
+import 'package:uni_meet/app/ui/error_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/screen/chatroom_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/home/screen/game_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/post/screen/post_detail_screen.dart';
@@ -95,12 +96,26 @@ class _AlarmListState extends State<AlarmList> {
     if (type == 1) {
       Future<PostModel> Apost = PostRepository().getAPost(address.toString());
       PostModel post;
-      print("dktlkqkf");
       Apost.then((data) {
         post = data;
         Get.to(PostDetailScreen(post: post));
       }, onError: (e) {
-        print(e);
+
+        showDialog(context: context, builder: (BuildContext context){
+          return AlertDialog(
+            title: Text("MOMODU",textAlign: TextAlign.center,),
+            content: Text('삭제된 게시글입니다 !',textAlign: TextAlign.center,),
+            contentPadding: EdgeInsets.only(top: 5),
+            actions: [
+              Center(
+                child: TextButton(onPressed: (){Get.back();},
+                    child: Text('돌아가기',style: TextStyle(color:app_systemGrey1
+                ),)),
+              ),
+            ],
+          );
+        });
+
       });
     }
     //해당 채팅방으로 이동
