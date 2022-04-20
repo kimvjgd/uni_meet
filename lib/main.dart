@@ -44,6 +44,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final appcastURL =
+        'https://raw.githubusercontent.com/larryaasen/upgrader/master/test/testappcast.xml';
+    final cfg = AppcastConfiguration(url: appcastURL, supportedOS: ['android']);
     // getToken();
     return GetMaterialApp(
       theme: ThemeData(
@@ -61,7 +65,11 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
-      home: UpgradeAlert(child: RootPage()),
+      home: UpgradeAlert(
+        messages: UpgraderMessages(code: 'ko'),
+        appcastConfig: cfg,
+          countryCode: 'ko',
+          child: RootPage()),
     );
   }
 }
