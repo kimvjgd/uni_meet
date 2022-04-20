@@ -71,7 +71,9 @@ flutter:
     - assets/images/momo5.png
     - assets/images/manual_banner.png
     - assets/images/beta_banner.png
+    - assets/images/beta_banner_2.png
     - assets/images/team_banner.png
+    - assets/images/team_banner_2.png
     - assets/images/logo.png
     - assets/images/splash.png
     - assets/images/icons/chat_icon.png

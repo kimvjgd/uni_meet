@@ -32,7 +32,7 @@ class NoticeListScreen extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Get.to(NoticeDetailScreen(
-                      data: snapshot.data![index],
+                      notice: snapshot.data![index],
                     ));
                   },
                   child: ListTile(

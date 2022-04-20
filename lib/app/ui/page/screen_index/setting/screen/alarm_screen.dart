@@ -36,7 +36,7 @@ class _AlarmSettingScreenState extends State<AlarmSettingScreen> {
           color: Colors.grey[800],
         ),
         title: Text(
-          "알람 설정",
+          "알림 설정",
           style: TextStyle(color: Colors.grey[800]),
         ),
       ),

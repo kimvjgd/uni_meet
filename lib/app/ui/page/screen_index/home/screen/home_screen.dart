@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                   //for onTap to redirect to another screen
                   if(i==0)
                   return GestureDetector(
-                    child: Image.asset("assets/images/beta_banner.png"),
+                    child: Image.asset("assets/images/beta_banner_2.png"),
                     onTap: () async {
                         final url = "https://sites.google.com/view/momodu-beta/%ED%99%88";
                         if(await canLaunch(url)){
@@ -168,7 +168,7 @@ class HomeScreen extends StatelessWidget {
                   );
                   else
                     return GestureDetector(
-                    child: Image.asset("assets/images/team_banner.png"),
+                    child: Image.asset("assets/images/team_banner_2.png"),
                     onTap: () async {
                       final url = "https://sites.google.com/view/momodu-intro/%ED%99%88";
                       if(await canLaunch(url)){
@@ -222,7 +222,7 @@ class HomeScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Get.to(NoticeDetailScreen(
-                                  data: snapshot.data![index],
+                                  notice: snapshot.data![index],
                                 ));
                                 // snapshot.data![index];
                               },
