@@ -28,6 +28,11 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    setState(() {
+      _profile();
+    });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor:Colors.white,

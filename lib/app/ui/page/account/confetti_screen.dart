@@ -76,6 +76,5 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
 
   void onPressed() {
     Get.to(() => UnivCheckScreen());
-   // Get.to(()=>IndexScreen());
   }
 }
