@@ -59,6 +59,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                     TextButton(
                         onPressed: () async{
                           await FlutterClipboard.copy(widget.chatroomKey);
+                          Get.back();
                         },
                         child: Text("복사하기",)
                     )
