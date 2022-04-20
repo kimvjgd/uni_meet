@@ -246,7 +246,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         future: commentRepository.loadCommentList(widget.post.postKey),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           print(snapshot.connectionState);
-          if (snapshot.hasData) {
+          if (snapshot.hasData) {//
             return snapshot.data.length == 0
                 ? Center(
                     child: Text("작성된 댓글이 없습니다!"),
