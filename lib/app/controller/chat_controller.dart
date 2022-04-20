@@ -64,7 +64,7 @@ class ChatController extends GetxController {
     ChatRepository()
         .getOlderChatList(
             chatroomKey, chat_chatList[chat_chatList.length-1].reference!)
-        .then((olderChats) => chat_chatList.insertAll(chat_chatList.length-1, olderChats));
+        .then((olderChats) => chat_chatList.insertAll(chat_chatList.length, olderChats));
     update();
   }
 }
