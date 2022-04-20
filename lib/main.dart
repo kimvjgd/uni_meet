@@ -6,12 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
+import 'package:uni_meet/app/ui/splash_screen.dart';
 import 'package:uni_meet/root_page.dart';
-import 'package:upgrader/upgrader.dart';
-
-import 'app/controller/auth_controller.dart';
-import 'app/data/model/firestore_keys.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:yaml/yaml.dart';
 
 // Receive message when app ios in background solution for on message
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -42,12 +40,13 @@ class MyApp extends StatelessWidget {
   //  // return token;
   // }
 
+
   @override
   Widget build(BuildContext context) {
 
-    final appcastURL =
-        'https://raw.githubusercontent.com/larryaasen/upgrader/master/test/testappcast.xml';
-    final cfg = AppcastConfiguration(url: appcastURL, supportedOS: ['android']);
+    // final appcastURL =
+    //     'https://raw.githubusercontent.com/larryaasen/upgrader/master/test/testappcast.xml';
+    // final cfg = AppcastConfiguration(url: appcastURL, supportedOS: ['android']);
     // getToken();
     return GetMaterialApp(
       theme: ThemeData(
@@ -65,11 +64,8 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
-      home: UpgradeAlert(
-        messages: UpgraderMessages(code: 'ko'),
-        appcastConfig: cfg,
-          countryCode: 'ko',
-          child: RootPage()),
+     // home: RootPage(),
+      home: SplashScreen(),
     );
   }
 }
