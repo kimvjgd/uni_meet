@@ -26,6 +26,13 @@ class AuthController extends GetxController {
     return userData;
   }
 
+  void setGradeNameUniv(int grade, String name, String university){
+    user.value.grade = grade;
+    user.value.name = name;
+    user.value.university = university;
+
+  }
+
   void changeAge(value) {
     user(AppUserModel(grade: value));
     // user.value.age = value;

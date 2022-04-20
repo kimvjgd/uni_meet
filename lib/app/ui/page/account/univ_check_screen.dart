@@ -115,45 +115,49 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _builder();
+    _name = AuthController.to.user.value.name!;
+    _uni = AuthController.to.user.value.university!;
+    _grade = AuthController.to.user.value.grade.toString() + "학번";
+    return Scaffold(
+      body: body(),
+    );
+    // return _builder();
+
   }
 
-  FutureBuilder<DocumentSnapshot> _builder(){
-    return FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance
-          .collection(COLLECTION_USERS)
-          .doc(AuthController.to.user.value.uid)
-          .get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return ErrorScreen();
-        } else if (snapshot.hasData) {
-          if (!snapshot.data!.exists) {
-            print('데이터를 못받아옴');
-            return LinearProgressIndicator();
-          }
-          else {
-            if (snapshot.connectionState == ConnectionState.done) {
-              Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-              _name = data[KEY_USER_NAME];
-              _uni = data[KEY_USER_UNIVERSITY];
-              _grade = data[KEY_USER_GRADE].toString() + "학번";
-              return Scaffold(
-                body: body(),
-              );
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return LinearProgressIndicator();
-            } else {
-              return Container(child: Text("연결 오류 발생 "));
-            }
-          }
-        } else
-          return Container();
-      },
-    );
-  }
+  // FutureBuilder<DocumentSnapshot> _builder() {
+  //   return FutureBuilder<DocumentSnapshot>(
+  //     future: FirebaseFirestore.instance
+  //         .collection(COLLECTION_USERS)
+  //         .doc(AuthController.to.user.value.uid)
+  //         .get(),
+  //     builder:
+  //         (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+  //       if (snapshot.hasError) {
+  //         return ErrorScreen();
+  //       } else if (snapshot.connectionState == ConnectionState.none ||
+  //           snapshot.connectionState == ConnectionState.waiting) {
+  //         return Center(
+  //           child: CircularProgressIndicator(),
+  //         );
+  //       } else if (snapshot.hasData) {
+  //         if (snapshot.connectionState == ConnectionState.done) {
+  //           Map<String, dynamic> data =
+  //               snapshot.data!.data() as Map<String, dynamic>;
+  //           _name = data[KEY_USER_NAME];
+  //           _uni = data[KEY_USER_UNIVERSITY];
+  //           _grade = data[KEY_USER_GRADE].toString() + "학번";
+  //           return Scaffold(
+  //             body: body(),
+  //           );
+  //         } else {
+  //           return Container(child: Text("연결 오류 발생 "));
+  //         }
+  //       } else
+  //         return Container();
+  //     },
+  //   );
+  // }
 
 // 인증 후 바로 홈으로 일단 보내기,,,,
   SafeArea body() {
@@ -164,7 +168,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BackButton(),
-        //  Text("임시 텍스트 " + _uni + _grade + _name),
+          //  Text("임시 텍스트 " + _uni + _grade + _name),
           BigText(headText: "먼저, 학교 인증을 해야 해요!"),
           Spacer(
             flex: 1,
@@ -239,8 +243,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           ),
                           backgroundColor: Colors.blue,
                         ));
-                      }
-                      else {
+                      } else {
                         // if(uni_check==null){
                         //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         //     content: const Text(
@@ -269,7 +272,10 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           });
 
                           await Get.put(NotificationController())
-                              .SendSuccessUniCheck(receiver_token:AuthController.to.user.value.token.toString());
+                              .SendSuccessUniCheck(
+                                  receiver_token: AuthController
+                                      .to.user.value.token
+                                      .toString());
                           // users.update({KEY_USER_AUTH: true})
                           //        .then((value) => print("대학인증 성공"))
                           //        .catchError((error) => print("대학 인증 실패: $error"));
@@ -279,7 +285,10 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           Logger().d('여기로 가버렸어??');
 
                           await Get.put(NotificationController())
-                              .SendFailUniCheck(receiver_token:AuthController.to.user.value.token.toString());
+                              .SendFailUniCheck(
+                                  receiver_token: AuthController
+                                      .to.user.value.token
+                                      .toString());
 
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: const Text(
@@ -339,10 +348,18 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                               );
                             });
                       },
-                      child: Text("인증에 실패하셨나요?",style: TextStyle(color:Colors.grey[700]),)),
+                      child: Text(
+                        "인증에 실패하셨나요?",
+                        style: TextStyle(color: Colors.grey[700]),
+                      )),
                   TextButton(
-                      onPressed: () {Get.to(RootPage());},
-                      child: Text("홈으로 이동",)),
+                      onPressed: () {
+                        Get.to(RootPage());
+
+                      },
+                      child: Text(
+                        "홈으로 이동",
+                      )),
                 ],
               ),
             ),

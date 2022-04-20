@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/profile_image_screen.dart';
@@ -72,7 +73,7 @@ class _EditInfoState extends State<EditInfo> {
                           Form(key:_formKey,
                               child:Column(
                                 children: [
-                                  _nameFormField("이름"),
+                                  _nameFormField("이름 (인증을 위해 꼭 실명을 기재해주세요.)"),
                                   SizedBox(height: 10,),
                                   _genderSelection("성별"),
                                   SizedBox(height: 10,),
@@ -115,6 +116,7 @@ class _EditInfoState extends State<EditInfo> {
                             grade: grade,
                             mbti: mbti,
                           ));
+                          AuthController.to.setGradeNameUniv(grade, _nameController.text, _univController.text);
                           //이렇게 쓰면 안될거같은데..
                           Get.to(ProfileImageScreen());
                         }
@@ -522,7 +524,7 @@ class _EditInfoState extends State<EditInfo> {
           })),
       onPressed: () {
         setState(() {
-          this.mbti = text;
+          mbti = text;
         });
         Navigator.pop(context);
         FocusScopeNode currentFocus = FocusScope.of(context);

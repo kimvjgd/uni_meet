@@ -77,8 +77,8 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
   }
 
   void onPressed() async {
-   Get.snackbar("알림","이동 중 입니다 ...");
-   await Future<void>.delayed(Duration(seconds: 15));
+   // Get.snackbar("알림","이동 중 입니다 ...");
+   // await Future<void>.delayed(Duration(seconds: 15));
     Get.to(() => UnivCheckScreen());
   }
 }
