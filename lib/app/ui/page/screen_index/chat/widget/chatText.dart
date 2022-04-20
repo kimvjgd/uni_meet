@@ -27,6 +27,7 @@ class ChatText extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(width: 3,),
         IconButton(
             icon: chatModel.writer!.split('_')[2] == '관리자'
                 ? Container(decoration: BoxDecoration( image:DecorationImage(image:AssetImage('assets/images/logo.png'))),)
@@ -45,13 +46,13 @@ class ChatText extends StatelessWidget {
             ));
           }
         ),
-        SizedBox(
-          width: 6,
-        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(chatModel.writer!.split('_')[2]),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(chatModel.writer!.split('_')[2],),
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -59,21 +60,14 @@ class ChatText extends StatelessWidget {
                 Container(
                   child: Text(
                     chatModel.message ?? '메세지 가려짐',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   constraints:
                   BoxConstraints(minHeight: 40, maxWidth: size.width * 0.5),
                   decoration: BoxDecoration(
-                    color: app_deepyellow,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(2),
-                        topRight: roundedCorner,
-                        bottomRight: roundedCorner,
-                        bottomLeft: roundedCorner),
+                    color: app_systemGrey5,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
                 ),
                 SizedBox(
@@ -103,22 +97,18 @@ class ChatText extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodyText1!
-                .copyWith(color: app_systemGrey1),
+                .copyWith(color: Colors.white),
           ),
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           constraints:
           BoxConstraints(minHeight: 40, maxWidth: size.width * 0.6),
           decoration: BoxDecoration(
-            color:app_lightyellow,
-            borderRadius: BorderRadius.only(
-                topLeft: roundedCorner,
-                topRight: Radius.circular(2),
-                bottomRight: roundedCorner,
-                bottomLeft: roundedCorner),
+            color: app_green,
+            borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
         ),
         SizedBox(
-          width: 5,
+          width: 15,
         )
       ],
     );
