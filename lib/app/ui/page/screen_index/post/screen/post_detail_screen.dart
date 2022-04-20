@@ -254,6 +254,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   )
                 : Expanded(
                     child: ListView.separated(
+                      reverse: true,
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 60),
                     separatorBuilder: (context, index) {
                       return Divider();
