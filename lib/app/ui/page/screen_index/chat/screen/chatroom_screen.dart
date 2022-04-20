@@ -54,13 +54,13 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                 builder:(BuildContext context) {
                 return AlertDialog(
                   title: Text("초대하기"),
-                  content: Text("설명설명"),
+                  content: Text("복사된 코드를 친구에게 전달해주세요! \n채팅방 리스트 오른쪽 하단 버튼을 통해 입장하실 수 있습니다.",textAlign: TextAlign.center,),
                   actions: [
-                    IconButton(
+                    TextButton(
                         onPressed: () async{
                           await FlutterClipboard.copy(widget.chatroomKey);
                         },
-                        icon: Icon(Icons.copy)
+                        child: Text("복사하기",)
                     )
                   ],
                 );
@@ -73,12 +73,14 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                 showDialog(context: context,
                     builder:(BuildContext context) {
                       return AlertDialog(
-                        title: Text("초대하기"),
-                        content: Text("설명설명"),
+                        title: Text("나가기"),
+                        content: Text("채팅방을 나가시겠습니까?"),
                         actions: [
                           IconButton(onPressed: () async {
-                            ChatRepository().exitChatroom(widget.chatroomKey);
-                          }, icon: Icon(Icons.exit_to_app))
+                            await ChatRepository().exitChatroom(widget.chatroomKey);
+                            Get.back();
+                          }
+                          , icon: Icon(Icons.exit_to_app))
                         ],
                       );
                     });
@@ -90,7 +92,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              _postInfo(),
+             // _postInfo(),
               Expanded(
                   child: Container(
                 color: Colors.white,
@@ -136,26 +138,26 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
     _chatController.clear();
   }
 
-  MaterialBanner _postInfo() {
-    return MaterialBanner(
-        padding: EdgeInsets.zero,
-        content: Column(
-          children: [
-            ListTile(
-              leading: Icon(Icons.wysiwyg),
-              title: RichText(
-                text: TextSpan(
-                    text: '신촌에서 3:3 술마실분?   ',
-                    style: TextStyle(color: Colors.black),
-                    children: [
-                      TextSpan(
-                        text: '2022/04/11',
-                      )
-                    ]),
-              ),
-            )
-          ],
-        ),
-        actions: [Container()]);
-  }
+  // MaterialBanner _postInfo() {
+  //   return MaterialBanner(
+  //       padding: EdgeInsets.zero,
+  //       content: Column(
+  //         children: [
+  //           ListTile(
+  //             leading: Icon(Icons.wysiwyg),
+  //             title: RichText(
+  //               text: TextSpan(
+  //                   text: '신촌에서 3:3 술마실분?   ',
+  //                   style: TextStyle(color: Colors.black),
+  //                   children: [
+  //                     TextSpan(
+  //                       text: '2022/04/11',
+  //                     )
+  //                   ]),
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //       actions: [Container()]);
+  // }
 }
