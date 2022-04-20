@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/ui/page/account/verify_number.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
+import 'package:flutter/foundation.dart' show TargetPlatform;
 
 import '../../components/app_color.dart';
 
@@ -26,6 +27,8 @@ class _EditNumberState extends State<EditNumber> {
 
   @override
   Widget build(BuildContext context) {
+    var platform = Theme.of(context).platform;
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black,),
@@ -39,16 +42,11 @@ class _EditNumberState extends State<EditNumber> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Spacer(
-                flex: 2,
+                flex: 3,
               ),
-              Text(
-                "로고",
-                style: TextStyle(
-                  fontSize: 50,
-                ),
-              ),
+              Image.asset("assets/images/logo.png"),
               Spacer(
-                flex: 1,
+                flex: 5,
               ),
               Text(
                 "휴대폰 번호를 입력해주세요",
@@ -96,16 +94,26 @@ class _EditNumberState extends State<EditNumber> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("이용 약관"),
                   TextButton(onPressed: () async {
-                    final url = "https://naver.com/";
-                    if(await canLaunch(url)){
-                      await launch(
-                        url,forceWebView:true,
-                        enableJavaScript:true,
-                      );
+                    if(platform == TargetPlatform.iOS){
+                      final url = "https://sites.google.com/view/momodu-terms-system-ap/홈";
+                      if(await canLaunch(url)){
+                        await launch(
+                          url,forceWebView:true,
+                          enableJavaScript:true,
+                        );
+                      }
                     }
-                  }, child: Text("전문보기")),
+                    else{
+                      final url = "https://sites.google.com/view/momodu-terms-system-gg/홈";
+                      if(await canLaunch(url)){
+                        await launch(
+                          url,forceWebView:true,
+                          enableJavaScript:true,
+                        );
+                      }
+                    }
+                  }, child: Text("이용 약관",style: TextStyle(color: app_red))),
                   Text("동의합니다"),
                   Checkbox(
                     checkColor: Colors.black,
@@ -124,16 +132,26 @@ class _EditNumberState extends State<EditNumber> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("개인정보 처리방침"),
                   TextButton(onPressed: () async {
-                    final url = "https://naver.com/";
-                    if(await canLaunch(url)){
-                      await launch(
-                        url,forceWebView:true,
-                        enableJavaScript:true,
-                      );
+                    if(platform == TargetPlatform.iOS){
+                      final url = "https://sites.google.com/view/momodu-pi-ap/홈";
+                      if(await canLaunch(url)){
+                        await launch(
+                          url,forceWebView:true,
+                          enableJavaScript:true,
+                        );
+                      }
                     }
-                  }, child: Text("전문보기")),
+                    else{
+                      final url = "https://sites.google.com/view/momodu-pi-gg/홈";
+                      if(await canLaunch(url)){
+                        await launch(
+                          url,forceWebView:true,
+                          enableJavaScript:true,
+                        );
+                      }
+                    }
+                  }, child: Text("개인정보 처리방침",style: TextStyle(color: app_red),)),
                   Text("동의합니다"),
                   Checkbox(
                     checkColor: Colors.black,
@@ -147,6 +165,7 @@ class _EditNumberState extends State<EditNumber> {
                   )
                 ],
               ),
+              Spacer(flex: 5,),
               BigButton(
                   onPressed: () {
                       if (_formKey.currentState!.validate()){

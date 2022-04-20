@@ -44,6 +44,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(leading: BackButton(color: Colors.black,),),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
@@ -51,7 +52,6 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BackButton(),
               BigText(headText: "새로운 만남을 대하는\n당신의 모습은 어떤가요?"),
               Spacer(
                 flex: 2,

@@ -341,11 +341,8 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                       },
                       child: Text("인증에 실패하셨나요?",style: TextStyle(color:Colors.grey[700]),)),
                   TextButton(
-                      onPressed: () {
-                        Get.to(RootPage());
-                      },
+                      onPressed: () {Get.to(RootPage());},
                       child: Text("홈으로 이동",)),
-
                 ],
               ),
             ),

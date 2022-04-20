@@ -51,84 +51,90 @@ class _EditInfoState extends State<EditInfo> {
 
     return GestureDetector(
       onTap: (){FocusScope.of(context).unfocus();},
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0.0,),
-        body:Center(
-          child: SizedBox(
-            height: _size.height,
-            width: _size.width*0.9,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  BigText(headText: "안녕하세요!👋\n즐거운 만남을 위해\n당신에 대해 알려주세요."),
-                  SizedBox(height: _size.height*0.1,),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Form(key:_formKey,
-                            child:Column(
-                              children: [
-                                _nameFormField("이름"),
-                                SizedBox(height: 10,),
-                                _genderSelection("성별"),
-                                SizedBox(height: 10,),
-                                _univPicker("대학교"),
-                                SizedBox(height: 10,),
-                                _majorTextFormField("학과"),
-                                SizedBox(height: 10,),
-                              ],
-                            )
-                        ),
-                        _gradePicker(),
-                        SizedBox(height: 10,),
-                        _mbtiField(),
-                      ],
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          body:Center(
+            child: SizedBox(
+              height: _size.height,
+              width: _size.width*0.9,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: _size.height*0.05,),
+                    BigText(headText: "안녕하세요!👋\n즐거운 만남을 위해\n당신에 대해 알려주세요."),
+                    SizedBox(height: _size.height*0.1,),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Form(key:_formKey,
+                              child:Column(
+                                children: [
+                                  _nameFormField("이름"),
+                                  SizedBox(height: 10,),
+                                  _genderSelection("성별"),
+                                  SizedBox(height: 10,),
+                                  _univPicker("대학교"),
+                                  SizedBox(height: 10,),
+                                  _majorTextFormField("학과"),
+                                  SizedBox(height: 10,),
+                                ],
+                              )
+                          ),
+                          _gradePicker(),
+                          SizedBox(height: 10,),
+                          _mbtiField(),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: _size.height*0.12,),
-                  BigButton(onPressed: () {
-                    if(grade == 0){
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: const Text(
-                          "학번을 채워주세요!",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        backgroundColor: Colors.white,
-                      ));
-                    }
-                    else if (_formKey.currentState!.validate()) {
-                      UserRepository.signup(AppUserModel(
-                        uid:FirebaseAuth.instance.currentUser?.uid,
-                        auth:false,
-                        phone:FirebaseAuth.instance.currentUser?.phoneNumber,
-                        name: _nameController.text,
-                        gender: _gender.toString(),
-                        university: _univController.text,
-                        major: _majorController.text,
-                        grade: grade,
-                        mbti: mbti,
-                      ));
-                      //이렇게 쓰면 안될거같은데..
-                      Get.to(RootPage());
-                    }
-                    else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: const Text(
-                          "오류가 발생했습니다. 다시 한번 시도해주세요!",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        backgroundColor: Colors.white,
-                      ));
-                    }
-                  }, btnText:"다음으로",)
-                ],
+                    SizedBox(height: _size.height*0.12,),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: BigButton(
+                        onPressed: () async {
+                        if(grade == 0){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: const Text(
+                              "학번을 채워주세요!",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            backgroundColor: Colors.white,
+                          ));
+                        }
+                        else if (_formKey.currentState!.validate()) {
+                          await UserRepository.signup(AppUserModel(
+                            uid:FirebaseAuth.instance.currentUser?.uid,
+                            auth:false,
+                            phone:FirebaseAuth.instance.currentUser?.phoneNumber,
+                            name: _nameController.text,
+                            gender: _gender.toString(),
+                            university: _univController.text,
+                            major: _majorController.text,
+                            grade: grade,
+                            mbti: mbti,
+                          ));
+                          //이렇게 쓰면 안될거같은데..
+                          Get.to(ProfileImageScreen());
+                        }
+                        else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: const Text(
+                              "오류가 발생했습니다. 다시 한번 시도해주세요!",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            backgroundColor: Colors.white,
+                          ));
+                        }
+                      }, btnText:"다음으로",),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        )
+          )
+        ),
       ),
     );
   }
