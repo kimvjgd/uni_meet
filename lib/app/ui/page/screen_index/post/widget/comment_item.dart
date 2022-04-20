@@ -45,9 +45,7 @@ class CommentItem extends StatelessWidget {
                                 okCallback: () async {
                                   if (comment.hostKey != null &&
                                       comment.hostKey != '') {
-                                    if (await CommentRepository()
-                                        .checkCommentPossible(
-                                            comment.hostKey!)) {
+                                    if (await CommentRepository().checkCommentPossible(comment.hostKey!)) {
                                       await ChatRepository().createNewChatroom(
                                           ChatroomModel(
                                               allUser: [

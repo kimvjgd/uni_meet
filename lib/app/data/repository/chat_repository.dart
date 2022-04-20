@@ -187,7 +187,7 @@ class ChatRepository {
         .collection(COLLECTION_CHATS)
         .orderBy(KEY_CHAT_CREATEDDATE, descending: true)
         .startAfterDocument(await oldestChatRef.get())
-        .limit(10)
+        .limit(5)
         .get();
     List<ChatModel> chatList = [];
     snapshot.docs.forEach((docSnapshot) {
