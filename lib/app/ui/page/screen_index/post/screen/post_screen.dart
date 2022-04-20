@@ -27,6 +27,7 @@ class _PostScreenState extends State<PostScreen> {
     //PostController.to.loadPostList();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor:Colors.white,
         elevation: 2,
         title: Text("게시판",style: TextStyle(color:Colors.grey[800]),),

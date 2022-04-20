@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
             elevation: 0,
             title: Image.asset('assets/images/logo.png',width: _size.width*0.25,),
             actions: [
