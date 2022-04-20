@@ -19,6 +19,7 @@ import '../../../../../data/model/firestore_keys.dart';
 import '../../../../../data/repository/news_repository.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';
+import '../../widgets/profile_widget.dart';
 import '../widget/comment_item.dart';
 
 class PostDetailScreen extends StatefulWidget {
@@ -104,59 +105,53 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             children: [
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: _postContent(TimeAgo.timeCustomFormat(widget.post.createdDate!))),
-              Divider(
-                thickness: 0.5,
-                color: divider,
-              ),
-               _commentContent(),
+                  child: _postContent(
+                      TimeAgo.timeCustomFormat(widget.post.createdDate!))),
+              _commentContent(),
             ],
           ),
         ),
         bottomSheet: widget.post.host != AuthController.to.user.value.uid
             ? InputBar(
-              hintText: '댓글을 남겨주세요..',
-              textEditingController: _commentController,
-              onPress: () {                   showDialog(
-                  context: Get.context!,
-                  builder: (context) => MessagePopup(
-                    title: '시스템',
-                    message: "댓글을 작성하시겠습니까?",
-                    okCallback: () async {
-                      await commentRepository.createNewComment(
-                          widget.post.postKey, {
-                        KEY_COMMENT_HOSTKEY:
-                        AuthController.to.user.value.uid,
-                        KEY_COMMENT_HOSTPUSHTOKEN:
-                        AuthController.to.user.value.token,
-                        KEY_COMMENT_HOSTINFO:
-                        '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
-                        KEY_COMMENT_CONTENT:
-                        _commentController.text,
-                        KEY_COMMENT_COMMENTTIME: DateTime.now()
-                      });
+                hintText: '댓글을 남겨주세요..',
+                textEditingController: _commentController,
+                onPress: () {
+                  showDialog(
+                      context: Get.context!,
+                      builder: (context) => MessagePopup(
+                            title: '시스템',
+                            message: "댓글을 작성하시겠습니까?",
+                            okCallback: () async {
+                              await commentRepository
+                                  .createNewComment(widget.post.postKey, {
+                                KEY_COMMENT_HOSTKEY:
+                                    AuthController.to.user.value.uid,
+                                KEY_COMMENT_HOSTPUSHTOKEN:
+                                    AuthController.to.user.value.token,
+                                KEY_COMMENT_HOSTINFO:
+                                    '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
+                                KEY_COMMENT_CONTENT: _commentController.text,
+                                KEY_COMMENT_COMMENTTIME: DateTime.now()
+                              });
 
-                      // 푸시 알림
-                      print("게시글 작성자 토큰" +
-                          widget.post.hostpushToken.toString());
-                      await Get.put(NotificationController())
-                          .SendNewCommentNotification(
-                          Title:
-                          widget.post.title.toString(),
-                          receiver_token: widget
-                              .post.hostpushToken
-                              .toString());
+                              // 푸시 알림
+                              print("게시글 작성자 토큰" +
+                                  widget.post.hostpushToken.toString());
+                              await Get.put(NotificationController())
+                                  .SendNewCommentNotification(
+                                      Title: widget.post.title.toString(),
+                                      receiver_token:
+                                          widget.post.hostpushToken.toString());
 
-                      NewsRepository()
-                          .createCommentNews(widget.post);
+                              NewsRepository().createCommentNews(widget.post);
 
-                      Get.back();
-                      _commentController.clear();
-                    },
-                    cancelCallback: Get.back,
-                  )); },
-
-            )
+                              Get.back();
+                              _commentController.clear();
+                            },
+                            cancelCallback: Get.back,
+                          ));
+                },
+              )
             : SizedBox.shrink());
   }
 
@@ -177,13 +172,24 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
   Row _hostProfile() {
     return Row(
       children: [
-        Text(
-          widget.post.hostUni! +
-              ' ' +
-              widget.post.hostGrade! +
-              '학번 ' +
-              widget.post.hostNick! +
-              ' ',
+        GestureDetector(
+          onTap: () {
+            Get.dialog(AlertDialog(
+                title: SizedBox(),
+                content: ProfileWidget(
+                  university: widget.post.hostUni.toString(),
+                  grade: widget.post.hostGrade.toString() + '학번',
+                  mbti: "MBTI",
+                  nickname: widget.post.hostNick.toString(),
+                  localImage: "1",
+                )));
+          },
+          child: Text(
+            widget.post.hostNick! + '  ',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         ),
         Container(
             decoration: BoxDecoration(
@@ -227,14 +233,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Text(cuteDong,style: TextStyle(color: app_systemGrey1),
-                  // DateFormat.Md().add_Hm().format(widget.post.createdDate!),
-                  ),
+              child: Text(
+                cuteDong, style: TextStyle(color: app_systemGrey1),
+                // DateFormat.Md().add_Hm().format(widget.post.createdDate!),
+              ),
             ),
           ],
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 20,0,5),
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
           child: Text(widget.post.content.toString(), maxLines: null),
         ),
       ],
@@ -246,7 +253,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         future: commentRepository.loadCommentList(widget.post.postKey),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           print(snapshot.connectionState);
-          if (snapshot.hasData) {//
+          if (snapshot.hasData) {
+            //
             return snapshot.data.length == 0
                 ? Center(
                     child: Text("작성된 댓글이 없습니다!"),
@@ -254,16 +262,38 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 : Expanded(
                     child: ListView.separated(
                       reverse: true,
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 60),
-                    separatorBuilder: (context, index) {
-                      return Divider();
-                    },
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return CommentItem(
-                          comment: snapshot.data[index], post: widget.post);
-                    },
-                  ));
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 60),
+                      separatorBuilder: (context, index) {
+                        return Divider(
+                          thickness: 0.5,
+                          color: divider,
+                        );
+                      },
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        if (index == snapshot.data.length - 1)
+                          return Column(
+                            children: [
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text("댓글",
+                                      style:
+                                          TextStyle(color: app_systemGrey1))),
+                              Divider(
+                                thickness: 0.5,
+                                color: divider,
+                              ),
+                              CommentItem(
+                                  comment: snapshot.data[index],
+                                  post: widget.post)
+                            ],
+                          );
+                        else
+                          return CommentItem(
+                              comment: snapshot.data[index], post: widget.post);
+                      },
+                    ),
+                  );
           } else if (snapshot.hasError) {
             return Column(
               children: [
