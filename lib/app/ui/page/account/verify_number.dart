@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/root_page.dart';
-
 import '../../components/app_color.dart';
-import 'edit_info.dart';
+
 enum Status {Waiting,Error}
 
 class VerifyNumber extends StatefulWidget {
@@ -73,16 +73,19 @@ class _VerifyNumberState extends State<VerifyNumber> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text("코드 인증",style: TextStyle(color: Colors.black),),
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
           padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
         child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Spacer(flex: 2,),
+          Spacer(flex: 3,),
           Image.asset("assets/images/logo.png"),
-          Text("로고",style: TextStyle(fontSize: 50,),),
-          Spacer(flex: 1,),
+          Spacer(flex: 5,),
           _status != Status.Error
               ? Text("전송된 6자리 코드를 입력해주세요",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7),fontSize: 20),)
           :Text("코드가 올바르지 않습니다",style: TextStyle(color: Colors.redAccent,fontSize: 20),),
@@ -138,14 +141,11 @@ class _VerifyNumberState extends State<VerifyNumber> {
               ),
             ],
           ),
-          MaterialButton(
-              child: Text("입력"),
-              onPressed: () async {
-                await _sendCodeToFirebase(code:_textEditingController.text);
-              }
-          ),
-
-          Spacer(flex: 4,),
+          Spacer(flex: 1,),
+          BigButton(onPressed: () async {
+            await _sendCodeToFirebase(code:_textEditingController.text);
+          }, btnText: '전송하기',),
+          Spacer(flex: 5,),
         ],
       ),)
     );

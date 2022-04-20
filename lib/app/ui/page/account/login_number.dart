@@ -38,14 +38,9 @@ class _LoginNumberState extends State<LoginNumber> {
               Spacer(
                 flex: 2,
               ),
-              Text(
-                "로고",
-                style: TextStyle(
-                  fontSize: 50,
-                ),
-              ),
+              Image.asset("assets/images/logo.png"),
               Spacer(
-                flex: 1,
+                flex: 3,
               ),
               Text(
                 "휴대폰 번호를 입력해주세요",
@@ -87,9 +82,7 @@ class _LoginNumberState extends State<LoginNumber> {
                       ),
                     ),
                   ]),
-              Spacer(
-                flex: 1,
-              ),
+              Spacer(flex: 3,),
               BigButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()){
@@ -101,7 +94,7 @@ class _LoginNumberState extends State<LoginNumber> {
                   },
                   btnText: "코드 전송하기"),
               Spacer(
-                flex: 4,
+                flex: 6,
               ),
             ],
           ),
