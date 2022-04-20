@@ -80,6 +80,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Spacer(flex: 2,),
+          Image.asset("assets/images/logo.png"),
           Text("로고",style: TextStyle(fontSize: 50,),),
           Spacer(flex: 1,),
           _status != Status.Error

@@ -179,5 +179,67 @@ class NotificationController extends GetxController{
     return true;
   }
 
+  Future<bool> SendSuccessUniCheck({required String receiver_token}) async {
+    String url = "https://fcm.googleapis.com/fcm/send";
+    // 임시
+    String _firebaseKey =firebase_FCM_key;
+
+    await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$_firebaseKey',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': '학생 인증이 완료되었습니다! 게시판과 채팅을 이용해보세요',
+            'title': 'MOMODU'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          'to':"$receiver_token",
+        },
+      ),
+    );
+
+    return true;
+
+  }
+  Future<bool> SendFailUniCheck({required String receiver_token}) async {
+    String url = "https://fcm.googleapis.com/fcm/send";
+    // 임시
+    String _firebaseKey =firebase_FCM_key;
+
+    await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$_firebaseKey',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': '학생 인증에 실패하였습니다! 다시 한번 시도해주세요',
+            'title': 'MOMODU'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          'to':"$receiver_token",
+        },
+      ),
+    );
+
+    return true;
+
+  }
 
 }

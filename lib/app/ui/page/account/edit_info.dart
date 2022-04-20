@@ -11,6 +11,7 @@ import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
+import 'package:uni_meet/root_page.dart';
 import '../../../../secret/univ_list.dart';
 import '../../../data/model/app_user_model.dart';
 
@@ -111,7 +112,7 @@ class _EditInfoState extends State<EditInfo> {
                         mbti: mbti,
                       ));
                       //이렇게 쓰면 안될거같은데..
-                      Get.to(ProfileImageScreen());
+                      Get.to(RootPage());
                     }
                     else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -26,14 +26,14 @@ class HomeScreen extends StatelessWidget {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          elevation: 0,
-           title: Image.asset('assets/images/logo.png',width: _size.width*0.25,),
+            elevation: 0,
+            title: Image.asset('assets/images/logo.png',width: _size.width*0.25,),
             actions: [
-          IconButton(
-            onPressed: () {Get.to(AlarmList());},
-            icon: Icon(Icons.notifications_none_rounded,color: Colors.grey[800],),
-          )
-        ]),
+              IconButton(
+                onPressed: () {Get.to(AlarmList());},
+                icon: Icon(Icons.notifications_none_rounded,color: Colors.grey[800],),
+              )
+            ]),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
@@ -141,44 +141,44 @@ class HomeScreen extends StatelessWidget {
                 itemBuilder: (context, i, id){
                   //for onTap to redirect to another screen
                   if(i==0)
-                  return GestureDetector(
-                    child: Image.asset("assets/images/beta_banner_2.png"),
-                    onTap: () async {
+                    return GestureDetector(
+                      child: Image.asset("assets/images/beta_banner_2.png"),
+                      onTap: () async {
                         final url = "https://sites.google.com/view/momodu-beta/%ED%99%88";
                         if(await canLaunch(url)){
-                        await launch(
-                        url,forceWebView:true,
-                        enableJavaScript:true,
-                        );
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
                         }
-                    },
-                  );
+                      },
+                    );
                   else if(i==1)
                     return GestureDetector(
-                    child: Image.asset("assets/images/manual_banner.png"),
-                    onTap: () async {
-                      final url = "https://sites.google.com/view/momodu-manuel/%ED%99%88";
-                      if(await canLaunch(url)){
-                        await launch(
-                          url,forceWebView:true,
-                          enableJavaScript:true,
-                        );
-                      }
-                    },
-                  );
+                      child: Image.asset("assets/images/manual_banner.png"),
+                      onTap: () async {
+                        final url = "https://sites.google.com/view/momodu-manuel/%ED%99%88";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
+                        }
+                      },
+                    );
                   else
                     return GestureDetector(
-                    child: Image.asset("assets/images/team_banner_2.png"),
-                    onTap: () async {
-                      final url = "https://sites.google.com/view/momodu-intro/%ED%99%88";
-                      if(await canLaunch(url)){
-                        await launch(
-                          url,forceWebView:true,
-                          enableJavaScript:true,
-                        );
-                      }
-                    },
-                  );
+                      child: Image.asset("assets/images/team_banner_2.png"),
+                      onTap: () async {
+                        final url = "https://sites.google.com/view/momodu-intro/%ED%99%88";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
+                        }
+                      },
+                    );
                 },
               ),
               Padding(
@@ -256,49 +256,49 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               FutureBuilder<List<PostModel>>(
-                    initialData: [
-                      PostModel(
-                          postKey: '',
-                          host: '',
-                          place: '',
-                          numComments: 0,
-                          headCount: 0,
-                          title: '',
-                          createdDate: DateTime.now(),
-                          content: '',
-                          hostpushToken: '',
-                          hostUni: '',
-                          hostNick: '',
-                          hostGrade: '')
-                    ],
-                    future: PostRepository().getTwoPosts(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const CircularProgressIndicator();
-                      }
-                      return SizedBox(
-                        height: 130,
-                        child: ListView.builder(
-                          physics:NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              Get.to(
-                                  PostDetailScreen(
-                                post: snapshot.data![index],
-                              ));
-                            },
-                            child: ListTile(
-                              title: Text(
-                                snapshot.data![index].title.toString(),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(color: Colors.black),
-                              ),
+                  initialData: [
+                    PostModel(
+                        postKey: '',
+                        host: '',
+                        place: '',
+                        numComments: 0,
+                        headCount: 0,
+                        title: '',
+                        createdDate: DateTime.now(),
+                        content: '',
+                        hostpushToken: '',
+                        hostUni: '',
+                        hostNick: '',
+                        hostGrade: '')
+                  ],
+                  future: PostRepository().getTwoPosts(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    return SizedBox(
+                      height: 130,
+                      child: ListView.builder(
+                        physics:NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) => InkWell(
+                          onTap: () {
+                            Get.to(
+                                PostDetailScreen(
+                                  post: snapshot.data![index],
+                                ));
+                          },
+                          child: ListTile(
+                            title: Text(
+                              snapshot.data![index].title.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
-                          itemCount: snapshot.data!.length,
                         ),
-                      ); }
+                        itemCount: snapshot.data!.length,
+                      ),
+                    ); }
               ),
             ],
           ),

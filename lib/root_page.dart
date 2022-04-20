@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
+import 'package:uni_meet/app/ui/error_screen.dart';
 import 'package:uni_meet/app/ui/page/account/edit_number.dart';
 import 'package:uni_meet/app/ui/page/account/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/start_screen.dart';
@@ -33,7 +34,7 @@ class RootPage extends GetView<AuthController> {
                   if (snapshot.hasData) {
                     if(snapshot.data!.university == null){
                       return EditInfo(uid: snapshot.data!.uid!);
-                    }else if(snapshot.data!.localImage == null || snapshot.data!.nickname == null){
+                    }else if(snapshot.data!.localImage == 0 || snapshot.data!.nickname == null){
                       return ProfileImageScreen();
                     }
                     return const IndexScreen();
@@ -46,7 +47,7 @@ class RootPage extends GetView<AuthController> {
                   }
                 });
           } else if(user.hasError) {
-            return Container(child: Text(user.error.toString()),);
+            return ErrorScreen();
           }
           else {
             return StartScreen(); //가입 페이지

@@ -25,14 +25,12 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   final List<String> _title = <String>['알림 설정','고객센터','서비스 이용약관','개인정보 이용방침','오픈소스 라이센스',];
-
   @override
   Widget build(BuildContext context) {
 
     setState(() {
-      _profile();
+      _Unicheck();
     });
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor:Colors.white,
@@ -41,7 +39,51 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: Column(
         children: [
-          _profile(),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Container(
+                    width: 90,
+                    height: 90,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: AssetImage('assets/images/momo' +
+                          AuthController.to.user.value.localImage.toString() +
+                          '.png'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 15, 8, 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          AuthController.to.user.value.nickname.toString() + "님",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          AuthController.to.user.value.university.toString() +
+                              " " +
+                              AuthController.to.user.value.grade.toString() +
+                              "학번 | " +
+                              AuthController.to.user.value.major.toString(),
+                          style: TextStyle(color: app_systemGrey1),
+                        ),
+                        Text(
+                          AuthController.to.user.value.mbti.toString(),
+                          style: TextStyle(color: app_systemGrey1),
+                        ),
+                        _Unicheck()
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           Divider(thickness: 1,color: app_systemGrey4),
           Expanded(
               child: ListView.separated(
@@ -51,13 +93,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                      title: Text(_title[index]),
+                    title: Text(_title[index]),
                     onTap: (){
-                        if(index==0) Get.to(AlarmSettingScreen());
-                        else if(index == 1) Get.to(CustomerServiceScreen());
-                        else if(index == 2) Get.to(ServiceTermScreen());
-                        else if(index == 3) Get.to(PersonalInfoScreen());
-                        else Get.to(OpneSourceScreen());
+                      if(index==0) Get.to(AlarmSettingScreen());
+                      else if(index == 1) Get.to(CustomerServiceScreen());
+                      else if(index == 2) Get.to(ServiceTermScreen());
+                      else if(index == 3) Get.to(PersonalInfoScreen());
+                      else Get.to(OpneSourceScreen());
                     },
                   );
                 },
@@ -69,80 +111,112 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-
-  Container _profile(){
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            Container(
-              width: 90,
-              height: 90,
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage('assets/images/momo' +
-                    AuthController.to.user.value.localImage.toString() +
-                    '.png'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 15, 8, 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    AuthController.to.user.value.nickname.toString() + "님",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    AuthController.to.user.value.university.toString() +
-                        " " +
-                        AuthController.to.user.value.grade.toString() +
-                        "학번 | " +
-                        AuthController.to.user.value.major.toString(),
-                    style: TextStyle(color: app_systemGrey1),
-                  ),
-                  Text(
-                    AuthController.to.user.value.mbti.toString(),
-                    style: TextStyle(color: app_systemGrey1),
-                  ),
-                  AuthController.to.user.value.auth!
-                      ? Text("학생 인증 완료")
-                      : Row(
-                    children: [
-                      Text(
-                        "학생 인증 미완료  ",
-                        style: TextStyle(color: app_systemGrey1),
-                      ),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              minimumSize: Size.zero,
-                              tapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                              alignment: Alignment.centerLeft),
-                          onPressed: () {
-                            Get.to(UnivCheckScreen());
-                          },
-                          child: Text(
-                            "인증하기",
-                            style: TextStyle(
-                              color: app_red.withOpacity(0.8),
-                            ),
-                          )),
-                    ],
-                  ),
-
-                ],
-              ),
-            )
-          ],
+  Row _Unicheck(){
+    return
+      AuthController.to.user.value.auth!
+        ? Row(
+      children: [
+        Text("학생 인증 완료"),
+      ],
+    )
+        : Row(
+      children: [
+        Text(
+          "학생 인증 미완료  ",
+          style: TextStyle(color: app_systemGrey1),
         ),
-      ),
+        TextButton(
+            style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size.zero,
+                tapTargetSize:
+                MaterialTapTargetSize.shrinkWrap,
+                alignment: Alignment.centerLeft),
+            onPressed: () {
+              Get.to(UnivCheckScreen());
+            },
+            child: Text(
+              "인증하기",
+              style: TextStyle(
+                color: app_red.withOpacity(0.8),
+              ),
+            )),
+      ],
     );
   }
+  // Container _profile(){
+  //   return Container(
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(10.0),
+  //       child: Row(
+  //         children: [
+  //           Container(
+  //             width: 90,
+  //             height: 90,
+  //             child: CircleAvatar(
+  //               backgroundColor: Colors.transparent,
+  //               backgroundImage: AssetImage('assets/images/momo' +
+  //                   AuthController.to.user.value.localImage.toString() +
+  //                   '.png'),
+  //             ),
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.fromLTRB(15, 15, 8, 8),
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //               children: [
+  //                 Text(
+  //                   AuthController.to.user.value.nickname.toString() + "님",
+  //                   style: TextStyle(fontSize: 18),
+  //                 ),
+  //                 Text(
+  //                   AuthController.to.user.value.university.toString() +
+  //                       " " +
+  //                       AuthController.to.user.value.grade.toString() +
+  //                       "학번 | " +
+  //                       AuthController.to.user.value.major.toString(),
+  //                   style: TextStyle(color: app_systemGrey1),
+  //                 ),
+  //                 Text(
+  //                   AuthController.to.user.value.mbti.toString(),
+  //                   style: TextStyle(color: app_systemGrey1),
+  //                 ),
+  //                 AuthController.to.user.value.auth!
+  //                     ? Text("학생 인증 완료")
+  //                     : Row(
+  //                   children: [
+  //                     Text(
+  //                       "학생 인증 미완료  ",
+  //                       style: TextStyle(color: app_systemGrey1),
+  //                     ),
+  //                     TextButton(
+  //                         style: TextButton.styleFrom(
+  //                             padding: EdgeInsets.zero,
+  //                             minimumSize: Size.zero,
+  //                             tapTargetSize:
+  //                             MaterialTapTargetSize.shrinkWrap,
+  //                             alignment: Alignment.centerLeft),
+  //                         onPressed: () {
+  //                           Get.to(UnivCheckScreen());
+  //                         },
+  //                         child: Text(
+  //                           "인증하기",
+  //                           style: TextStyle(
+  //                             color: app_red.withOpacity(0.8),
+  //                           ),
+  //                         )),
+  //                   ],
+  //                 ),
+  //
+  //               ],
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   SettingsSection _aboutApp() {
     return SettingsSection(

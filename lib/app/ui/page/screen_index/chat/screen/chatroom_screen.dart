@@ -85,7 +85,6 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
 
 
               },)
-
           ],
         ),
         body: SafeArea(
