@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
 import 'package:uni_meet/root_page.dart';
+import 'package:upgrader/upgrader.dart';
 
 import 'app/controller/auth_controller.dart';
 import 'app/data/model/firestore_keys.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
-      home: RootPage(),
+      home: UpgradeAlert(child: RootPage()),
     );
   }
 }
