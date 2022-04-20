@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
@@ -22,7 +23,10 @@ Future<void> main() async {
   TimeAgo.setLocalMessages();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    runApp(MyApp());
+  });
 }
 
 
