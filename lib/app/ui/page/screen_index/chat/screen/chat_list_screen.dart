@@ -105,7 +105,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 );
               }
             }),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton:AuthController.to.user.value.auth == true
+        ? FloatingActionButton(
           heroTag: 'invite',
           foregroundColor: app_deepyellow,
           backgroundColor: app_lightyellow,
@@ -176,7 +177,22 @@ class _ChatListScreenState extends State<ChatListScreen> {
                     ));
           },
           child: Icon(Icons.mail_rounded),
-        ));
+        )
+            :FloatingActionButton(
+            heroTag: 'invite',
+            foregroundColor: Colors.white,
+            backgroundColor: app_systemGrey3,
+            hoverColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            elevation: 3,
+            onPressed: () {
+              Get.snackbar("알림", "학교 인증을 완료해주세요 !");
+            },
+            child: Icon(Icons.mail_rounded)
+        )
+    );
+
   }
 
   Widget _chatroomList() {

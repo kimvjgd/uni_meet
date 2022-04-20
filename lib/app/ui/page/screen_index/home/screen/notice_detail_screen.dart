@@ -47,7 +47,7 @@ class NoticeDetailScreen extends StatelessWidget {
         Row(
           children: [
             SizedBox(
-              width: 60,
+                width: 60,
                 child: Image.asset("assets/images/logo.png")
             ),
             Text("  모모두 팀  "),

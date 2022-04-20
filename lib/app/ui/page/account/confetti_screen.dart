@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:uni_meet/app/ui/page/account/univ_check_screen.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
@@ -52,7 +54,8 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
               Spacer(flex: 1,),
               Center(child:Text(widget.nick_name+"님, 환영합니다!")),
               Spacer(flex: 6,),
-              BigButton(onPressed: onPressed, btnText: "학교 인증하러 가기")
+              BigButton(onPressed: onPressed, btnText: "학교 인증하러 가기"),
+              SizedBox(height: 10,),
             ],
           ),
         ),
@@ -74,7 +77,9 @@ class _ConfettiScreenState extends State<ConfettiScreen> {
     );
   }
 
-  void onPressed() {
+  void onPressed() async {
+   Get.snackbar("알림","이동 중 입니다 ...");
+   await Future<void>.delayed(Duration(seconds: 10));
     Get.to(() => UnivCheckScreen());
   }
 }

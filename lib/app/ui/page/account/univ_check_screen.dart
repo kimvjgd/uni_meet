@@ -14,9 +14,13 @@ import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
+import 'package:uni_meet/app/ui/error_screen.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
+import 'package:uni_meet/app/ui/page/screen_index/home/screen/home_screen.dart';
+import '../../../../root_page.dart';
 import '../../../../secret/secret_keys.dart';
+import '../../../controller/notification_controller.dart';
 import '../screen_index/index_screen.dart';
 
 class UnivCheckScreen extends StatefulWidget {
@@ -123,7 +127,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text("데이터 오류 발생");
+          return ErrorScreen();
         } else if (snapshot.hasData) {
           if (!snapshot.data!.exists) {
             print('데이터를 못받아옴');
@@ -227,7 +231,6 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                 height: MediaQuery.of(context).size.height * 0.06,
                 child: BigButton(
                     onPressed: () async {
-
                       if (imageFile == null) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: const Text(
@@ -264,6 +267,9 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           setState(() {
                             _isLoading = true;
                           });
+
+                          await Get.put(NotificationController())
+                              .SendSuccessUniCheck(receiver_token:AuthController.to.user.value.token.toString());
                           // users.update({KEY_USER_AUTH: true})
                           //        .then((value) => print("대학인증 성공"))
                           //        .catchError((error) => print("대학 인증 실패: $error"));
@@ -271,6 +277,10 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           // Get.to(IndexScreen());
                         } else {
                           Logger().d('여기로 가버렸어??');
+
+                          await Get.put(NotificationController())
+                              .SendFailUniCheck(receiver_token:AuthController.to.user.value.token.toString());
+
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: const Text(
                               "인증에 실패하였습니다. 다시 시도해 주세요.",
@@ -284,7 +294,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                         }
                       }
                     },
-                    btnText: _isLoading ? "인증중입니다 . . ." : "인증하기디자인수정")),
+                    btnText: _isLoading ? "인증중입니다 . . ." : "인증하기")),
           ),
           Spacer(
             flex: 1,
@@ -329,8 +339,12 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                               );
                             });
                       },
-                      child: Text("인증에 실패하셨나요?",style: TextStyle(color: app_deepyellow),)),
-                  BigButton(onPressed: (){Get.to(IndexScreen());}, btnText:"홈 입장"),
+                      child: Text("인증에 실패하셨나요?",style: TextStyle(color:Colors.grey[700]),)),
+                  TextButton(
+                      onPressed: () {
+                        Get.to(RootPage());
+                      },
+                      child: Text("홈으로 이동",)),
 
                 ],
               ),

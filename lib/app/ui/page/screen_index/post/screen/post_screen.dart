@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
+import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/comment_controller.dart';
 import 'package:uni_meet/app/controller/post_controller.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
@@ -52,7 +53,8 @@ class _PostScreenState extends State<PostScreen> {
           )),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: AuthController.to.user.value.auth==true
+      ? FloatingActionButton(
         heroTag: 'write',
         foregroundColor: app_deepyellow,
         backgroundColor: app_lightyellow,
@@ -63,8 +65,21 @@ class _PostScreenState extends State<PostScreen> {
         onPressed: () {
           Get.to(PostAddScreen());
         },
-        child: Icon(Icons.create_outlined),
-      ),
+        child: Icon(Icons.create_outlined)
+      )
+          :FloatingActionButton(
+          heroTag: 'write',
+          foregroundColor: Colors.white,
+          backgroundColor: app_systemGrey3,
+          hoverColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          elevation: 3,
+          onPressed: () {
+            Get.snackbar("알림", "학교 인증을 완료해주세요 !");
+          },
+          child: Icon(Icons.create_outlined)
+      )
     );
   }
 }
