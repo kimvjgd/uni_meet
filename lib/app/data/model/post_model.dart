@@ -11,6 +11,7 @@ class PostModel {
   final int numComments;
   final String? content;
   final String? hostpushToken;
+  final String? hostInfo;
   final String? hostUni;
   final String? hostNick;
   final String? hostGrade;
@@ -26,6 +27,7 @@ class PostModel {
     required this.createdDate,
     required this.content,
     required this.hostpushToken,
+    required this.hostInfo,
     required this. hostUni,
     required this. hostNick,
     required this. hostGrade,
@@ -54,6 +56,7 @@ class PostModel {
       numComments: json[KEY_POST_NUMCOMMENTS] == null
           ? 0
           : json[KEY_POST_NUMCOMMENTS] as int,
+      hostInfo: json[KEY_POST_HOSTINFO] == null ? '' : json[KEY_POST_HOSTINFO] as String,
       hostGrade: json[KEY_POST_HOSTGRADE] == null ? '' : json[KEY_POST_HOSTGRADE] as String,
       hostNick: json[KEY_POST_HOSTNICK] == null ? '' : json[KEY_POST_HOSTNICK] as String,
       hostUni:json[KEY_POST_HOSTUNI] == null ? '' : json[KEY_POST_HOSTUNI] as String,
@@ -71,6 +74,7 @@ class PostModel {
       KEY_POST_CONTENT: content,
       KEY_POST_NUMCOMMENTS: numComments,
       KEY_POST_HOSTPUSHTOKEN: hostpushToken,
+      KEY_POST_HOSTINFO:hostInfo,
       KEY_POST_HOSTNICK : hostNick,
       KEY_POST_HOSTGRADE : hostGrade,
       KEY_POST_HOSTUNI : hostUni,
@@ -87,6 +91,7 @@ class PostModel {
     int? numComments,
     String? content,
     String? hostpushToken,
+    String? hostInfo,
     String? hostNick,
     String? hostUni,
     String? hostGrade
@@ -101,6 +106,7 @@ class PostModel {
         numComments: numComments ?? this.numComments,
         content: content ?? this.content,
         hostpushToken: hostpushToken ?? this.hostpushToken,
+      hostInfo: hostInfo ?? this.hostInfo,
       hostNick: hostNick ?? this.hostNick,
       hostGrade: hostGrade ?? this.hostGrade,
       hostUni:  hostUni ?? this.hostUni,

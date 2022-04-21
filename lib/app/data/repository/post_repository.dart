@@ -12,6 +12,7 @@ class PostRepository {
     required DateTime createdDate,
     required String host,
     required String hostpushToken,
+    required String hostInfo,
     required String hostGrade,
     required String hostNick,
     required String hostUni,
@@ -26,6 +27,7 @@ class PostRepository {
         headCount: headCount,
         createdDate: createdDate,
         host: host,
+        hostInfo: hostInfo,
         hostGrade: hostGrade,
         hostNick: hostNick,
         hostUni: hostUni,
@@ -45,8 +47,14 @@ class PostRepository {
   }
 
   static Future<void> deletePost(String PostKey) async {
-    CollectionReference post = FirebaseFirestore.instance.collection(
-        COLLECTION_POSTS);
+    CollectionReference post = FirebaseFirestore.instance.collection(COLLECTION_POSTS);
+    //댓글 삭제
+    post.doc(PostKey).collection(COLLECTION_COMMENTS).get()
+        .then((snapshot){
+      for (DocumentSnapshot i in snapshot.docs)
+        i.reference.delete();
+    }).catchError((error) => print("해당 글 내 댓글 삭제 실패: $error"));
+
     return post
         .doc(PostKey)
         .delete()

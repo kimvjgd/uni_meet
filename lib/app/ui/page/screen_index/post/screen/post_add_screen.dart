@@ -398,6 +398,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
                                 headCount: people,
                                 createdDate: DateTime.now(),
                                 host: AuthController.to.user.value.uid!,
+                                hostInfo:  '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
                                 hostUni: AuthController.to.user.value.university.toString(),
                                 hostNick: AuthController.to.user.value.nickname.toString(),
                                 hostGrade: AuthController.to.user.value.grade.toString(),

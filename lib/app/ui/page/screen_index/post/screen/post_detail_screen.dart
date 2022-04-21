@@ -175,14 +175,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         GestureDetector(
           onTap: () {
             Get.dialog(AlertDialog(
-                title: SizedBox(),
-                content: ProfileWidget(
-                  university: widget.post.hostUni.toString(),
-                  grade: widget.post.hostGrade.toString() + '학번',
-                  mbti: "MBTI",
-                  nickname: widget.post.hostNick.toString(),
-                  localImage: "1",
-                )));
+              title: SizedBox(),
+              content: ProfileWidget(
+                  university: widget.post.hostInfo!.split('_')[0],
+                  grade:widget.post.hostInfo!.split('_')[1] + '학번',
+                  mbti:widget.post.hostInfo!.split('_')[4],
+                  nickname: widget.post.hostInfo!.split('_')[2],
+                  localImage: widget.post.hostInfo!.split('_')[3]),
+            ));
           },
           child: Text(
             widget.post.hostNick! + '  ',
