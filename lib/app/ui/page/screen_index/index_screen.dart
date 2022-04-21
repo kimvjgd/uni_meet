@@ -67,8 +67,8 @@ class IndexScreen extends GetView<BottomNavController> {
     showDialog(
         context: Get.context!,
         builder: (context) => MessagePopup(
-              title: '시스템',
-              message: '종료하시겠습니까?',
+              title: '모모두',
+              message: '정말 종료하시겠습니까?',
               okCallback: () {
                 exit(0);
               },
