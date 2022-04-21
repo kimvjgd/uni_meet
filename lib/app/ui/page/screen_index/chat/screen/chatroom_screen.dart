@@ -138,7 +138,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
       createdDate: DateTime.now(),
     ); // 여기서 에러?
     // await ChatRepository().createNewChat(widget.chatroomKey, chat);
-    ChatController.to.addNewChat(chat);
+    if(_chatController.text.trim() != '') ChatController.to.addNewChat(chat);
     _chatController.clear();
   }
 
