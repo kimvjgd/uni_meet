@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
     // getToken();
     return GetMaterialApp(
       theme: ThemeData(
+        primarySwatch: Colors.amber,
         scaffoldBackgroundColor: Colors.white,
           appBarTheme: AppBarTheme(
               color: Colors.white,
