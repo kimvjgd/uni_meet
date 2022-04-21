@@ -19,6 +19,7 @@ class MessagePopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Material(
       color: Colors.transparent,
       child: Column(
@@ -56,7 +57,7 @@ class MessagePopup extends StatelessWidget {
                             elevation: MaterialStateProperty.all(3),
                             side: MaterialStateProperty.all(BorderSide(width: 0.5,color:Colors.white)),
                           ),
-                          onPressed: okCallback, child: Text('확인'),
+                          onPressed:okCallback, child: Text('확인'),
                         ),
                         ElevatedButton(
                           style: ButtonStyle(

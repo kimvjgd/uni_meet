@@ -34,6 +34,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
   TextEditingController _commentController = TextEditingController();
   TextEditingController reportOffenderController = TextEditingController();
   TextEditingController reportContentController = TextEditingController();
+  var _firstPress = true;
 
   @override
   void dispose() {
@@ -43,6 +44,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     Size _size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: (){FocusScope.of(context).unfocus();},
@@ -118,40 +120,51 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   hintText: '댓글을 남겨주세요..',
                   textEditingController: _commentController,
                   onPress: () {
+                    if(_commentController.text.trim() !=''){
                     showDialog(
                         context: Get.context!,
                         builder: (context) => MessagePopup(
                               title: '새 댓글 작성',
                               message: "댓글을 작성하시겠습니까?",
                               okCallback: () async {
-                                await commentRepository
-                                    .createNewComment(widget.post.postKey, {
-                                  KEY_COMMENT_HOSTKEY:
-                                      AuthController.to.user.value.uid,
-                                  KEY_COMMENT_HOSTPUSHTOKEN:
-                                      AuthController.to.user.value.token,
-                                  KEY_COMMENT_HOSTINFO:
-                                      '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
-                                  KEY_COMMENT_CONTENT: _commentController.text,
-                                  KEY_COMMENT_COMMENTTIME: DateTime.now()
-                                });
+                                if(_firstPress) {
+                                  _firstPress = false;
+                                  await commentRepository
+                                      .createNewComment(widget.post.postKey, {
+                                    KEY_COMMENT_HOSTKEY:
+                                    AuthController.to.user.value.uid,
+                                    KEY_COMMENT_HOSTPUSHTOKEN:
+                                    AuthController.to.user.value.token,
+                                    KEY_COMMENT_HOSTINFO:
+                                    '${AuthController.to.user.value
+                                        .university}_${AuthController.to.user
+                                        .value.grade}_${AuthController.to.user
+                                        .value.nickname}_${AuthController.to
+                                        .user.value.localImage}_${AuthController
+                                        .to.user.value.mbti}',
+                                    KEY_COMMENT_CONTENT: _commentController
+                                        .text,
+                                    KEY_COMMENT_COMMENTTIME: DateTime.now()
+                                  });
 
-                                // 푸시 알림
-                                print("게시글 작성자 토큰" +
-                                    widget.post.hostpushToken.toString());
-                                await Get.put(NotificationController())
-                                    .SendNewCommentNotification(
-                                        Title: widget.post.title.toString(),
-                                        receiver_token:
-                                            widget.post.hostpushToken.toString());
+                                  // 푸시 알림
+                                  print("게시글 작성자 토큰" +
+                                      widget.post.hostpushToken.toString());
+                                  await Get.put(NotificationController())
+                                      .SendNewCommentNotification(
+                                      Title: widget.post.title.toString(),
+                                      receiver_token:
+                                      widget.post.hostpushToken.toString());
 
-                                NewsRepository().createCommentNews(widget.post);
-
-                                Get.back();
-                                _commentController.clear();
+                                  NewsRepository().createCommentNews(
+                                      widget.post);
+                                  Get.back();
+                                  _commentController.clear();
+                                  _firstPress = true;
+                                }
                               },
                               cancelCallback: Get.back,
-                            ));
+                            ));}
                   },
                 )
               : SizedBox.shrink()),
@@ -307,4 +320,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             return Container();
         });
   }
+
+
 }

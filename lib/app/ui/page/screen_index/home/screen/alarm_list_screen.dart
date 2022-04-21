@@ -80,7 +80,7 @@ class _AlarmListState extends State<AlarmList> {
                               child: ListTile(
                            //     leading: Icon(Icons.bubble_chart_outlined),
                                 title: Text(snapshot.data![index].news.toString()),
-                                trailing: Text("날짜"),
+                            //    trailing: Text("날짜"),
                               ),
                             ),
                     );
