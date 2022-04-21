@@ -44,84 +44,87 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       Size _size = MediaQuery.of(context).size;
-      return Scaffold(
-        appBar: AppBar(
-          leading: BackButton(color: Colors.grey[800],),
-          actions: [
-            TextButton(child: Text("초대하기"),
-              onPressed: () {
-              showDialog(context: context,
-                builder:(BuildContext context) {
-                return AlertDialog(
-                  title: Text("초대하기"),
-                  content: Text("복사된 코드를 친구에게 전달해주세요! \n채팅방 리스트 오른쪽 하단 버튼을 통해 입장하실 수 있습니다.",textAlign: TextAlign.center,),
-                  actions: [
-                    TextButton(
-                        onPressed: () async{
-                          await FlutterClipboard.copy(widget.chatroomKey);
-                          Get.back();
-                        },
-                        child: Text("복사하기",)
-                    )
-                  ],
-                );
-                });
-
-
-        },),
-            TextButton(child: Text("나가기"),
-              onPressed: () {
+      return GestureDetector(
+        onTap: (){FocusScope.of(context).unfocus();},
+        child: Scaffold(
+          appBar: AppBar(
+            leading: BackButton(color: Colors.grey[800],),
+            actions: [
+              TextButton(child: Text("초대하기"),
+                onPressed: () {
                 showDialog(context: context,
-                    builder:(BuildContext context) {
-                      return AlertDialog(
-                        title: Text("나가기"),
-                        content: Text("채팅방을 나가시겠습니까?"),
-                        actions: [
-                          IconButton(onPressed: () async {
-                            await ChatRepository().exitChatroom(widget.chatroomKey);
+                  builder:(BuildContext context) {
+                  return AlertDialog(
+                    title: Text("초대하기"),
+                    content: Text("복사된 코드를 친구에게 전달해주세요! \n채팅방 리스트 오른쪽 하단 버튼을 통해 입장하실 수 있습니다.",textAlign: TextAlign.center,),
+                    actions: [
+                      TextButton(
+                          onPressed: () async{
+                            await FlutterClipboard.copy(widget.chatroomKey);
                             Get.back();
-                          }
-                          , icon: Icon(Icons.exit_to_app))
-                        ],
-                      );
-                    });
+                          },
+                          child: Text("복사하기",)
+                      )
+                    ],
+                  );
+                  });
 
 
-              },)
-          ],
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-             // _postInfo(),
-              Expanded(
-                  child: Container(
-                color: Colors.white,
-                child: Obx(() => ListView.separated(
-                    reverse: true,
-                    controller: _scrollController,
-                    itemBuilder: (context, index) {
-                      bool isMine =
-                          ChatController.to.chat_chatList[index].writer!.split('_')[2] ==
-                              AuthController.to.user.value.nickname;
-                      return ChatText(
-                        size: _size,
-                        isMine: isMine,
-                        chatModel: ChatController.to.chat_chatList[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 3,
-                      );
-                    },
-                    itemCount: ChatController.to.chat_chatList.length)),
-              )),
-              InputBar(
-                  textEditingController: _chatController,
-                  onPress: onPress,
-                  hintText: '메세지를 입력하세요.')
+          },),
+              TextButton(child: Text("나가기"),
+                onPressed: () {
+                  showDialog(context: context,
+                      builder:(BuildContext context) {
+                        return AlertDialog(
+                          title: Text("나가기"),
+                          content: Text("채팅방을 나가시겠습니까?"),
+                          actions: [
+                            IconButton(onPressed: () async {
+                              await ChatRepository().exitChatroom(widget.chatroomKey);
+                              Get.back();
+                            }
+                            , icon: Icon(Icons.exit_to_app))
+                          ],
+                        );
+                      });
+
+
+                },)
             ],
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+               // _postInfo(),
+                Expanded(
+                    child: Container(
+                  color: Colors.white,
+                  child: Obx(() => ListView.separated(
+                      reverse: true,
+                      controller: _scrollController,
+                      itemBuilder: (context, index) {
+                        bool isMine =
+                            ChatController.to.chat_chatList[index].writer!.split('_')[2] ==
+                                AuthController.to.user.value.nickname;
+                        return ChatText(
+                          size: _size,
+                          isMine: isMine,
+                          chatModel: ChatController.to.chat_chatList[index],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: 3,
+                        );
+                      },
+                      itemCount: ChatController.to.chat_chatList.length)),
+                )),
+                InputBar(
+                    textEditingController: _chatController,
+                    onPress: onPress,
+                    hintText: '메세지를 입력하세요.')
+              ],
+            ),
           ),
         ),
       );

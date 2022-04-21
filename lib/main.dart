@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
      // home: RootPage(),
-      home: SplashScreen(),
+      home: RootPage(),
     );
   }
 }
