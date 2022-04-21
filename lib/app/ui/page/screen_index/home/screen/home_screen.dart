@@ -268,6 +268,7 @@ class HomeScreen extends StatelessWidget {
                         createdDate: DateTime.now(),
                         content: '',
                         hostpushToken: '',
+                        hostInfo: '',
                         hostUni: '',
                         hostNick: '',
                         hostGrade: '')
