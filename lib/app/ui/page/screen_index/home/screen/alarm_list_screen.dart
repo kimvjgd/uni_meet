@@ -38,15 +38,16 @@ class _AlarmListState extends State<AlarmList> {
             style: TextStyle(color: Colors.grey[800]),
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                Get.to(AlarmSettingScreen());
-              },
-              icon: Icon(
-                Icons.settings,
-                color: Colors.grey[800],
-              ),
-            )
+            //알림 온오프 기능 나중에 ...
+            // IconButton(
+            //   onPressed: () {
+            //     Get.to(AlarmSettingScreen());
+            //   },
+            //   icon: Icon(
+            //     Icons.settings,
+            //     color: Colors.grey[800],
+            //   ),
+            // )
           ]),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

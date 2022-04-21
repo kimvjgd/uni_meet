@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../components/app_color.dart';
+
 class MessagePopup extends StatelessWidget {
   final String? title;
   final String? message;
@@ -31,22 +33,40 @@ class MessagePopup extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
-                      title!,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 17, color: Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        title!,
+                        style: const TextStyle(
+                           fontSize: 17, color: Colors.black),
+                      ),
                     ),
                     Text(
                       message!,
-                      style: const TextStyle( fontSize: 14, color: Colors.black),
+                      style: TextStyle( color: Colors.grey[800]),
                     ),
                     SizedBox(height: 15,),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ElevatedButton(onPressed: okCallback, child: Text('확인')),
-                        const SizedBox(width: 7,),
-                        ElevatedButton(onPressed: cancelCallback, child: Text('취소'),style: ElevatedButton.styleFrom(primary: Colors.grey),),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(7),),),
+                            backgroundColor: MaterialStateProperty.all(app_green),
+                            elevation: MaterialStateProperty.all(3),
+                            side: MaterialStateProperty.all(BorderSide(width: 0.5,color:Colors.white)),
+                          ),
+                          onPressed: okCallback, child: Text('확인'),
+                        ),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(7),),),
+                            backgroundColor: MaterialStateProperty.all(app_systemGrey4),
+                            elevation: MaterialStateProperty.all(3),
+                            side: MaterialStateProperty.all(BorderSide(width: 0.5,color:Colors.white)),
+                          ),
+                          onPressed: cancelCallback,
+                          child: Text('취소',style: TextStyle(color: app_systemGrey1),),),
                       ],
                     )
 

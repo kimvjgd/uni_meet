@@ -119,7 +119,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   showDialog(
                       context: Get.context!,
                       builder: (context) => MessagePopup(
-                            title: '시스템',
+                            title: '새 댓글 작성',
                             message: "댓글을 작성하시겠습니까?",
                             okCallback: () async {
                               await commentRepository

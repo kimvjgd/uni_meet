@@ -102,7 +102,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
   Future<void> uploadFB(File file) async {
     try {
       await firebase_storage.FirebaseStorage.instance
-          .ref('uploads/' +
+          .ref('uploads/everytime/' +
               FirebaseAuth.instance.currentUser!.uid.toString() +
               '.png')
           .putFile(file);
