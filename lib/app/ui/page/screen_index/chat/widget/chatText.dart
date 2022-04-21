@@ -27,31 +27,43 @@ class ChatText extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: 3,),
+        SizedBox(
+          width: 3,
+        ),
         IconButton(
             icon: chatModel.writer!.split('_')[2] == '관리자'
-                ? Container(decoration: BoxDecoration( image:DecorationImage(image:AssetImage('assets/images/logo.png'))),)
-          : Container(decoration: BoxDecoration(image:DecorationImage(image:AssetImage('assets/images/momo${chatModel.writer!.split('_')[3]}.png')) ),),
-    onPressed: chatModel.writer!.split('_')[2] == '관리자'
-              ? () {}
-              : () {
-            Get.dialog(AlertDialog(
-              title: SizedBox(),
-              content: ProfileWidget(
-                  university: chatModel.writer!.split('_')[0],
-                  grade: chatModel.writer!.split('_')[1]+'학번',
-                  mbti: chatModel.writer!.split('_')[4],
-                  nickname: chatModel.writer!.split('_')[2],
-                  localImage: chatModel.writer!.split('_')[3]),
-            ));
-          }
-        ),
+                ? Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/logo.png'))),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                                'assets/images/momo${chatModel.writer!.split('_')[3]}.png'))),
+                  ),
+            onPressed: chatModel.writer!.split('_')[2] == '관리자'
+                ? () {}
+                : () {
+                    Get.dialog(AlertDialog(
+                      title: SizedBox(),
+                      content: ProfileWidget(
+                          university: chatModel.writer!.split('_')[0],
+                          grade: chatModel.writer!.split('_')[1] + '학번',
+                          mbti: chatModel.writer!.split('_')[4],
+                          nickname: chatModel.writer!.split('_')[2],
+                          localImage: chatModel.writer!.split('_')[3]),
+                    ));
+                  }),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(chatModel.writer!.split('_')[2],),
+              child: Text(
+                chatModel.writer!.split('_')[2],
+              ),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -64,7 +76,7 @@ class ChatText extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   constraints:
-                  BoxConstraints(minHeight: 40, maxWidth: size.width * 0.5),
+                      BoxConstraints(minHeight: 40, maxWidth: size.width * 0.5),
                   decoration: BoxDecoration(
                     color: app_systemGrey5,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -73,11 +85,23 @@ class ChatText extends StatelessWidget {
                 SizedBox(
                   width: 6,
                 ),
-                Text('오전 10:25'),
+                _timeWidget(CrossAxisAlignment.start),
               ],
             ),
           ],
         ),
+      ],
+    );
+  }
+
+  Column _timeWidget(CrossAxisAlignment alignment) {
+    return Column(
+      crossAxisAlignment: alignment,
+      children: [
+        chatModel.createdDate!.difference(DateTime.now()).inDays<1?Text(''):Text(
+            '${chatModel.createdDate!.month.toString()}/${chatModel.createdDate!.day.toString()}'),
+        Text(
+            '${chatModel.createdDate!.hour.toString()}:${chatModel.createdDate!.minute.toString()}'),
       ],
     );
   }
@@ -87,7 +111,7 @@ class ChatText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text('오전 10:25'),
+        _timeWidget(CrossAxisAlignment.end),
         SizedBox(
           width: 6,
         ),
@@ -101,7 +125,7 @@ class ChatText extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           constraints:
-          BoxConstraints(minHeight: 40, maxWidth: size.width * 0.6),
+              BoxConstraints(minHeight: 40, maxWidth: size.width * 0.6),
           decoration: BoxDecoration(
             color: app_green,
             borderRadius: BorderRadius.all(Radius.circular(15)),
