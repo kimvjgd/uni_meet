@@ -78,251 +78,254 @@ class _VerifyNumberState extends State<VerifyNumber> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("코드 인증",style: TextStyle(color: Colors.black),),
-        automaticallyImplyLeading: false,
+    return GestureDetector(
+      onTap: (){FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text("코드 인증",style: TextStyle(color: Colors.black),),
+          automaticallyImplyLeading: false,
+        ),
+        body: Padding(padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Spacer(flex: 2,),
+            Image.asset("assets/images/logo.png"),
+            Spacer(flex: 3,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: 60,
+                  width: 50,
+                  child: TextFormField(
+                    controller: _textEditingController_1,
+                    onChanged: (value){
+                      if(value.length==1) FocusScope.of(context).nextFocus();
+                    },
+                    style: Theme.of(context).textTheme.headline6,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(1),
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    cursorColor: app_red,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        focusColor: app_red,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: app_red),
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        )
+
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 50,
+                  child: TextFormField(
+                    controller: _textEditingController_2,
+                    onChanged: (value){
+                      if(value.length==1) FocusScope.of(context).nextFocus();
+                    },
+                    style: Theme.of(context).textTheme.headline6,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(1),
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    cursorColor: app_red,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        focusColor: app_red,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: app_red),
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        )
+
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 50,
+                  child: TextFormField(
+                    controller: _textEditingController_3,
+                    onChanged: (value){
+                      if(value.length==1) FocusScope.of(context).nextFocus();
+                    },
+                    style: Theme.of(context).textTheme.headline6,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(1),
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    cursorColor: app_red,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        focusColor: app_red,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: app_red),
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        )
+
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 50,
+                  child: TextFormField(
+                    controller: _textEditingController_4,
+                    onChanged: (value){
+                      if(value.length==1) FocusScope.of(context).nextFocus();
+                    },
+                    style: Theme.of(context).textTheme.headline6,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(1),
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    cursorColor: app_red,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        focusColor: app_red,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: app_red),
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        )
+
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 50,
+                  child: TextFormField(
+                    controller: _textEditingController_5,
+                    onChanged: (value){
+                      if(value.length==1) FocusScope.of(context).nextFocus();
+                    },
+                    style: Theme.of(context).textTheme.headline6,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(1),
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    cursorColor: app_red,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        focusColor: app_red,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: app_red),
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        )
+
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 50,
+                  child: TextFormField(
+                    controller: _textEditingController_6,
+                    onChanged: (value){
+                      //if(value.length==1) FocusScope.of(context).nextFocus();
+                    },
+                    style: Theme.of(context).textTheme.headline6,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(1),
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    cursorColor: app_red,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        focusColor: app_red,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: app_red),
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        )
+
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            _status != Status.Error
+                ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("전송된 6자리 코드를 입력해주세요",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7),fontSize: 20),),
+                )
+            :Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("코드가 올바르지 않습니다",style: TextStyle(color: Colors.redAccent,fontSize: 20),),
+            ),
+
+            Spacer(flex: 2,),
+            BigButton(onPressed: () async {
+              await _sendCodeToFirebase(
+                  code:_textEditingController_1.text+_textEditingController_2.text
+                      +_textEditingController_3.text+_textEditingController_4.text
+                      +_textEditingController_5.text+_textEditingController_6.text);
+            }, btnText: '전송하기',),
+            Spacer(flex: 1,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("전화번호를 잘못 입력하셨나요?",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7)),),
+                TextButton(
+                    child: Text("재입력하기",style: TextStyle(color: Colors.black),),
+                    onPressed: () async {
+                      setState(() {
+                        Get.back();
+                      });
+                      _verifyPhoneNumber();
+                    }
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("코드를 받지 못 하셨나요?",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7)),),
+                MaterialButton(
+                    child: Text("재전송하기"),
+                    onPressed: () async {
+                      setState(() {
+                        _status = Status.Waiting;
+                      });
+                      _verifyPhoneNumber();
+                    }
+                ),
+              ],
+            ),
+
+            Spacer(flex: 2,),
+          ],
+        ),)
       ),
-      body: Padding(padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-        child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Spacer(flex: 2,),
-          Image.asset("assets/images/logo.png"),
-          Spacer(flex: 3,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 60,
-                width: 50,
-                child: TextFormField(
-                  controller: _textEditingController_1,
-                  onChanged: (value){
-                    if(value.length==1) FocusScope.of(context).nextFocus();
-                  },
-                  style: Theme.of(context).textTheme.headline6,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  cursorColor: app_red,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      focusColor: app_red,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: app_red),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      )
-
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 60,
-                width: 50,
-                child: TextFormField(
-                  controller: _textEditingController_2,
-                  onChanged: (value){
-                    if(value.length==1) FocusScope.of(context).nextFocus();
-                  },
-                  style: Theme.of(context).textTheme.headline6,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  cursorColor: app_red,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      focusColor: app_red,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: app_red),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      )
-
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 60,
-                width: 50,
-                child: TextFormField(
-                  controller: _textEditingController_3,
-                  onChanged: (value){
-                    if(value.length==1) FocusScope.of(context).nextFocus();
-                  },
-                  style: Theme.of(context).textTheme.headline6,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  cursorColor: app_red,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      focusColor: app_red,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: app_red),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      )
-
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 60,
-                width: 50,
-                child: TextFormField(
-                  controller: _textEditingController_4,
-                  onChanged: (value){
-                    if(value.length==1) FocusScope.of(context).nextFocus();
-                  },
-                  style: Theme.of(context).textTheme.headline6,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  cursorColor: app_red,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      focusColor: app_red,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: app_red),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      )
-
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 60,
-                width: 50,
-                child: TextFormField(
-                  controller: _textEditingController_5,
-                  onChanged: (value){
-                    if(value.length==1) FocusScope.of(context).nextFocus();
-                  },
-                  style: Theme.of(context).textTheme.headline6,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  cursorColor: app_red,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      focusColor: app_red,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: app_red),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      )
-
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 60,
-                width: 50,
-                child: TextFormField(
-                  controller: _textEditingController_6,
-                  onChanged: (value){
-                    //if(value.length==1) FocusScope.of(context).nextFocus();
-                  },
-                  style: Theme.of(context).textTheme.headline6,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  cursorColor: app_red,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      focusColor: app_red,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: app_red),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      )
-
-                  ),
-                ),
-              ),
-            ],
-          ),
-          _status != Status.Error
-              ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("전송된 6자리 코드를 입력해주세요",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7),fontSize: 20),),
-              )
-          :Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("코드가 올바르지 않습니다",style: TextStyle(color: Colors.redAccent,fontSize: 20),),
-          ),
-
-          Spacer(flex: 2,),
-          BigButton(onPressed: () async {
-            await _sendCodeToFirebase(
-                code:_textEditingController_1.text+_textEditingController_2.text
-                    +_textEditingController_3.text+_textEditingController_4.text
-                    +_textEditingController_5.text+_textEditingController_6.text);
-          }, btnText: '전송하기',),
-          Spacer(flex: 1,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("전화번호를 잘못 입력하셨나요?",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7)),),
-              TextButton(
-                  child: Text("재입력하기",style: TextStyle(color: Colors.black),),
-                  onPressed: () async {
-                    setState(() {
-                      Get.back();
-                    });
-                    _verifyPhoneNumber();
-                  }
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("코드를 받지 못 하셨나요?",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7)),),
-              MaterialButton(
-                  child: Text("재전송하기"),
-                  onPressed: () async {
-                    setState(() {
-                      _status = Status.Waiting;
-                    });
-                    _verifyPhoneNumber();
-                  }
-              ),
-            ],
-          ),
-
-          Spacer(flex: 2,),
-        ],
-      ),)
     );
   }
 }

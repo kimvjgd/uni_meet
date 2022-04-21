@@ -29,160 +29,163 @@ class _EditNumberState extends State<EditNumber> {
   Widget build(BuildContext context) {
     var platform = Theme.of(context).platform;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(color: Colors.black,),
-        title: Text("회원가입",style: TextStyle(color: Colors.black),),
-      ),
-        resizeToAvoidBottomInset: false,
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(
-                flex: 3,
-              ),
-              Image.asset("assets/images/logo.png"),
-              Spacer(
-                flex: 5,
-              ),
-              Text(
-                "휴대폰 번호를 입력해주세요",
-                style: TextStyle(
-                    color: CupertinoColors.systemGrey.withOpacity(0.7),
-                    fontSize: 20),
-              ),
-                Row(
-                    children: [
-                  Column(
-                    children: [
-                      Text(
-                        "010",
-                        style: TextStyle(
-                            color: CupertinoColors.secondaryLabel, fontSize: 25),
-                      ),
-                      cuteMin?SizedBox():SizedBox(height: 23,),
-                    ],
-                  ),
-                  Expanded(
-                    child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        cursorColor: app_red,
-                        decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: app_red))),
-                        controller: _enterPhoneNumber,
-                        validator: (number) {
-                          if (number!.trim().length == 8)
-                            return null;
-                          else
-                            return '번호를 다시 한 번 확인해주세요!';
-                        },
-                        keyboardType: TextInputType.number,
-                        style: TextStyle(
-                            color: CupertinoColors.secondaryLabel, fontSize: 25),
+    return GestureDetector(
+      onTap: (){FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(color: Colors.black,),
+          title: Text("회원가입",style: TextStyle(color: Colors.black),),
+        ),
+          resizeToAvoidBottomInset: false,
+          body: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Spacer(
+                  flex: 3,
+                ),
+                Image.asset("assets/images/logo.png"),
+                Spacer(
+                  flex: 5,
+                ),
+                Text(
+                  "휴대폰 번호를 입력해주세요",
+                  style: TextStyle(
+                      color: CupertinoColors.systemGrey.withOpacity(0.7),
+                      fontSize: 20),
+                ),
+                  Row(
+                      children: [
+                    Column(
+                      children: [
+                        Text(
+                          "010",
+                          style: TextStyle(
+                              color: CupertinoColors.secondaryLabel, fontSize: 25),
+                        ),
+                        cuteMin?SizedBox():SizedBox(height: 23,),
+                      ],
+                    ),
+                    Expanded(
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          cursorColor: app_red,
+                          decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: app_red))),
+                          controller: _enterPhoneNumber,
+                          validator: (number) {
+                            if (number!.trim().length == 8)
+                              return null;
+                            else
+                              return '번호를 다시 한 번 확인해주세요!';
+                          },
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                              color: CupertinoColors.secondaryLabel, fontSize: 25),
+                        ),
                       ),
                     ),
-                  ),
-                ]),
-              Spacer(
-                flex: 1,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(onPressed: () async {
-                    if(platform == TargetPlatform.iOS){
-                      final url = "https://sites.google.com/view/momodu-terms-system-ap/홈";
-                      if(await canLaunch(url)){
-                        await launch(
-                          url,forceWebView:true,
-                          enableJavaScript:true,
-                        );
-                      }
-                    }
-                    else{
-                      final url = "https://sites.google.com/view/momodu-terms-system-gg/홈";
-                      if(await canLaunch(url)){
-                        await launch(
-                          url,forceWebView:true,
-                          enableJavaScript:true,
-                        );
-                      }
-                    }
-                  }, child: Text("이용 약관",style: TextStyle(color: app_red))),
-                  Text("동의합니다"),
-                  Checkbox(
-                    checkColor: Colors.black,
-                    activeColor: Colors.white,
-                    value:_isagreed_A,
-                    onChanged: (value){
-                      setState(() {
-
-                        _isagreed_A = value!;
-
-                      });
-                    },
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(onPressed: () async {
-                    if(platform == TargetPlatform.iOS){
-                      final url = "https://sites.google.com/view/momodu-pi-ap/홈";
-                      if(await canLaunch(url)){
-                        await launch(
-                          url,forceWebView:true,
-                          enableJavaScript:true,
-                        );
-                      }
-                    }
-                    else{
-                      final url = "https://sites.google.com/view/momodu-pi-gg/홈";
-                      if(await canLaunch(url)){
-                        await launch(
-                          url,forceWebView:true,
-                          enableJavaScript:true,
-                        );
-                      }
-                    }
-                  }, child: Text("개인정보 처리방침",style: TextStyle(color: app_red),)),
-                  Text("동의합니다"),
-                  Checkbox(
-                    checkColor: Colors.black,
-                    activeColor: Colors.white,
-                    value:_isagreed_B,
-                    onChanged: (value){
-                      setState(() {
-                        _isagreed_B = value!;
-                      });
-                    },
-                  )
-                ],
-              ),
-              Spacer(flex: 5,),
-              BigButton(
-                  onPressed: () {
-                      if (_formKey.currentState!.validate()){
-                        if(_isagreed_A && _isagreed_B){
-                        Get.to(VerifyNumber(number: "+8210" + _enterPhoneNumber.text.trim()));
+                  ]),
+                Spacer(
+                  flex: 1,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(onPressed: () async {
+                      if(platform == TargetPlatform.iOS){
+                        final url = "https://sites.google.com/view/momodu-terms-system-ap/홈";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
                         }
-                      }else {
-                        cuteMin = false;
-                        setState(() {});
                       }
-                  },
-                  btnText: "코드 전송하기"),
-              Spacer(
-                flex: 4,
-              ),
-            ],
-          ),
-        ));
+                      else{
+                        final url = "https://sites.google.com/view/momodu-terms-system-gg/홈";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
+                        }
+                      }
+                    }, child: Text("이용 약관",style: TextStyle(color: app_red))),
+                    Text("동의합니다"),
+                    Checkbox(
+                      checkColor: Colors.black,
+                      activeColor: Colors.white,
+                      value:_isagreed_A,
+                      onChanged: (value){
+                        setState(() {
+
+                          _isagreed_A = value!;
+
+                        });
+                      },
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(onPressed: () async {
+                      if(platform == TargetPlatform.iOS){
+                        final url = "https://sites.google.com/view/momodu-pi-ap/홈";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
+                        }
+                      }
+                      else{
+                        final url = "https://sites.google.com/view/momodu-pi-gg/홈";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
+                        }
+                      }
+                    }, child: Text("개인정보 처리방침",style: TextStyle(color: app_red),)),
+                    Text("동의합니다"),
+                    Checkbox(
+                      checkColor: Colors.black,
+                      activeColor: Colors.white,
+                      value:_isagreed_B,
+                      onChanged: (value){
+                        setState(() {
+                          _isagreed_B = value!;
+                        });
+                      },
+                    )
+                  ],
+                ),
+                Spacer(flex: 5,),
+                BigButton(
+                    onPressed: () {
+                        if (_formKey.currentState!.validate()){
+                          if(_isagreed_A && _isagreed_B){
+                          Get.to(VerifyNumber(number: "+8210" + _enterPhoneNumber.text.trim()));
+                          }
+                        }else {
+                          cuteMin = false;
+                          setState(() {});
+                        }
+                    },
+                    btnText: "코드 전송하기"),
+                Spacer(
+                  flex: 4,
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }

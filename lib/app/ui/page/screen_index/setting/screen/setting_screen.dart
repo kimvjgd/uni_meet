@@ -99,7 +99,11 @@ class _SettingScreenState extends State<SettingScreen> {
                       if(index==0) Get.to(CustomerServiceScreen());
                       else if(index == 1) Get.to(ServiceTermScreen());
                       else if(index == 2) Get.to(PersonalInfoScreen());
-                      else Get.to(OpneSourceScreen());
+                      else Get.to(LicensePage(
+                          applicationName: 'License App',
+                          applicationIcon: Icon(Icons.account_circle),
+                          applicationVersion: '0.0.1',
+                        ),);
                     },
                   );
                 },

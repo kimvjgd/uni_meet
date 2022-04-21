@@ -44,115 +44,118 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    return Scaffold(
-        appBar: AppBar(
-          leading: BackButton(
-            color: Colors.black,
-          ),
-          actions: [
-            AuthController.to.user.value.uid == widget.post.host
-                ? IconButton(
-                    icon: Icon(
-                      Icons.delete_outline_rounded,
-                      color: app_systemGrey1,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: Get.context!,
-                          builder: (context) => MessagePopup(
-                                title: '모모두',
-                                message: '정말 삭제하시겠습니까?',
-                                okCallback: () {
-                                  PostRepository.deletePost(
-                                      widget.post.postKey);
-                                  Get.back();
-                                  Get.back();
-                                  Get.put(BottomNavController())
-                                      .changeBottomNav(1);
-                                },
-                                cancelCallback: Get.back,
-                              ));
-                    },
-                  )
-                : IconButton(
-                    icon: Icon(
-                      Icons.block,
-                      color: app_systemGrey1,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            Logger().d(widget.post.hostNick!);
-                            return ReportDialog(
-                              reportOffenderController:
-                                  reportOffenderController,
-                              reportContentController: reportContentController,
-                              reporter: AuthController.to.user.value.nickname!,
-                              offender: widget.post.hostNick!,
-                              content: reportContentController.text,
-                            );
-                          });
-                    },
-                  )
-          ],
-        ),
-        body: Container(
-          height: _size.height,
-          width: _size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: _postContent(
-                      TimeAgo.timeCustomFormat(widget.post.createdDate!))),
-              _commentContent(),
+    return GestureDetector(
+      onTap: (){FocusScope.of(context).unfocus();},
+      child: Scaffold(
+          appBar: AppBar(
+            leading: BackButton(
+              color: Colors.black,
+            ),
+            actions: [
+              AuthController.to.user.value.uid == widget.post.host
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.delete_outline_rounded,
+                        color: app_systemGrey1,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: Get.context!,
+                            builder: (context) => MessagePopup(
+                                  title: '모모두',
+                                  message: '정말 삭제하시겠습니까?',
+                                  okCallback: () {
+                                    PostRepository.deletePost(
+                                        widget.post.postKey);
+                                    Get.back();
+                                    Get.back();
+                                    Get.put(BottomNavController())
+                                        .changeBottomNav(1);
+                                  },
+                                  cancelCallback: Get.back,
+                                ));
+                      },
+                    )
+                  : IconButton(
+                      icon: Icon(
+                        Icons.block,
+                        color: app_systemGrey1,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              Logger().d(widget.post.hostNick!);
+                              return ReportDialog(
+                                reportOffenderController:
+                                    reportOffenderController,
+                                reportContentController: reportContentController,
+                                reporter: AuthController.to.user.value.nickname!,
+                                offender: widget.post.hostNick!,
+                                content: reportContentController.text,
+                              );
+                            });
+                      },
+                    )
             ],
           ),
-        ),
-        bottomSheet: widget.post.host != AuthController.to.user.value.uid
-            ? InputBar(
-                hintText: '댓글을 남겨주세요..',
-                textEditingController: _commentController,
-                onPress: () {
-                  showDialog(
-                      context: Get.context!,
-                      builder: (context) => MessagePopup(
-                            title: '새 댓글 작성',
-                            message: "댓글을 작성하시겠습니까?",
-                            okCallback: () async {
-                              await commentRepository
-                                  .createNewComment(widget.post.postKey, {
-                                KEY_COMMENT_HOSTKEY:
-                                    AuthController.to.user.value.uid,
-                                KEY_COMMENT_HOSTPUSHTOKEN:
-                                    AuthController.to.user.value.token,
-                                KEY_COMMENT_HOSTINFO:
-                                    '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
-                                KEY_COMMENT_CONTENT: _commentController.text,
-                                KEY_COMMENT_COMMENTTIME: DateTime.now()
-                              });
+          body: Container(
+            height: _size.height,
+            width: _size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: _postContent(
+                        TimeAgo.timeCustomFormat(widget.post.createdDate!))),
+                _commentContent(),
+              ],
+            ),
+          ),
+          bottomSheet: widget.post.host != AuthController.to.user.value.uid
+              ? InputBar(
+                  hintText: '댓글을 남겨주세요..',
+                  textEditingController: _commentController,
+                  onPress: () {
+                    showDialog(
+                        context: Get.context!,
+                        builder: (context) => MessagePopup(
+                              title: '새 댓글 작성',
+                              message: "댓글을 작성하시겠습니까?",
+                              okCallback: () async {
+                                await commentRepository
+                                    .createNewComment(widget.post.postKey, {
+                                  KEY_COMMENT_HOSTKEY:
+                                      AuthController.to.user.value.uid,
+                                  KEY_COMMENT_HOSTPUSHTOKEN:
+                                      AuthController.to.user.value.token,
+                                  KEY_COMMENT_HOSTINFO:
+                                      '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
+                                  KEY_COMMENT_CONTENT: _commentController.text,
+                                  KEY_COMMENT_COMMENTTIME: DateTime.now()
+                                });
 
-                              // 푸시 알림
-                              print("게시글 작성자 토큰" +
-                                  widget.post.hostpushToken.toString());
-                              await Get.put(NotificationController())
-                                  .SendNewCommentNotification(
-                                      Title: widget.post.title.toString(),
-                                      receiver_token:
-                                          widget.post.hostpushToken.toString());
+                                // 푸시 알림
+                                print("게시글 작성자 토큰" +
+                                    widget.post.hostpushToken.toString());
+                                await Get.put(NotificationController())
+                                    .SendNewCommentNotification(
+                                        Title: widget.post.title.toString(),
+                                        receiver_token:
+                                            widget.post.hostpushToken.toString());
 
-                              NewsRepository().createCommentNews(widget.post);
+                                NewsRepository().createCommentNews(widget.post);
 
-                              Get.back();
-                              _commentController.clear();
-                            },
-                            cancelCallback: Get.back,
-                          ));
-                },
-              )
-            : SizedBox.shrink());
+                                Get.back();
+                                _commentController.clear();
+                              },
+                              cancelCallback: Get.back,
+                            ));
+                  },
+                )
+              : SizedBox.shrink()),
+    );
   }
 
   // void onPress() async {
