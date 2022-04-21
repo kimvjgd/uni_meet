@@ -30,7 +30,7 @@
     </queries>
 
    <application
-        android:label="uni_meet"
+        android:label="momodu"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
