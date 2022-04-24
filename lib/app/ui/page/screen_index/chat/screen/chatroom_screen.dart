@@ -1,11 +1,13 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
+import 'package:uni_meet/app/ui/page/screen_index/message_popup.dart';
 import 'package:uni_meet/app/ui/widgets/input_bar.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/widget/chatText.dart';
 
@@ -50,6 +52,26 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
           appBar: AppBar(
             leading: BackButton(color: Colors.grey[800],),
             actions: [
+              TextButton(
+                child: Text("신고하기"),
+                onPressed: () {
+                  showDialog(context: context,
+                  builder:(BuildContext context) {
+                    return MessagePopup(
+                        title: "신고하기",
+                        message: "정말 채팅방을 신고하시겠습니까? 신고 후 2~3일 내로 운영진의 적절한 조치가 이루어질 예정입니다.\n특정 사용자의 신고/차단은 상대방의 프로필 클릭 후 가능합니다. ",
+                        okCallback: () async {
+                          await FirebaseStorage.instance
+                              .ref('report/chatroom/' +
+                              widget.chatroomKey.toString()).putString(DateTime.now().toString());
+                          //일단.. 귀찮으니..
+                          Get.back();
+                          Get.snackbar("알림", "신고처리가 완료되었습니다.");
+                        },
+                      cancelCallback: (){Get.back();},
+                    );
+                });
+                }),
               TextButton(child: Text("초대하기"),
                 onPressed: () {
                 showDialog(context: context,
