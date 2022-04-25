@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
+import 'package:uni_meet/app/ui/page/screen_index/chat/screen/chatroom_screen.dart';
 
 class ChatRepository {
   static final ChatRepository _chatRepository = ChatRepository._internal();
@@ -230,6 +232,7 @@ class ChatRepository {
         .collection(COLLECTION_CHATROOMS)
         .doc(chatroomKey)
         .update({KEY_CHATROOM_ALLUSER: result});
+    Get.to(()=>ChatroomScreen(chatroomKey: chatroomKey), binding: InitBinding.chatroomBinding(chatroomKey));
   }
 
   Future<void> exitChatroom(String chatroomKey) async {
