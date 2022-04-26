@@ -11,6 +11,9 @@ import 'package:uni_meet/root_page.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:yaml/yaml.dart';
 
+import 'app/controller/auth_controller.dart';
+import 'app/data/model/firestore_keys.dart';
+
 // Receive message when app ios in background solution for on message
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
@@ -30,15 +33,16 @@ Future<void> main() async {
 
 
 class MyApp extends StatelessWidget {
-  // Future<void> getToken() async {
-  //   String? token = await FirebaseMessaging.instance.getToken();
-  //   print('@@@@@@@@@@@@@@@@@@$token@@@@@@@@@@@@@@@@@@');
-  //   FirebaseFirestore.instance
-  //       .collection(COLLECTION_USERS)
-  //       .doc(AuthController.to.user.value.uid)
-  //       .update({KEY_USER_TOKEN: token});
-  //  // return token;
-  // }
+
+  Future<void> getToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    //print('@@@@@@@@@@@@@@@@@@$token@@@@@@@@@@@@@@@@@@');
+    FirebaseFirestore.instance
+        .collection(COLLECTION_USERS)
+        .doc(AuthController.to.user.value.uid)
+        .update({KEY_USER_TOKEN: token});
+   // return token;
+  }
 
 
   @override
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
     // final appcastURL =
     //     'https://raw.githubusercontent.com/larryaasen/upgrader/master/test/testappcast.xml';
     // final cfg = AppcastConfiguration(url: appcastURL, supportedOS: ['android']);
-    // getToken();
+     getToken();
     return GetMaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.amber,
