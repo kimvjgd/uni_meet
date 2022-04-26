@@ -30,27 +30,27 @@ class NotificationController extends GetxController{
         sound: true
     );
     // 한번 이걸 프린트해서 콘솔에서 확인해봐도 된다.
-    print(settings.authorizationStatus);
-    _getToken();
+   // print(settings.authorizationStatus);
+   // _getToken();
     _onMessage();
     super.onInit();
   }
 
   /// 디바이스 고유 토큰을 얻기 위한 메소드, 처음 한번만 사용해서 토큰을 확보하자.
   /// 이는 파이어베이스 콘솔에서 손쉽게 디바이스에 테스팅을 할 때 쓰인다.
-  void _getToken() async{
-    String? token= await messaging.getToken();
-    try{
-      print("토큰은"+token!);
-      FirebaseFirestore.instance
-          .collection(COLLECTION_USERS)
-          .doc(AuthController.to.user.value.uid)
-          .update({KEY_USER_TOKEN: token}); //바꾸기
-    } catch(e) {
-      print("토큰 에러 "+ e.toString());
-    }
-
-  }
+  // void _getToken() async{
+  //   String? token= await messaging.getToken();
+  //   try{
+  //     print("토큰은"+token!);
+  //     FirebaseFirestore.instance
+  //         .collection(COLLECTION_USERS)
+  //         .doc(AuthController.to.user.value.uid)
+  //         .update({KEY_USER_TOKEN: token}); //바꾸기
+  //   } catch(e) {
+  //     print("토큰 에러 "+ e.toString());
+  //   }
+  //
+  // }
   /// ----------------------------------------------------------------------------
 
   /// * 안드로이드에서 foreground 알림 위한 flutter_local_notification 라이브러리 *

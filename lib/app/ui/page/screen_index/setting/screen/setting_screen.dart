@@ -74,7 +74,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           style: TextStyle(color: app_systemGrey1),
                         ),
                         Text(
-                          AuthController.to.user.value.mbti.toString(),
+                          AuthController.to.user.value.name.toString()+" | " +AuthController.to.user.value.mbti.toString(),
                           style: TextStyle(color: app_systemGrey1),
                         ),
                         _Unicheck()

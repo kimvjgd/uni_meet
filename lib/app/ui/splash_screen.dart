@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_meet/root_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yaml/yaml.dart';
+import 'dart:io' show Platform;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -46,6 +48,18 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: TextButton(
                         onPressed: () async{
                           //앱 스토어 링크?
+                          if (Platform.isAndroid) {
+                            final url = "https://play.google.com/store/apps/details?id=com.dongpakka.uni_meet";
+                            if(await canLaunch(url)){
+                              await launch(
+                                url,forceWebView:true,
+                                enableJavaScript:true,
+                              );
+                            }
+                          }
+                          else if (Platform.isIOS) {
+                            // iOS-specific code
+                          }
                         },
                         child: Text("업데이트하기",)
                     ),
@@ -65,6 +79,18 @@ class _SplashScreenState extends State<SplashScreen> {
                   TextButton(
                       onPressed: () async{
                         //앱 스토어 링크?
+                        if (Platform.isAndroid) {
+                          final url = "https://play.google.com/store/apps/details?id=com.dongpakka.uni_meet";
+                          if(await canLaunch(url)){
+                            await launch(
+                              url,forceWebView:true,
+                              enableJavaScript:true,
+                            );
+                          }
+                        }
+                        else if (Platform.isIOS) {
+                          // iOS-specific code
+                        }
                       },
                       child: Text("업데이트하기",)
                   ),
