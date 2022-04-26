@@ -17,6 +17,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../controller/auth_controller.dart';
 import '../../post/screen/post_detail_screen.dart';
+import 'dart:io' show Platform;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -127,8 +128,7 @@ class HomeScreen extends StatelessWidget {
                   )
                 ],
               ),
-              CarouselSlider.builder(
-
+              if(Platform.isAndroid) CarouselSlider.builder(
                 itemCount: 3,
                 options: CarouselOptions(
                   enlargeCenterPage: true,
@@ -181,11 +181,60 @@ class HomeScreen extends StatelessWidget {
                       },
                     );
                 },
+              )
+              else CarouselSlider.builder(
+                itemCount: 2,
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  height: 200,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 4),
+                  reverse: false,
+                  viewportFraction:0.85,
+                  //aspectRatio: 4.0,
+                ),
+                itemBuilder: (context, i, id){
+                  //for onTap to redirect to another screen
+                  if(i==0)
+                    return GestureDetector(
+                      child: Image.asset("assets/images/manual_banner.png"),
+                      onTap: () async {
+                        final url = "https://sites.google.com/view/momodu-manuel/%ED%99%88";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
+                        }
+                      },
+                    );
+                  else
+                    return GestureDetector(
+                      child: Image.asset("assets/images/team_banner_2.png"),
+                      onTap: () async {
+                        final url = "https://sites.google.com/view/momodu-intro/%ED%99%88";
+                        if(await canLaunch(url)){
+                          await launch(
+                            url,forceWebView:true,
+                            enableJavaScript:true,
+                          );
+                        }
+                      },
+                    );
+                },
               ),
-              Padding(
+              if(Platform.isAndroid) Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: InkWell(
                     child: Image.asset("assets/images/game_banner.png"),
+                    onTap: () {
+                      Get.to(GameScreen());
+                    }),
+              )
+              else Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: InkWell(
+                    child: Image.asset("assets/images/game_banner_ios.png"),
                     onTap: () {
                       Get.to(GameScreen());
                     }),

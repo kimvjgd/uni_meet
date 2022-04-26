@@ -62,7 +62,9 @@ flutter:
     - assets/images/uniexample.png
     - assets/images/diamond.png
     - assets/images/game_banner.png
+    - assets/images/game_banner_ios.png
     - assets/images/game_title.png
+    - assets/images/game_title_ios.png
     - assets/images/game_tail.png
     - assets/images/momo1.png
     - assets/images/momo2.png
