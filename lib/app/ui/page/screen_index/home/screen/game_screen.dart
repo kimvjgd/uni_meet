@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/secret/game_list.dart';
+import 'dart:io' show Platform;
 
 class GameScreen extends StatefulWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -31,10 +32,13 @@ class _GameScreenState extends State<GameScreen> {
           height: _size.height,
           child: Column(
             children: [
-              Padding(
+              if(Platform.isAndroid) Padding(
                 padding: const EdgeInsets.fromLTRB(50, 0, 10, 10),
-                child: Image.asset("assets/images/game_title.png"),
-              ),
+                child: Image.asset("assets/images/game_title.png"),)
+              else Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 10, 10),
+                child: Image.asset("assets/images/game_title_ios.png"),),
+
               Expanded(
                 child: ListView(
                   children: [
