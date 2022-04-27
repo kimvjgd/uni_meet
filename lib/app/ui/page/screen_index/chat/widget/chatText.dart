@@ -20,7 +20,21 @@ class ChatText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isMine ? _buildMyMsg(context) : _buildOtherMsg(context);
+    return isMine
+        ? _buildMyMsg(context)
+        : chatModel.writer!.startsWith('new')
+            ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Text(
+                      chatModel.message!,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                ),
+              ),
+            )
+            : _buildOtherMsg(context);
   }
 
   Row _buildOtherMsg(BuildContext context) {
@@ -95,11 +109,15 @@ class ChatText extends StatelessWidget {
   }
 
   Column _timeWidget(CrossAxisAlignment alignment) {
+    print(chatModel.createdDate!.difference(DateTime.now()).inDays);
     return Column(
       crossAxisAlignment: alignment,
       children: [
-        chatModel.createdDate!.difference(DateTime.now()).inDays<1?Text(''):Text(
-            '${chatModel.createdDate!.month.toString()}/${chatModel.createdDate!.day.toString()}'),
+        DateTime.now().difference(chatModel.createdDate!).inDays < 1
+        // chatModel.createdDate!.difference(DateTime.now()).inDays < 1
+            ? Text('')
+            : Text(
+                '${chatModel.createdDate!.month.toString()}/${chatModel.createdDate!.day.toString()}',style: TextStyle(fontSize: 12),),
         Text(
             '${chatModel.createdDate!.hour.toString()}:${chatModel.createdDate!.minute.toString()}'),
       ],

@@ -95,7 +95,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
             Image.asset("assets/images/logo.png"),
             Spacer(flex: 3,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(
                   height: 60,
