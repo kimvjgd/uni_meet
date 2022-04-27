@@ -7,6 +7,7 @@ import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
+import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/screen_index/index_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/message_popup.dart';
 import 'package:uni_meet/app/ui/widgets/input_bar.dart';
@@ -51,69 +52,87 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
         onTap: (){FocusScope.of(context).unfocus();},
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.white,
             leading: BackButton(color: Colors.grey[800],),
-            actions: [
-              TextButton(
-                child: Text("신고하기"),
-                onPressed: () {
-                  showDialog(context: context,
-                  builder:(BuildContext context) {
-                    return MessagePopup(
-                        title: "신고하기",
-                        message: "정말 채팅방을 신고하시겠습니까? 신고 후 2~3일 내로 운영진의 적절한 조치가 이루어질 예정입니다.\n특정 사용자의 신고/차단은 상대방의 프로필 클릭 후 가능합니다. ",
-                        okCallback: () async {
-                          await FirebaseStorage.instance
-                              .ref('report/chatroom/' +
-                              widget.chatroomKey.toString()).putString(DateTime.now().toString());
-                          //일단.. 귀찮으니..
-                          Get.back();
-                          Get.snackbar("알림", "신고처리가 완료되었습니다.");
-                        },
-                      cancelCallback: (){Get.back();},
-                    );
-                });
-                }),
-              TextButton(child: Text("초대하기"),
-                onPressed: () {
-                showDialog(context: context,
-                  builder:(BuildContext context) {
-                  return AlertDialog(
-                    title: Text("초대하기"),
-                    content: Text("복사된 코드를 친구에게 전달해주세요! \n채팅방 리스트 오른쪽 하단 버튼을 통해 입장하실 수 있습니다.",textAlign: TextAlign.center,),
-                    actions: [
-                      TextButton(
-                          onPressed: () async{
-                            await FlutterClipboard.copy(widget.chatroomKey);
-                            Get.back();
-                          },
-                          child: Text("복사하기",)
-                      )
-                    ],
-                  );
-                  });
 
-
-          },),
-              TextButton(child: Text("나가기"),
-                onPressed: () {
-                  showDialog(context: context,
-                      builder:(BuildContext context) {
-                        return AlertDialog(
-                          title: Text("나가기"),
-                          content: Text("채팅방을 나가시겠습니까?"),
-                          actions: [
-                            IconButton(onPressed: () async {
-                              await ChatRepository().exitChatroom(widget.chatroomKey);
-                              Get.offAll(IndexScreen());
-                            }
-                            , icon: Icon(Icons.exit_to_app))
-                          ],
+          ),
+          endDrawer: SafeArea(
+            child: Drawer(
+              child: Column(
+                children: [
+                  SizedBox(height: 30,),
+                  ElevatedButton(
+                    onPressed: (){
+                      showDialog(context: context,
+                          builder:(BuildContext context) {
+                            return AlertDialog(
+                              title: Text("초대하기"),
+                              content: Text("복사된 코드를 친구에게 전달해주세요! \n채팅방 리스트 오른쪽 하단 버튼을 통해 입장하실 수 있습니다.",textAlign: TextAlign.center,),
+                              actions: [
+                                TextButton(
+                                    onPressed: () async{
+                                      await FlutterClipboard.copy(widget.chatroomKey);
+                                      Get.back();
+                                    },
+                                    child: Text("복사하기",)
+                                )
+                              ],
+                            );
+                          });},
+                      child: Text("초대하기",style: TextStyle(color: Colors.white),)),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (BuildContext context,int index){
+                          return ListTile(
+                          leading: CircleAvatar(),
+                          title:Text("닉네임")
                         );
-                      });
+                      },
+                    ),
+                  ),
+                  TextButton(
+                      child: Text("신고하기"),
+                      onPressed: () {
+                        showDialog(context: context,
+                            builder:(BuildContext context) {
+                              return MessagePopup(
+                                title: "신고하기",
+                                message: "정말 채팅방을 신고하시겠습니까? 신고 후 2~3일 내로 운영진의 적절한 조치가 이루어질 예정입니다.\n특정 사용자의 신고/차단은 상대방의 프로필 클릭 후 가능합니다. ",
+                                okCallback: () async {
+                                  await FirebaseStorage.instance
+                                      .ref('report/chatroom/' +
+                                      widget.chatroomKey.toString()).putString(DateTime.now().toString());
+                                  //일단.. 귀찮으니..
+                                  Get.back();
+                                  Get.snackbar("알림", "신고처리가 완료되었습니다.");
+                                },
+                                cancelCallback: (){Get.back();},
+                              );
+                            });
+                      }),
+                  TextButton(child: Text("나가기"),
+                    onPressed: () {
+                      showDialog(context: context,
+                          builder:(BuildContext context) {
+                            return AlertDialog(
+                              title: Text("나가기"),
+                              content: Text("채팅방을 나가시겠습니까?"),
+                              actions: [
+                                IconButton(onPressed: () async {
+                                  await ChatRepository().exitChatroom(widget.chatroomKey);
+                                  Get.offAll(IndexScreen());
+                                }
+                                    , icon: Icon(Icons.exit_to_app))
+                              ],
+                            );
+                          });
 
 
-                },)
-            ],
+                    },),
+                ],
+              )
+            ),
           ),
           body: SafeArea(
             child: Column(
