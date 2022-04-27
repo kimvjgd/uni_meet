@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
+import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
@@ -207,6 +208,7 @@ class ChatRepository {
     QuerySnapshot<Map<String, dynamic>> list = await FirebaseFirestore.instance
         .collection(COLLECTION_CHATROOMS)
         .where(KEY_CHATROOM_ALLUSER, arrayContains: myUid)
+        .orderBy(KEY_CHATROOM_LASTMESSAGETIME, descending: true)
         .get();
 
     list.docs.forEach((documentSnapshot) {
@@ -218,6 +220,7 @@ class ChatRepository {
   /////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> enterExistedChatroom(String chatroomKey) async {
+    AppUserModel user = AuthController.to.user.value;
     var prev_data = await FirebaseFirestore.instance
         .collection(COLLECTION_CHATROOMS)
         .doc(chatroomKey)
@@ -226,13 +229,21 @@ class ChatRepository {
     List<dynamic> data = await prev_data.get(KEY_CHATROOM_ALLUSER);
 
     Set<dynamic> semiResult = data.toSet();
-    semiResult.add(AuthController.to.user.value.uid);
+    semiResult.add(user.uid);
     List<dynamic> result = semiResult.toList();
+    String newAccount = 'new_account_뀨${user.nickname}뀨_0_nope';  // nickname뒤는 뒤는 불필요한데 혹시 몰라 불안해서 넣음
+    await FirebaseFirestore.instance
+        .collection(COLLECTION_CHATROOMS)
+        .doc(chatroomKey)
+        .collection(COLLECTION_CHATS)
+        .add({KEY_CHAT_WRITER:newAccount, KEY_CHAT_MESSAGE:'${user.nickname}님 께서 입장하셨습니다.', KEY_CHAT_CREATEDDATE:DateTime.now()});
     await FirebaseFirestore.instance
         .collection(COLLECTION_CHATROOMS)
         .doc(chatroomKey)
         .update({KEY_CHATROOM_ALLUSER: result});
-    Get.to(()=>ChatroomScreen(chatroomKey: chatroomKey), binding: InitBinding.chatroomBinding(chatroomKey));
+
+    Get.to(() => ChatroomScreen(chatroomKey: chatroomKey),
+        binding: InitBinding.chatroomBinding(chatroomKey));
   }
 
   Future<void> exitChatroom(String chatroomKey) async {
@@ -251,30 +262,32 @@ class ChatRepository {
 
     chatroom_data.remove(AuthController.to.user.value.uid);
     user_data.remove(chatroomKey);
-    if(chatroom_data.isEmpty){
+    if (chatroom_data.isEmpty) {
       emptyChatroom = true;
     }
 
     await FirebaseFirestore.instance.runTransaction((transaction) async {
-      if(emptyChatroom){
+      if (emptyChatroom) {
         transaction.delete(FirebaseFirestore.instance
             .collection(COLLECTION_CHATROOMS)
             .doc(chatroomKey));
-        transaction.update(FirebaseFirestore.instance
-            .collection(COLLECTION_USERS)
-            .doc(AuthController.to.user.value.uid)
-            , {KEY_USER_CHATROOMLIST: user_data});
-      }else{
-
-      transaction.update(FirebaseFirestore.instance
-          .collection(COLLECTION_CHATROOMS)
-          .doc(chatroomKey), {KEY_CHATROOM_ALLUSER: chatroom_data});
-      transaction.update(FirebaseFirestore.instance
-          .collection(COLLECTION_USERS)
-          .doc(AuthController.to.user.value.uid)
-          , {KEY_USER_CHATROOMLIST: user_data});
+        transaction.update(
+            FirebaseFirestore.instance
+                .collection(COLLECTION_USERS)
+                .doc(AuthController.to.user.value.uid),
+            {KEY_USER_CHATROOMLIST: user_data});
+      } else {
+        transaction.update(
+            FirebaseFirestore.instance
+                .collection(COLLECTION_CHATROOMS)
+                .doc(chatroomKey),
+            {KEY_CHATROOM_ALLUSER: chatroom_data});
+        transaction.update(
+            FirebaseFirestore.instance
+                .collection(COLLECTION_USERS)
+                .doc(AuthController.to.user.value.uid),
+            {KEY_USER_CHATROOMLIST: user_data});
       }
     });
-
   }
 }
