@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
-
+import 'dart:io' show Platform;
 class BigButton extends StatelessWidget {
 
   final VoidCallback onPressed;
@@ -17,7 +17,9 @@ class BigButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width*0.85,
-      height: MediaQuery.of(context).size.height*0.04,
+      height: Platform.isAndroid
+          ? MediaQuery.of(context).size.height*0.06
+          : MediaQuery.of(context).size.height*0.04,
       child: ElevatedButton(
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
