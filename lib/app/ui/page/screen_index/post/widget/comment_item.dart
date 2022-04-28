@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
 import 'package:get/get.dart';
+import 'package:uni_meet/app/controller/news_controller.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/data/repository/comment_repository.dart';
 import 'package:uni_meet/app/ui/page/screen_index/widgets/profile_widget.dart';
@@ -74,12 +75,18 @@ class CommentItem extends StatelessWidget {
                                           .then((value) {
                                             value.docs.forEach((element) {
                                               print("채팅 룸 키" + element.id);
-                                              NewsRepository()
-                                                  .createChatOpenNews(
-                                                      post.title.toString(),
-                                                      comment.hostKey
-                                                          .toString(),
-                                                      element.id.toString());
+
+                                              NewsController.to.newchat(
+                                                  post.title.toString(),
+                                                  comment.hostKey
+                                                      .toString(),
+                                                  element.id.toString());
+                                              // NewsRepository()
+                                              //     .createChatOpenNews(
+                                              //         post.title.toString(),
+                                              //         comment.hostKey
+                                              //             .toString(),
+                                              //         element.id.toString());
                                             });
                                           });
 

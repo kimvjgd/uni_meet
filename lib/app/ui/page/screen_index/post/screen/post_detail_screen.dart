@@ -6,6 +6,7 @@ import 'package:timeago/timeago.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/bottom_nav_controller.dart';
 import 'package:uni_meet/app/controller/comment_controller.dart';
+import 'package:uni_meet/app/controller/news_controller.dart';
 import 'package:uni_meet/app/data/model/comment_model.dart';
 import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
@@ -155,9 +156,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                       Title: widget.post.title.toString(),
                                       receiver_token:
                                       widget.post.hostpushToken.toString());
-
-                                  NewsRepository().createCommentNews(
-                                      widget.post);
+                                  NewsController.to.newcomment(widget.post);
+                                  //NewsRepository().createCommentNews(widget.post);
                                   Get.back();
                                   _commentController.clear();
                                   _firstPress = true;
