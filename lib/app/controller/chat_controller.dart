@@ -23,6 +23,7 @@ class ChatController extends GetxController {
   final String chatroomKey;
   RxString chat_chatroomKey = ''.obs;
 
+
   void getxConstructor() {
     chat_chatroomKey.value = chatroomKey;
   }
@@ -67,4 +68,6 @@ class ChatController extends GetxController {
         .then((olderChats) => chat_chatList.insertAll(chat_chatList.length, olderChats));
     update();
   }
+  
+
 }

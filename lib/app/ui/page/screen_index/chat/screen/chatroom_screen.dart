@@ -13,6 +13,8 @@ import 'package:uni_meet/app/ui/page/screen_index/message_popup.dart';
 import 'package:uni_meet/app/ui/widgets/input_bar.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/widget/chatText.dart';
 
+import '../../../../../controller/notification_controller.dart';
+
 class ChatroomScreen extends StatefulWidget {
   String chatroomKey;
 
@@ -85,16 +87,15 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                     child: Text("대화상대"),
                   ),
                   Expanded(
-                    child: Obx(()=>ListView.builder(
+                    child: ListView.builder(
                       itemCount: ChatController.to.chat_chatroomModel.value.allUser!.length,
                       itemBuilder: (BuildContext context,int index){
                         return ListTile(
-                          leading: CircleAvatar(),
                           title:Text("닉네임")
                         );
                       },
                     )
-                  )),
+                  ),
                   TextButton(
                       child: Text("신고하기"),
                       onPressed: () {
@@ -125,6 +126,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                               actions: [
                                 IconButton(onPressed: () async {
                                   await ChatRepository().exitChatroom(widget.chatroomKey);
+                                 // await ChatController.to.exitRoom(widget.chatroomKey);
                                   Get.offAll(IndexScreen());
                                 }
                                     , icon: Icon(Icons.exit_to_app))
@@ -179,13 +181,16 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
 
   Future<void> onPress() async {
     ChatModel chat = ChatModel(
-      writer: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}',
+      writer: '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}_${AuthController.to.user.value.gender}',
       message: _chatController.text,
       createdDate: DateTime.now(),
     ); // 여기서 에러?
     // await ChatRepository().createNewChat(widget.chatroomKey, chat);
     if(_chatController.text.trim() != '') ChatController.to.addNewChat(chat);
     _chatController.clear();
+
+    Get.put(NotificationController()).SendNewChat(
+        Sender: AuthController.to.user.value.nickname.toString(), Sender_token:AuthController.to.user.value.token.toString(),receiver_token: ChatController.to.chat_chatroomModel.value.allUser!);
   }
 
   // MaterialBanner _postInfo() {

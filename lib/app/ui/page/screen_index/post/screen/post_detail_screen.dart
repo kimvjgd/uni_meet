@@ -142,7 +142,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                         .value.grade}_${AuthController.to.user
                                         .value.nickname}_${AuthController.to
                                         .user.value.localImage}_${AuthController
-                                        .to.user.value.mbti}',
+                                        .to.user.value.mbti}_${AuthController
+                                        .to.user.value.gender}',
                                     KEY_COMMENT_CONTENT: _commentController
                                         .text,
                                     KEY_COMMENT_COMMENTTIME: DateTime.now()
@@ -196,6 +197,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   university: widget.post.hostInfo!.split('_')[0],
                   grade:widget.post.hostInfo!.split('_')[1] + '학번',
                   mbti:widget.post.hostInfo!.split('_')[4],
+                  gender: widget.post.hostInfo!.split('_')[5],
                   nickname: widget.post.hostInfo!.split('_')[2],
                   localImage: widget.post.hostInfo!.split('_')[3]),
             ));

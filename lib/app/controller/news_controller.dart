@@ -34,4 +34,6 @@ class NewsController extends GetxController{
     NewsRepository.deleteALLNEWS();
 
   }
+
+
 }

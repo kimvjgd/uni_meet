@@ -110,7 +110,7 @@ class _EditInfoState extends State<EditInfo> {
                             auth:false,
                             phone:FirebaseAuth.instance.currentUser?.phoneNumber,
                             name: _nameController.text,
-                            gender: _gender.toString(),
+                            gender: _gender == Gender.MAN ? "남자" : "여자",
                             university: _univController.text,
                             major: _majorController.text,
                             grade: grade,
