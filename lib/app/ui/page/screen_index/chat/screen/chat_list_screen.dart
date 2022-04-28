@@ -62,42 +62,62 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                       snapshot.data![index].chatroomId!));
                             },
                             child: Card(
-                              color: app_mostlightyellow,
-                              shadowColor: app_deepyellow,
+                              color: Colors.white,
+                              shadowColor: app_lightyellow,
                               elevation: 3,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(13),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          RichText(
+                                              text: TextSpan(
+                                                  children: [
+                                                TextSpan(
+                                                    text: snapshot.data![index]
+                                                        .postTitle!,
+                                                    style: TextStyle(
+                                                        fontSize: 16,color: Colors.black)),
+                                                TextSpan(text: ' '),
+                                                TextSpan(
+                                                    text: snapshot.data![index]
+                                                        .allUser!.length
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color:
+                                                            app_systemGrey1)),
+                                              ])),
+                                          Text(
+                                              DateFormat.Hm().format(snapshot
+                                                  .data![index]
+                                                  .lastMessageTime!),
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: app_systemGrey1)),
+                                        ],
+                                      )),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(10, 3, 10, 8),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(snapshot.data![index].postTitle!,style: TextStyle(fontSize: 18),),
-                                        Text(snapshot.data![index].allUser!.length.toString()+'명 입장 완료'),
-                                          //  +(int.parse(snapshot.data![index].headCount.toString())*2).toString(),style: TextStyle(fontSize: 18)),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
+                                        Text(
                                           snapshot.data![index].lastMessage!,
                                           style: TextStyle(color: Colors.grey[700]),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(DateFormat.Hm().format(snapshot.data![index].lastMessageTime!),style: TextStyle(color: Colors.grey[600]),),
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -106,94 +126,92 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 );
               }
             }),
-        floatingActionButton:AuthController.to.user.value.auth == true
-        ? FloatingActionButton(
-          heroTag: 'invite',
-          foregroundColor: app_deepyellow,
-          backgroundColor: app_lightyellow,
-          hoverColor: Colors.transparent,
-          focusColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          elevation: 3,
-          onPressed: () {
-            showDialog(
-                context: Get.context!,
-                builder: (context) => Material(
-                      color: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
-                            child: Container(
-                              color: Colors.white,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 10),
-                              width: Get.width * 0.7,
-                              child: Column(
-                                children: [
-                                  const Text(
-                                    '채팅방 키를 입력하세요..',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17,
-                                        color: Colors.black),
+        floatingActionButton: AuthController.to.user.value.auth == true
+            ? FloatingActionButton(
+                heroTag: 'invite',
+                foregroundColor: app_deepyellow,
+                backgroundColor: app_lightyellow,
+                hoverColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                elevation: 3,
+                onPressed: () {
+                  showDialog(
+                      context: Get.context!,
+                      builder: (context) => Material(
+                            color: Colors.transparent,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: Container(
+                                    color: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40, vertical: 10),
+                                    width: Get.width * 0.7,
+                                    child: Column(
+                                      children: [
+                                        const Text(
+                                          '채팅방 키를 입력하세요..',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 17,
+                                              color: Colors.black),
+                                        ),
+                                        TextField(
+                                          controller: _addChatKey,
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton(
+                                                onPressed: () {
+                                                  ChatRepository()
+                                                      .enterExistedChatroom(
+                                                          _addChatKey.text);
+                                                },
+                                                child: Text('확인')),
+                                            const SizedBox(
+                                              width: 7,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                /// TODO 동현
+                                                Get.back();
+                                              },
+                                              child: Text('취소'),
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.grey),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  TextField(
-                                    controller: _addChatKey,
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            ChatRepository()
-                                                .enterExistedChatroom(
-                                                    _addChatKey.text);
-                                          },
-                                          child: Text('확인')),
-                                      const SizedBox(
-                                        width: 7,
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          /// TODO 동현
-                                          Get.back();
-                                        },
-                                        child: Text('취소'),
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Colors.grey),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    ));
-          },
-          child: Icon(Icons.mail_rounded),
-        )
-            :FloatingActionButton(
-            heroTag: 'invite',
-            foregroundColor: Colors.white,
-            backgroundColor: app_systemGrey3,
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            elevation: 3,
-            onPressed: () {
-              Get.snackbar("알림", "학교 인증을 완료해주세요 !");
-            },
-            child: Icon(Icons.mail_rounded)
-        )
-    );
-
+                          ));
+                },
+                child: Icon(Icons.mail_rounded),
+              )
+            : FloatingActionButton(
+                heroTag: 'invite',
+                foregroundColor: Colors.white,
+                backgroundColor: app_systemGrey3,
+                hoverColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                elevation: 3,
+                onPressed: () {
+                  Get.snackbar("알림", "학교 인증을 완료해주세요 !");
+                },
+                child: Icon(Icons.mail_rounded)));
   }
 
   Widget _chatroomList() {

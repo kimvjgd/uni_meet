@@ -9,7 +9,7 @@ import '../model/comment_model.dart';
 import '../model/news_model.dart';
 
 class NewsRepository{
-  Future<void> createCommentNews(PostModel post) async {
+  static Future<void> createCommentNews(PostModel post) async {
     final CollectionReference newsRef = FirebaseFirestore
         .instance
         .collection(COLLECTION_USERS)
@@ -28,7 +28,7 @@ class NewsRepository{
 
   }
 
-  Future<void> createChatOpenNews(String post_title,String receiverUID,String address) async {
+  static Future<void> createChatOpenNews(String post_title,String receiverUID,String address) async {
     final CollectionReference newsRef = FirebaseFirestore
         .instance
         .collection(COLLECTION_USERS)
@@ -46,7 +46,7 @@ class NewsRepository{
 
   }
 
-  Future<List<NewsModel>> getAllNews() async {
+  static Future<List<NewsModel>> getAllNews() async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance.collection(COLLECTION_USERS).doc(AuthController.to.user.value.uid).collection(COLLECTION_NEWSLIST).get();
 

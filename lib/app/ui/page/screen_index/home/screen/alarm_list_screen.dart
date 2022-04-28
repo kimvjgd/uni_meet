@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
+import 'package:uni_meet/app/controller/news_controller.dart';
 import 'package:uni_meet/app/data/repository/news_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/error_screen.dart';
@@ -15,6 +16,7 @@ import '../../../../../data/model/firestore_keys.dart';
 import '../../../../../data/model/news_model.dart';
 import '../../../../../data/model/post_model.dart';
 import '../../../../../data/repository/post_repository.dart';
+import '../../message_popup.dart';
 import 'mypost_detail_screen.dart';
 
 class AlarmList extends StatefulWidget {
@@ -54,13 +56,24 @@ class _AlarmListState extends State<AlarmList> {
         children: [
           TextButton(
             onPressed: () {
-              NewsRepository.deleteALLNEWS();
+              showDialog(
+                  context: Get.context!,
+                  builder: (context) => MessagePopup(
+                    title: '알림 모두 삭제',
+                    message: '알림을 모두 삭제하시겠습니까?',
+                    okCallback: () {
+                      NewsController.to.deletenews();
+                      Get.back();
+                    },
+                    cancelCallback: Get.back,
+                  ));
+
             },
             child: Text("모두지우기")),
           Expanded(
             child: FutureBuilder<List<NewsModel>>(
-                future: NewsRepository().getAllNews(),
-                builder: (context, snapshot) {
+                future: NewsController.to.alllnews(),
+                builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting)
                     return const CircularProgressIndicator();
                   if (!snapshot.hasData) {

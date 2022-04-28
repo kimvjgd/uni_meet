@@ -5,7 +5,6 @@ import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/ui/error_screen.dart';
-import 'package:uni_meet/app/ui/page/account/edit_number.dart';
 import 'package:uni_meet/app/ui/page/account/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/start_screen.dart';
 import 'app/ui/page/account/edit_info.dart';
@@ -20,8 +19,6 @@ class RootPage extends GetView<AuthController> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<User?> user) {    // FirebaseAuth_uid
           if (user.hasData) { // authentication 계정 있음
-
-
             // 별개
             // firestore 삭제.... foreignkey같이 연동
             //  2. auth 탈퇴 => 채팅신청 => 탈퇴한 회원입니다. & 기존의 채팅방에 들어가있으면 나가지는 걸로...

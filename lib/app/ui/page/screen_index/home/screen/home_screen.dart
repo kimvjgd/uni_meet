@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:uni_meet/app/controller/news_controller.dart';
 import 'package:uni_meet/app/data/model/notice_model.dart';
 import 'package:uni_meet/app/data/model/post_model.dart';
 import 'package:uni_meet/app/data/repository/notice_repository.dart';
@@ -33,7 +34,8 @@ class HomeScreen extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {Get.to(AlarmList());},
-                icon: Icon(Icons.notifications_none_rounded,color: Colors.grey[800],),
+                icon: Icon(Icons.notifications_none_rounded,color: Colors.grey[800])
+                  //  : Icon(Icons.notifications_none_rounded,color: app_red)
               )
             ]),
         body: Padding(
