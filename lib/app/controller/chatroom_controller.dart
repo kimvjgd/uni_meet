@@ -20,7 +20,7 @@ class ChatroomController extends GetxController {
   void getChatroomList() async {
     if (chatroomList.isNotEmpty) chatroomList.clear();
     var loadChatroomList = await ChatRepository.loadChatroomList(
-        AuthController.to.user.value.uid!);
+        AuthController.to.user.value.uid.toString()+'밍'+AuthController.to.user.value.token.toString());
     chatroomList.addAll(loadChatroomList);
     // return chatroomList;
   }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
+import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/controller/chatroom_controller.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
@@ -44,7 +45,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
         ),
         body: FutureBuilder<List<ChatroomModel>>(
             future: ChatRepository()
-                .getMyChatList(AuthController.to.user.value.uid!),
+                .getMyChatList(AuthController.to.user.value.uid.toString()+'밍'+AuthController.to.user.value.token.toString()),
             builder: (context, snapshot) {
               if (snapshot.data == null) {
                 return CircularProgressIndicator();
@@ -171,9 +172,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                           children: [
                                             ElevatedButton(
                                                 onPressed: () {
-                                                  ChatRepository()
-                                                      .enterExistedChatroom(
-                                                          _addChatKey.text);
+                                                  ChatRepository().enterExistedChatroom(_addChatKey.text);
+                                                 // ChatController.to.enterRoom(_addChatKey.text);
                                                 },
                                                 child: Text('확인')),
                                             const SizedBox(

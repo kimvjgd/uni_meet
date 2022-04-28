@@ -210,6 +210,7 @@ class NotificationController extends GetxController{
     return true;
 
   }
+
   Future<bool> SendFailUniCheck({required String receiver_token}) async {
     String url = "https://fcm.googleapis.com/fcm/send";
     // 임시
@@ -242,4 +243,41 @@ class NotificationController extends GetxController{
 
   }
 
+  Future<bool> SendNewChat({required String Sender, required String Sender_token,required List<dynamic> receiver_token}) async {
+    String url = "https://fcm.googleapis.com/fcm/send"; // 임시
+    String _firebaseKey = firebase_FCM_key;
+
+    List<String> token_List =[];
+
+    for(int i=0; i<receiver_token.length; i++){
+      var data = receiver_token[i].split('밍');
+      print(data[1]);
+      if(data[1] != Sender_token) token_List.add(data[1]);
+    }
+    await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$_firebaseKey',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': '$Sender님의 새 채팅 메세지',
+            'title': '모모두'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+
+          'registration_ids':token_List,
+        },
+      ),
+    );
+
+    return true;
+  }
 }

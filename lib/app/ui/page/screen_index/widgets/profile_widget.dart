@@ -15,6 +15,8 @@ class ProfileWidget extends StatelessWidget {
   String nickname;
   String localImage;
   String mbti;
+  String gender;
+
 
   ProfileWidget(
       {required this.university,
@@ -22,6 +24,7 @@ class ProfileWidget extends StatelessWidget {
       required this.nickname,
       required this.localImage,
       required this.mbti,
+        required this.gender,
       Key? key})
       : super(key: key);
 
@@ -60,7 +63,7 @@ class ProfileWidget extends StatelessWidget {
                   ),
                   Text(""),
                   Text(university + ' ' + grade),
-                  Text(mbti),
+                  Text(mbti +' / '+gender),
                   Text(nickname),
                 ],
               )),
