@@ -54,13 +54,13 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             leading: BackButton(color: Colors.grey[800],),
-
+            actions: [
+            ],
           ),
           endDrawer: SafeArea(
             child: Drawer(
               child: Column(
                 children: [
-                  SizedBox(height: 30,),
                   ElevatedButton(
                     onPressed: (){
                       showDialog(context: context,
@@ -80,17 +80,21 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                             );
                           });},
                       child: Text("초대하기",style: TextStyle(color: Colors.white),)),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Text("대화상대"),
+                  ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: 4,
+                    child: Obx(()=>ListView.builder(
+                      itemCount: ChatController.to.chat_chatroomModel.value.allUser!.length,
                       itemBuilder: (BuildContext context,int index){
-                          return ListTile(
+                        return ListTile(
                           leading: CircleAvatar(),
                           title:Text("닉네임")
                         );
                       },
-                    ),
-                  ),
+                    )
+                  )),
                   TextButton(
                       child: Text("신고하기"),
                       onPressed: () {

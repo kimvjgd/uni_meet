@@ -101,7 +101,6 @@ class _AlarmListState extends State<AlarmList> {
         post = data;
         Get.to(PostDetailScreen(post: post));
       }, onError: (e) {
-
         showDialog(context: context, builder: (BuildContext context){
           return AlertDialog(
             title: Text("MOMODU",textAlign: TextAlign.center,),
@@ -121,11 +120,10 @@ class _AlarmListState extends State<AlarmList> {
     }
     //해당 채팅방으로 이동
     else if (type == 2) {
-      Get.to(
-          () => ChatroomScreen(
-                chatroomKey: address.toString(),
-              ),
-          binding: InitBinding.chatroomBinding(address.toString()));
+
+     // Get.to( () => ChatroomScreen(
+               // chatroomModel: address.toString(),
+            //  ), binding: InitBinding.chatroomBinding(address.toString()));
     }
     //공지사항 으로 이동
     else if (type == 3) {
