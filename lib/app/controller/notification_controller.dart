@@ -17,9 +17,7 @@ class NotificationController extends GetxController{
 
   @override
   void onInit() async {
-    /// 첫 빌드시, 권한 확인하기
-    /// 아이폰은 무조건 받아야 하고, 안드로이드는 상관 없음. 따로 유저가 설정하지 않는 한,
-    /// 자동 권한 확보 상태
+    /// 첫 빌드시, 권한 확인하기 아이폰은 무조건 받아야 하고, 안드로이드는 상관 없음. 따로 유저가 설정하지 않는 한,자동 권한 확보 상태
     NotificationSettings settings = await messaging.requestPermission(
         alert: true,
         announcement: false,
@@ -29,9 +27,6 @@ class NotificationController extends GetxController{
         provisional: false,
         sound: true
     );
-    // 한번 이걸 프린트해서 콘솔에서 확인해봐도 된다.
-   // print(settings.authorizationStatus);
-   // _getToken();
     _onMessage();
     super.onInit();
   }
@@ -61,7 +56,7 @@ class NotificationController extends GetxController{
 // 1.
   final AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
-    'High Importance Notifications', // title
+    'MOMODU', // title
     description: 'This channel is used for important notifications.', // description
     importance: Importance.max,
   );
@@ -73,7 +68,6 @@ class NotificationController extends GetxController{
     ///
     /// 1.  위에서 생성한 channel 을 플러그인 통해 메인 채널로 설정한다.
     /// 2. 플러그인을 초기화하여 추가 설정을 해준다.
-
     // 1.
     await _notifications
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -85,9 +79,10 @@ class NotificationController extends GetxController{
             iOS: IOSInitializationSettings()),
         onSelectNotification: (String? payload) async {});
 
-
+    //background 상태
     FirebaseMessaging.instance.getInitialMessage();
-    ///only work in forground
+    //forground 상태
+/*
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
@@ -107,10 +102,10 @@ class NotificationController extends GetxController{
           details,
         );
       }
-
-
-
     });
+ */
+  //앱이 완전히 종료된 상태
+
   }
 
 
