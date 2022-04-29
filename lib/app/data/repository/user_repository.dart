@@ -4,6 +4,9 @@ import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../ui/page/screen_index/message_popup.dart';
 
 class UserRepository {
   static Future<AppUserModel?> loginUserByUid(String uid) async {
@@ -38,12 +41,12 @@ class UserRepository {
       await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).collection(COLLECTION_NEWSLIST)
           .get()
           .then((snapshot){
-            for (DocumentSnapshot i in snapshot.docs)
-              i.reference.delete();
-          }
-          );
+        for (DocumentSnapshot i in snapshot.docs)
+          i.reference.delete();
+      }
+      );
       await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).delete();
-      await FirebaseAuth.instance.currentUser!.delete();
+     // await FirebaseAuth.instance.currentUser!.delete();
     } catch(e){
       Logger().d(e);
     }
