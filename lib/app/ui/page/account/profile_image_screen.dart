@@ -244,6 +244,32 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
     return _isUsed;
   }
 
+  Future<bool> IsBadNick(String NickName) async {
+    late bool _isBad;
+    List<dynamic> NameList=[];
+    await FirebaseFirestore.instance
+        .collection('exception')
+        .doc('nickname')
+        .get()
+    .then((value) {
+      NameList = value.data()!["NameList"];
+
+      if(NameList.contains(NickName)){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text(
+            "닉네임으로 사용하실 수 없습니다",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+        ));
+        _isBad = true;
+
+      }else _isBad =false;
+    });
+
+    return _isBad;
+  }
+
   void onPressed() async {
     if (selected_profile == 0) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -254,7 +280,7 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
         backgroundColor: Colors.white,
       ));
     }
-    else if (await IsUsedNick(_nicknameController.text) == false &&
+    else if (await IsUsedNick(_nicknameController.text) == false && await IsBadNick(_nicknameController.text) == false &&
         _formKey.currentState!.validate()) {
       var uid = FirebaseAuth.instance.currentUser!.uid;
       AuthController().pickImage(selected_profile);
