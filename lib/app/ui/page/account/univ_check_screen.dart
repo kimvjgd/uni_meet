@@ -84,7 +84,10 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
       if (flag2) print("학교인증 ㅇㅋ");
       if (flag3) print("에타인증 ㅇㅋ");
       if (flag1 && flag2 && flag3) {
-        users
+
+        FirebaseFirestore.instance
+            .collection(COLLECTION_USERS)
+            .doc(FirebaseAuth.instance.currentUser?.uid.toString())
             .update({KEY_USER_AUTH: true})
             .then((value) => print("대학인증 성공"))
             .catchError((error) => print("대학 인증 실패: $error"));
@@ -266,11 +269,11 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                         //     backgroundColor: Colors.black,
                         //   ));
                         // }
-                        if (await _Recognition(imageFile)) {
-                          setState(() {
-                            _isLoading = true;
-                          });
+                        setState(() {
+                          _isLoading = true;
+                        });
 
+                        if (await _Recognition(imageFile)) {
                           await Get.put(NotificationController())
                               .SendSuccessUniCheck(
                                   receiver_token: AuthController
@@ -280,7 +283,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           //        .then((value) => print("대학인증 성공"))
                           //        .catchError((error) => print("대학 인증 실패: $error"));
                           Logger().d('일단 동현님께서 킵');
-                          // Get.to(IndexScreen());
+
                         } else {
                           Logger().d('여기로 가버렸어??');
 
@@ -358,7 +361,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
 
                       },
                       child: Text(
-                        "홈으로 이동",
+                        "홈 구경하기",
                       )),
                 ],
               ),
