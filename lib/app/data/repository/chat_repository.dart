@@ -229,7 +229,7 @@ class ChatRepository {
     List<dynamic> data = await prev_data.get(KEY_CHATROOM_ALLUSER);
 
     Set<dynamic> semiResult = data.toSet();
-    semiResult.add(user.uid.toString()+'밍'+user.token.toString());
+    semiResult.add(user.uid);
     List<dynamic> result = semiResult.toList();
     String newAccount = 'new_account_뀨${user.nickname}뀨_0_nope';  // nickname뒤는 뒤는 불필요한데 혹시 몰라 불안해서 넣음
     await FirebaseFirestore.instance
@@ -262,7 +262,7 @@ class ChatRepository {
         await chatroom_prev_data.get(KEY_CHATROOM_ALLUSER);
     List<dynamic> user_data = await user_prev_data.get(KEY_USER_CHATROOMLIST);
 
-    chatroom_data.remove(AuthController.to.user.value.uid.toString()+'밍'+AuthController.to.user.value.token.toString());
+    chatroom_data.remove(AuthController.to.user.value.uid);
     user_data.remove(chatroomKey);
     if (chatroom_data.isEmpty) {
       emptyChatroom = true;

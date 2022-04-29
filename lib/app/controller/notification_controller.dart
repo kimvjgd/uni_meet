@@ -250,9 +250,8 @@ class NotificationController extends GetxController{
     List<String> token_List =[];
 
     for(int i=0; i<receiver_token.length; i++){
-      var data = receiver_token[i].split('밍');
-      print(data[1]);
-      if(data[1] != Sender_token) token_List.add(data[1]);
+
+      if(receiver_token[i]!= Sender_token) token_List.add(receiver_token[i].toString());
     }
     await http.post(
       Uri.parse(url),

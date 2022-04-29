@@ -50,8 +50,8 @@ class CommentItem extends StatelessWidget {
                                       await ChatRepository().createNewChatroom(
                                           ChatroomModel(
                                               allUser: [
-                                                post.host.toString()+'밍'+post.hostpushToken.toString(),
-                                                comment.hostKey.toString()+'밍'+comment.hostPushToken.toString()
+                                                post.host,
+                                                comment.hostKey
                                               ],
                                               createDate: DateTime.now(),
                                               postKey: post.postKey,
@@ -68,8 +68,8 @@ class CommentItem extends StatelessWidget {
                                           .collection(COLLECTION_CHATROOMS)
                                           .where(KEY_CHATROOM_ALLUSER,
                                               isEqualTo: [
-                                                post.host.toString()+'밍'+post.hostpushToken.toString(),
-                                                comment.hostKey.toString()+'밍'+comment.hostPushToken.toString()
+                                                post.host,
+                                                comment.hostKey
                                               ])
                                           .get()
                                           .then((value) {
