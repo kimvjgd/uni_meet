@@ -59,6 +59,13 @@ class _SplashScreenState extends State<SplashScreen> {
                           }
                           else if (Platform.isIOS) {
                             // iOS-specific code
+                            final url = "https://apps.apple.com/kr/app/momodu/id1620375953";
+                            if(await canLaunch(url)){
+                              await launch(
+                                url,forceWebView:true,
+                                enableJavaScript:true,
+                              );
+                            }
                           }
                         },
                         child: Text("업데이트하기",)

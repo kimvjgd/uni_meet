@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
+import 'package:uni_meet/app/data/model/chatter_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
 
 class ChatController extends GetxController {
@@ -23,7 +24,7 @@ class ChatController extends GetxController {
   RxList<ChatModel> chat_chatList = <ChatModel>[].obs;
   final String chatroomKey;
   RxString chat_chatroomKey = ''.obs;
-
+  RxList<ChatterModel> chatterInfo = <ChatterModel>[].obs;
 
   void getxConstructor() {
     chat_chatroomKey.value = chatroomKey;
@@ -35,9 +36,12 @@ class ChatController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     getxConstructor();
+
+
+
     ChatRepository()
         .connectChatroom(chat_chatroomKey.value)
         .listen((chatroomModel) {
@@ -60,15 +64,28 @@ class ChatController extends GetxController {
         });
       }
     });
+
+    await getChatterInfo();
+
+
   }
 
   void getOldMessages() {
     ChatRepository()
         .getOlderChatList(
-            chatroomKey, chat_chatList[chat_chatList.length-1].reference!)
-        .then((olderChats) => chat_chatList.insertAll(chat_chatList.length, olderChats));
+            chatroomKey, chat_chatList[chat_chatList.length - 1].reference!)
+        .then((olderChats) =>
+            chat_chatList.insertAll(chat_chatList.length, olderChats));
     update();
   }
-  
 
+  Future<void> getChatterInfo() async {
+    chatterInfo(await ChatRepository.getChatterInfo(chatroomKey));
+  }
 }
+
+
+
+
+
+

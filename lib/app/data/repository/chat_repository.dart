@@ -6,6 +6,7 @@ import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/model/app_user_model.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
+import 'package:uni_meet/app/data/model/chatter_model.dart';
 import 'package:uni_meet/app/data/model/firestore_keys.dart';
 import 'package:uni_meet/app/ui/page/screen_index/chat/screen/chatroom_screen.dart';
 
@@ -236,14 +237,17 @@ class ChatRepository {
     semiResult_token.add(user.token);
     List<dynamic> result_token = semiResult_token.toList();
 
-
-
-    String newAccount = 'new_account_뀨${user.nickname}뀨_0_nope';  // nickname뒤는 뒤는 불필요한데 혹시 몰라 불안해서 넣음
+    String newAccount =
+        'new_account_뀨${user.nickname}뀨_0_nope'; // nickname뒤는 뒤는 불필요한데 혹시 몰라 불안해서 넣음
     await FirebaseFirestore.instance
         .collection(COLLECTION_CHATROOMS)
         .doc(chatroomKey)
         .collection(COLLECTION_CHATS)
-        .add({KEY_CHAT_WRITER:newAccount, KEY_CHAT_MESSAGE:'${user.nickname}님 께서 입장하셨습니다.', KEY_CHAT_CREATEDDATE:DateTime.now()});
+        .add({
+      KEY_CHAT_WRITER: newAccount,
+      KEY_CHAT_MESSAGE: '${user.nickname}님 께서 입장하셨습니다.',
+      KEY_CHAT_CREATEDDATE: DateTime.now()
+    });
     await FirebaseFirestore.instance
         .collection(COLLECTION_CHATROOMS)
         .doc(chatroomKey)
@@ -255,8 +259,6 @@ class ChatRepository {
 
     Get.to(() => ChatroomScreen(chatroomKey: chatroomKey),
         binding: InitBinding.chatroomBinding(chatroomKey));
-
-
   }
 
   Future<void> exitChatroom(String chatroomKey) async {
@@ -273,7 +275,7 @@ class ChatRepository {
         await chatroom_prev_data.get(KEY_CHATROOM_ALLUSER);
 
     List<dynamic> chatroom_data_token =
-    await chatroom_prev_data.get(KEY_CHATROOM_ALLTOKEN);
+        await chatroom_prev_data.get(KEY_CHATROOM_ALLTOKEN);
 
     List<dynamic> user_data = await user_prev_data.get(KEY_USER_CHATROOMLIST);
 
@@ -312,21 +314,45 @@ class ChatRepository {
             {KEY_USER_CHATROOMLIST: user_data});
       }
     });
-
-
   }
 
-  // Future<List<String>> getPeopleList(String chatroomKey) async {
-  //
-  //   List<String> NickList =[];
-  //   var chatroom_data= await FirebaseFirestore.instance
-  //       .collection(COLLECTION_CHATROOMS)
-  //       .doc(chatroomKey).get();
-  //   List<String> UserKeyList=chatroom_data[KEY_CHATROOM_ALLUSER];
-  //   for (var i in UserKeyList){
-  //
-  //   }
-  //
-  //
-  // }
+  static Future<List<ChatterModel>> getChatterInfo(String chatroomKeys) async {
+    List<ChatterModel> chatterModels = [];
+
+    var userData = await FirebaseFirestore.instance
+        .collection(COLLECTION_CHATROOMS)
+        .doc(chatroomKeys)
+        .get();
+    var intermediate = userData.data();
+    var userUids = intermediate![KEY_CHATROOM_ALLUSER];
+
+    // print(userUids);
+
+    for (String uid in userUids) {
+      var data = await FirebaseFirestore.instance
+          .collection(COLLECTION_USERS)
+          .doc(uid)
+          .get();
+      var tempData = data.data();
+
+      chatterModels.add(ChatterModel(
+          nickname: tempData![KEY_USER_NICKNAME],
+          university: tempData[KEY_USER_UNIVERSITY],
+          grade: tempData[KEY_USER_GRADE].toString(),
+          mbti: tempData[KEY_USER_MBTI],
+          gender: tempData[KEY_USER_GENDER],
+          localImage: tempData[KEY_USER_LOCALIMAGE].toString()));
+    }
+
+    for(int i=0; i<3; i++) {
+      print(chatterModels[i].nickname);
+      print(chatterModels[i].university);
+      print(chatterModels[i].grade);
+      print(chatterModels[i].mbti);
+      print(chatterModels[i].gender);
+      print(chatterModels[i].localImage);
+    }
+
+    return chatterModels;
+  }
 }
