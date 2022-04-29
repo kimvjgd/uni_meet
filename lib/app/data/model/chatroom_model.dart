@@ -3,6 +3,7 @@ import 'package:uni_meet/app/data/model/firestore_keys.dart';
 
 class ChatroomModel {
   List<dynamic>? allUser;
+  List<dynamic>? allToken;
   DateTime? createDate;
   String? chatroomId;
   String? postKey;
@@ -15,6 +16,7 @@ class ChatroomModel {
 
   ChatroomModel({
     required this.allUser,
+    required this.allToken,
     required this.createDate,
     required this.chatroomId,
     required this.postKey,
@@ -31,6 +33,9 @@ class ChatroomModel {
       allUser: json[KEY_CHATROOM_ALLUSER].cast<String>() == null
           ? [].cast<String>()
           : json[KEY_CHATROOM_ALLUSER] as List<dynamic>,
+      allToken: json[KEY_CHATROOM_ALLTOKEN]== null
+          ?  []
+          : json[KEY_CHATROOM_ALLTOKEN] as List,
       createDate: json[KEY_CHATROOM_CREATEDDATE] == null
           ? DateTime.now()
           : json[KEY_CHATROOM_CREATEDDATE].toDate(),
@@ -57,6 +62,7 @@ class ChatroomModel {
   Map<String, dynamic> toMap() {
     return {
       KEY_CHATROOM_ALLUSER: allUser,
+      KEY_CHATROOM_ALLTOKEN:allToken,
       KEY_CHATROOM_CREATEDDATE: createDate,
       KEY_CHATROOM_CHATROOMID: chatroomId,
       KEY_CHATROOM_POSTKEY: postKey,

@@ -190,7 +190,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
     _chatController.clear();
 
     Get.put(NotificationController()).SendNewChat(
-        Sender: AuthController.to.user.value.nickname.toString(), Sender_token:AuthController.to.user.value.token.toString(),receiver_token: ChatController.to.chat_chatroomModel.value.allUser!);
+        Sender: AuthController.to.user.value.nickname.toString(), Sender_token:AuthController.to.user.value.token.toString(),receiver_token: ChatController.to.chat_chatroomModel.value.allToken);
   }
 
   // MaterialBanner _postInfo() {

@@ -52,6 +52,7 @@ const KEY_COMMENT_CONTENT = "content";
 const KEY_COMMENT_COMMENTTIME = "comment_time";
 
 const KEY_CHATROOM_ALLUSER = "all_user";
+const KEY_CHATROOM_ALLTOKEN = "all_token";
 const KEY_CHATROOM_CREATEDDATE = "created_date";
 const KEY_CHATROOM_CHATROOMID = "chatroom_id";
 const KEY_CHATROOM_POSTKEY = "post_key";

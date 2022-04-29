@@ -243,13 +243,13 @@ class NotificationController extends GetxController{
 
   }
 
-  Future<bool> SendNewChat({required String Sender, required String Sender_token,required List<dynamic> receiver_token}) async {
+  Future<bool> SendNewChat({required String Sender, required String Sender_token,required List<dynamic>? receiver_token}) async {
     String url = "https://fcm.googleapis.com/fcm/send"; // 임시
     String _firebaseKey = firebase_FCM_key;
 
     List<String> token_List =[];
 
-    for(int i=0; i<receiver_token.length; i++){
+    for(int i=0; i<receiver_token!.length; i++){
 
       if(receiver_token[i]!= Sender_token) token_List.add(receiver_token[i].toString());
     }

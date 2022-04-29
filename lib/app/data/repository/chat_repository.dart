@@ -227,10 +227,17 @@ class ChatRepository {
         .get();
 
     List<dynamic> data = await prev_data.get(KEY_CHATROOM_ALLUSER);
-
     Set<dynamic> semiResult = data.toSet();
     semiResult.add(user.uid);
     List<dynamic> result = semiResult.toList();
+
+    List<dynamic> data_token = await prev_data.get(KEY_CHATROOM_ALLTOKEN);
+    Set<dynamic> semiResult_token = data_token.toSet();
+    semiResult_token.add(user.token);
+    List<dynamic> result_token = semiResult_token.toList();
+
+
+
     String newAccount = 'new_account_뀨${user.nickname}뀨_0_nope';  // nickname뒤는 뒤는 불필요한데 혹시 몰라 불안해서 넣음
     await FirebaseFirestore.instance
         .collection(COLLECTION_CHATROOMS)
@@ -241,6 +248,10 @@ class ChatRepository {
         .collection(COLLECTION_CHATROOMS)
         .doc(chatroomKey)
         .update({KEY_CHATROOM_ALLUSER: result});
+    await FirebaseFirestore.instance
+        .collection(COLLECTION_CHATROOMS)
+        .doc(chatroomKey)
+        .update({KEY_CHATROOM_ALLTOKEN: result_token});
 
     Get.to(() => ChatroomScreen(chatroomKey: chatroomKey),
         binding: InitBinding.chatroomBinding(chatroomKey));
@@ -260,9 +271,14 @@ class ChatRepository {
         .get();
     List<dynamic> chatroom_data =
         await chatroom_prev_data.get(KEY_CHATROOM_ALLUSER);
+
+    List<dynamic> chatroom_data_token =
+    await chatroom_prev_data.get(KEY_CHATROOM_ALLTOKEN);
+
     List<dynamic> user_data = await user_prev_data.get(KEY_USER_CHATROOMLIST);
 
     chatroom_data.remove(AuthController.to.user.value.uid);
+    chatroom_data_token.remove(AuthController.to.user.value.token);
     user_data.remove(chatroomKey);
     if (chatroom_data.isEmpty) {
       emptyChatroom = true;
@@ -284,6 +300,11 @@ class ChatRepository {
                 .collection(COLLECTION_CHATROOMS)
                 .doc(chatroomKey),
             {KEY_CHATROOM_ALLUSER: chatroom_data});
+        transaction.update(
+            FirebaseFirestore.instance
+                .collection(COLLECTION_CHATROOMS)
+                .doc(chatroomKey),
+            {KEY_CHATROOM_ALLTOKEN: chatroom_data_token});
         transaction.update(
             FirebaseFirestore.instance
                 .collection(COLLECTION_USERS)

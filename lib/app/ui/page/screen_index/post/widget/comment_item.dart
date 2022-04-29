@@ -53,6 +53,10 @@ class CommentItem extends StatelessWidget {
                                                 post.host,
                                                 comment.hostKey
                                               ],
+                                              allToken: [
+                                                post.hostpushToken.toString(),
+                                                comment.hostPushToken.toString()
+                                              ],
                                               createDate: DateTime.now(),
                                               postKey: post.postKey,
                                               headCount: post.headCount,

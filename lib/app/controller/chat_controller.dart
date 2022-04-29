@@ -10,6 +10,7 @@ class ChatController extends GetxController {
 
   Rx<ChatroomModel> chat_chatroomModel = ChatroomModel(
           allUser: [],
+          allToken: [],
           createDate: DateTime.now(),
           chatroomId: '',
           postKey: '',
