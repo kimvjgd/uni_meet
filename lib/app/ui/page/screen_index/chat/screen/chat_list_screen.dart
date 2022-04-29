@@ -45,7 +45,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
         ),
         body: FutureBuilder<List<ChatroomModel>>(
             future: ChatRepository()
-                .getMyChatList(AuthController.to.user.value.uid.toString()+'밍'+AuthController.to.user.value.token.toString()),
+                .getMyChatList(AuthController.to.user.value.uid.toString()),
             builder: (context, snapshot) {
               if (snapshot.data == null) {
                 return CircularProgressIndicator();
