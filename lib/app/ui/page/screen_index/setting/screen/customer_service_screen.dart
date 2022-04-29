@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/data/repository/contact_repository.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/start_screen.dart';
 import 'package:uni_meet/app/ui/widgets/report_dialog.dart';
+import '../../../../../data/model/firestore_keys.dart';
 import '../../../../components/app_color.dart';
 import '../../message_popup.dart';
 
@@ -127,14 +130,20 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                         message: '정말 탈퇴하시겠습니까?',
                         okCallback: ()  async {
                           // 탈퇴기능
-                          // collection에서 제거
-                          await UserRepository.withdrawal(
-                              AuthController.to.user.value.uid!);
-                          // 파이어 베이스 auth에서 탈퇴
-                          await FirebaseAuth.instance.currentUser?.delete();
-                          Get.offAll(() => StartScreen());
-                        },
-                        cancelCallback: Get.back,
+                          showDialog(
+                              context: Get.context!,
+                              builder: (context) => MessagePopup(
+                                title: '회원탈퇴',
+                                message: '정말 탈퇴하시겠습니까?',
+                                okCallback: ()  async {
+                                  // 탈퇴기능
+                                  // collection에서 제거
+                                  await UserRepository.withdrawal(
+                                      AuthController.to.user.value.uid!);
+                                  Get.offAll(() => StartScreen());
+                                },
+                                cancelCallback: Get.back,
+                              ));}
                       ));
             },
           ),
