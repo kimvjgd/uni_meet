@@ -19,25 +19,20 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  late String minAppVersion;
-  late String latestAppVersion;
-  late String User_Version;
+  String? minAppVersion;
+  String? latestAppVersion;
+  String? User_Version;
+
   @override
   void initState() {
+    User_Version = getMyVersion();
     getAppVersion();
+    //  print("가공하면"+ User_Version);
 
-    //기기에 설치된 버전 가져오기
-    rootBundle.loadString("pubspec.yaml").then((value){
-      var yaml = loadYaml(value);
-      String version = yaml['version'];
-      print("기기 내 앱 버전"+version);
-      var data = version.split('+');
-      User_Version = data[0];
-      print("가공하면"+ User_Version);
-    });
+    Timer(Duration(seconds: 2), () {
+      int user_ver = Ver2Int(User_Version);
 
-    Timer(Duration(milliseconds: 1500), () {
-      if(Ver2Int(User_Version) < Ver2Int(minAppVersion)){
+      if( user_ver < Ver2Int(minAppVersion)){
         showDialog(context: context,
             builder:(BuildContext context) {
               return AlertDialog(
@@ -75,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
               );
             });
       }
-      else if(Ver2Int(User_Version) < Ver2Int(latestAppVersion)){
+      else if( user_ver < Ver2Int(latestAppVersion)){
         showDialog(context: context,
             builder:(BuildContext context) {
               return AlertDialog(
@@ -116,12 +111,23 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
+  String getMyVersion() {
+    //기기에 설치된 버전 가져오기
+    rootBundle.loadString("pubspec.yaml").then((value){
+      var yaml = loadYaml(value);
+      String version = yaml['version'];
+      //  print("기기 내 앱 버전"+version);
+      var data = version.split('+');
+      User_Version = data[0];
+  });
+    return User_Version.toString();
+  }
 
   Future<void> getAppVersion() async {
     FirebaseRemoteConfig remoteConfig = await FirebaseRemoteConfig.instance;
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: const Duration(minutes: 1),
-      minimumFetchInterval: const Duration(hours: 12),
+      minimumFetchInterval: const Duration(hours: 1),
     ));
 
     await remoteConfig.fetchAndActivate();
@@ -129,11 +135,9 @@ class _SplashScreenState extends State<SplashScreen> {
     minAppVersion = remoteConfig.getString('min_version');
     latestAppVersion = remoteConfig.getString('latest_version');
 
-    print("최소 버전은"+minAppVersion);
-    print("최신 버전은"+ latestAppVersion);
+   // print("최소 버전은"+minAppVersion!);
+   // print("최신 버전은"+ latestAppVersion);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -150,14 +154,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-int Ver2Int(String str){
+int Ver2Int(String? str){
   late int result;
   late String s='';
-  List<String> data = str.split(new RegExp(r"[^0-9]"));
-  for(String element in data){
-    if(element != " ") s += element;
+  if(str!=null){
+    List<String> data = str.split(new RegExp(r"[^0-9]"));
+    for(String element in data){
+      if(element != " ") s += element;
+    }
+    result = int.parse(s);
   }
-  result = int.parse(s);
-  print(str+"파싱값"+ result.toString());
+
   return result;
 }

@@ -32,10 +32,7 @@ class _GameScreenState extends State<GameScreen> {
           height: _size.height,
           child: Column(
             children: [
-              if(Platform.isAndroid) Padding(
-                padding: const EdgeInsets.fromLTRB(50, 0, 10, 10),
-                child: Image.asset("assets/images/game_title.png"),)
-              else Padding(
+              Padding(
                 padding: const EdgeInsets.fromLTRB(50, 0, 10, 10),
                 child: Image.asset("assets/images/game_title_ios.png"),),
 
