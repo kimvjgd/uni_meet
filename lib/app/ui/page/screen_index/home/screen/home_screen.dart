@@ -225,15 +225,7 @@ class HomeScreen extends StatelessWidget {
                     );
                 },
               ),
-              if(Platform.isAndroid) Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: InkWell(
-                    child: Image.asset("assets/images/game_banner.png"),
-                    onTap: () {
-                      Get.to(GameScreen());
-                    }),
-              )
-              else Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: InkWell(
                     child: Image.asset("assets/images/game_banner_ios.png"),
