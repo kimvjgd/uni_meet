@@ -37,7 +37,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
-          elevation: 2,
+          elevation: 0,
           title: Text(
             "채팅",
             style: TextStyle(color: Colors.grey[800]),

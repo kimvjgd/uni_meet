@@ -29,7 +29,7 @@ class _PostScreenState extends State<PostScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor:Colors.white,
-        elevation: 2,
+        elevation: 0,
         title: Text("게시판",style: TextStyle(color:Colors.grey[800]),),
       ),
       body:
