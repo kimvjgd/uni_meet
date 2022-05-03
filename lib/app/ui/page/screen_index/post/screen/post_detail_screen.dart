@@ -25,6 +25,7 @@ import '../widget/comment_item.dart';
 
 class PostDetailScreen extends StatefulWidget {
   final PostModel post;
+
   PostDetailScreen({required this.post, Key? key}) : super(key: key);
 
   @override
@@ -45,10 +46,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     Size _size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: (){FocusScope.of(context).unfocus();},
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
       child: Scaffold(
           appBar: AppBar(
             leading: BackButton(
@@ -92,8 +94,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                               return ReportDialog(
                                 reportOffenderController:
                                     reportOffenderController,
-                                reportContentController: reportContentController,
-                                reporter: AuthController.to.user.value.nickname!,
+                                reportContentController:
+                                    reportContentController,
+                                reporter:
+                                    AuthController.to.user.value.nickname!,
                                 offender: widget.post.hostNick!,
                                 content: reportContentController.text,
                               );
@@ -121,51 +125,47 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   hintText: '댓글을 남겨주세요..',
                   textEditingController: _commentController,
                   onPress: () {
-                    if(_commentController.text.trim() !=''){
-                    showDialog(
-                        context: Get.context!,
-                        builder: (context) => MessagePopup(
-                              title: '새 댓글 작성',
-                              message: "댓글을 작성하시겠습니까?",
-                              okCallback: () async {
-                                if(_firstPress) {
-                                  _firstPress = false;
-                                  await commentRepository
-                                      .createNewComment(widget.post.postKey, {
-                                    KEY_COMMENT_HOSTKEY:
-                                    AuthController.to.user.value.uid,
-                                    KEY_COMMENT_HOSTPUSHTOKEN:
-                                    AuthController.to.user.value.token,
-                                    KEY_COMMENT_HOSTINFO:
-                                    '${AuthController.to.user.value
-                                        .university}_${AuthController.to.user
-                                        .value.grade}_${AuthController.to.user
-                                        .value.nickname}_${AuthController.to
-                                        .user.value.localImage}_${AuthController
-                                        .to.user.value.mbti}_${AuthController
-                                        .to.user.value.gender}',
-                                    KEY_COMMENT_CONTENT: _commentController
-                                        .text,
-                                    KEY_COMMENT_COMMENTTIME: DateTime.now()
-                                  });
+                    if (_commentController.text.trim() != '') {
+                      showDialog(
+                          context: Get.context!,
+                          builder: (context) => MessagePopup(
+                                title: '새 댓글 작성',
+                                message: "댓글을 작성하시겠습니까?",
+                                okCallback: () async {
+                                  if (_firstPress) {
+                                    _firstPress = false;
+                                    await commentRepository
+                                        .createNewComment(widget.post.postKey, {
+                                      KEY_COMMENT_HOSTKEY:
+                                          AuthController.to.user.value.uid,
+                                      KEY_COMMENT_HOSTPUSHTOKEN:
+                                          AuthController.to.user.value.token,
+                                      KEY_COMMENT_HOSTINFO:
+                                          '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}_${AuthController.to.user.value.gender}',
+                                      KEY_COMMENT_CONTENT:
+                                          _commentController.text,
+                                      KEY_COMMENT_COMMENTTIME: DateTime.now()
+                                    });
 
-                                  // 푸시 알림
-                                  print("게시글 작성자 토큰" +
-                                      widget.post.hostpushToken.toString());
-                                  await Get.put(NotificationController())
-                                      .SendNewCommentNotification(
-                                      Title: widget.post.title.toString(),
-                                      receiver_token:
-                                      widget.post.hostpushToken.toString());
-                                  NewsController.to.newcomment(widget.post);
-                                  //NewsRepository().createCommentNews(widget.post);
-                                  Get.back();
-                                  _commentController.clear();
-                                  _firstPress = true;
-                                }
-                              },
-                              cancelCallback: Get.back,
-                            ));}
+                                    // 푸시 알림
+                                    print("게시글 작성자 토큰" +
+                                        widget.post.hostpushToken.toString());
+                                    await Get.put(NotificationController())
+                                        .SendNewCommentNotification(
+                                            Title: widget.post.title.toString(),
+                                            receiver_token: widget
+                                                .post.hostpushToken
+                                                .toString());
+                                    NewsController.to.newcomment(widget.post);
+                                    //NewsRepository().createCommentNews(widget.post);
+                                    Get.back();
+                                    _commentController.clear();
+                                    _firstPress = true;
+                                  }
+                                },
+                                cancelCallback: Get.back,
+                              ));
+                    }
                   },
                 )
               : SizedBox.shrink()),
@@ -195,8 +195,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               title: SizedBox(),
               content: ProfileWidget(
                   university: widget.post.hostInfo!.split('_')[0],
-                  grade:widget.post.hostInfo!.split('_')[1] + '학번',
-                  mbti:widget.post.hostInfo!.split('_')[4],
+                  grade: widget.post.hostInfo!.split('_')[1] + '학번',
+                  mbti: widget.post.hostInfo!.split('_')[4],
                   gender: widget.post.hostInfo!.split('_')[5],
                   nickname: widget.post.hostInfo!.split('_')[2],
                   localImage: widget.post.hostInfo!.split('_')[3]),
@@ -209,14 +209,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             ),
           ),
         ),
-        Container(
-            decoration: BoxDecoration(
-                color: app_red.withOpacity(0.85),
-                borderRadius: BorderRadius.circular(4.0)),
-            child: Text(
-              ' 외 ${widget.post.headCount! - 1}명 ',
-              style: TextStyle(color: Colors.white),
-            )),
+        // Container(
+        //     decoration: BoxDecoration(
+        //         color: app_red.withOpacity(0.85),
+        //         borderRadius: BorderRadius.circular(4.0)),
+        //     child: Text(
+        //       ' 외 ${widget.post.headCount! - 1}명 ',
+        //       style: TextStyle(color: Colors.white),
+        //     )),
         SizedBox(
           width: 2,
         ),
@@ -274,42 +274,48 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           if (snapshot.hasData) {
             //
             return snapshot.data.length == 0
-                ? Center(
-                    child: Text("작성된 댓글이 없습니다!"),
-                  )
+                ? Padding(
+                  padding: const EdgeInsets.only(top:8.0),
+                  child: Center(
+                      child: Text("작성된 댓글이 없습니다!"),
+                    ),
+                )
                 : Expanded(
-                    child: ListView.separated(
-                      reverse: true,
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 60),
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          thickness: 0.5,
-                          color: divider,
-                        );
-                      },
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        if (index == snapshot.data.length - 1)
-                          return Column(
-                            children: [
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text("댓글",
-                                      style:
-                                          TextStyle(color: app_systemGrey1))),
-                              Divider(
-                                thickness: 0.5,
-                                color: divider,
-                              ),
-                              CommentItem(
-                                  comment: snapshot.data[index],
-                                  post: widget.post)
-                            ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: ListView.separated(
+                        reverse: false,
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 60),
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            thickness: 0.5,
+                            color: divider,
                           );
-                        else
-                          return CommentItem(
-                              comment: snapshot.data[index], post: widget.post);
-                      },
+                        },
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          if (index == 0)
+                            return Column(
+                              children: [
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("댓글",
+                                        style:
+                                            TextStyle(color: app_systemGrey1))),
+                                Divider(
+                                  thickness: 0.5,
+                                  color: divider,
+                                ),
+                                CommentItem(      // ..
+                                    comment: snapshot.data[index],
+                                    post: widget.post)
+                              ],
+                            );
+                          else
+                            return CommentItem(
+                                comment: snapshot.data[index], post: widget.post);
+                        },
+                      ),
                     ),
                   );
           } else if (snapshot.hasError) {
@@ -322,6 +328,4 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             return Container();
         });
   }
-
-
 }

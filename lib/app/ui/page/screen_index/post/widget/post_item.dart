@@ -52,11 +52,11 @@ class PostItem extends StatelessWidget {
                       post.hostUni!+' ' + post.hostGrade!+'학번 ' + post.hostNick!+' ',
                       style: TextStyle(color: app_systemGrey1),
                     ),
-                      Container(
-                          decoration: BoxDecoration(
-                              color: app_red.withOpacity(0.85),
-                              borderRadius: BorderRadius.circular(4.0)),
-                          child: Text(' 외 ${post.headCount! - 1}명 ',style: TextStyle(color: Colors.white),)),
+                      // Container(
+                      //     decoration: BoxDecoration(
+                      //         color: app_red.withOpacity(0.85),
+                      //         borderRadius: BorderRadius.circular(4.0)),
+                      //     child: Text(' 외 ${post.headCount! - 1}명 ',style: TextStyle(color: Colors.white),)),
                       SizedBox(width: 2,),
                       Container(
                           decoration: BoxDecoration(

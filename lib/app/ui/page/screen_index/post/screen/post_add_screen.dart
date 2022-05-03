@@ -37,6 +37,8 @@ class _PostAddScreenState extends State<PostAddScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
+
+          elevation: 0,
           title: Text(
             "글쓰기",
             style: TextStyle(color: Colors.black),

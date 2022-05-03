@@ -26,7 +26,7 @@ class CommentRepository {
         .collection(COLLECTION_POSTS)
         .doc(postKey)
         .collection(COLLECTION_COMMENTS)
-        .orderBy(KEY_COMMENT_COMMENTTIME, descending: true);
+        .orderBy(KEY_COMMENT_COMMENTTIME, descending: false);
     var data = await document.get();
     List<CommentModel> comments = [];
     for (int i = 0; i < data.size; i++) {
