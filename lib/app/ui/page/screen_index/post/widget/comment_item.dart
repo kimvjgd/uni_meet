@@ -185,7 +185,7 @@ class CommentItem extends StatelessWidget {
             ));
           },
           child: Text(
-            '${comment.hostInfo!.split('_')[2]}',
+            comment.hostInfo!.split('_')[0]+comment.hostInfo!.split('_')[1] + '학번'+comment.hostInfo!.split('_')[2],
             style: TextStyle(fontWeight: FontWeight.bold, color: app_red),
           ),
         ),
