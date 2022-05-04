@@ -49,20 +49,19 @@ class PostItem extends StatelessWidget {
                     // SizedBox(height: 7,),
                     Row(children: [
                       Text(
-                      post.hostUni!+' ' + post.hostGrade!+'학번 ' + post.hostNick!+' ',
+                        post.hostNick!+' '+post.hostUni!+' ' + post.hostGrade!+'학번 ',
                       style: TextStyle(color: app_systemGrey1),
                     ),
                       // Container(
                       //     decoration: BoxDecoration(
                       //         color: app_red.withOpacity(0.85),
                       //         borderRadius: BorderRadius.circular(4.0)),
-                      //     child: Text(' 외 ${post.headCount! - 1}명 ',style: TextStyle(color: Colors.white),)),
+                      //     child: Text(' 외 ${post.headC ount! - 1}명 ',style: TextStyle(color: Colors.white),)),
                       SizedBox(width: 2,),
-                      Container(
-                          decoration: BoxDecoration(
-                              color: app_deepyellow.withOpacity(0.9),
-                              borderRadius: BorderRadius.circular(4.0)),
-                          child: Text(" ${post.place} ",style: TextStyle(color: Colors.white),)),
+                      Text("#${post.place} ",style: TextStyle(color: app_green),),
+                      Text(
+                          TimeAgo.timeCustomFormat(post.createdDate!)
+                      )
                     ],)
 
                   ],

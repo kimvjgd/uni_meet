@@ -202,11 +202,25 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   localImage: widget.post.hostInfo!.split('_')[3]),
             ));
           },
-          child: Text(
-            widget.post.hostNick! + '  ',
-            style: TextStyle(
-              color: Colors.black,
-            ),
+          child: Row(
+            children: [
+              // Container(
+              //   width: 25,
+              //   height: 25,
+              //   child: CircleAvatar(
+              //     backgroundColor: Colors.transparent,
+              //     backgroundImage: AssetImage('assets/images/momo' +
+              //         widget.post.hostInfo!.split('_')[3]+
+              //         '.png'),
+              //   ),
+              // ),
+              Text(
+                widget.post.hostUni!+widget.post.hostGrade!+'학번'+widget.post.hostNick!,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ),
         // Container(
@@ -221,12 +235,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           width: 2,
         ),
         Container(
-            decoration: BoxDecoration(
-                color: app_deepyellow.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(4.0)),
             child: Text(
-              " ${widget.post.place} ",
-              style: TextStyle(color: Colors.white),
+              "#${widget.post.place} ",
+              style: TextStyle(color: app_green),
             )),
       ],
     );
