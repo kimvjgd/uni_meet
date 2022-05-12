@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
 
   Future<void> getToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
-    //print('@@@@@@@@@@@@@@@@@@$token@@@@@@@@@@@@@@@@@@');
     FirebaseFirestore.instance
         .collection(COLLECTION_USERS)
         .doc(AuthController.to.user.value.uid)
