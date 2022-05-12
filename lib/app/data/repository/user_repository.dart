@@ -38,28 +38,38 @@ class UserRepository {
 
   static Future<void> withdrawal(String uid) async {
     try {
-      await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).collection(COLLECTION_NEWSLIST)
+      await FirebaseFirestore.instance
+          .collection(COLLECTION_USERS)
+          .doc(uid)
+          .collection(COLLECTION_NEWSLIST)
           .get()
-          .then((snapshot){
-        for (DocumentSnapshot i in snapshot.docs)
-          i.reference.delete();
-      }
-      );
-      await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(uid).delete();
-     // await FirebaseAuth.instance.currentUser!.delete();
-    } catch(e){
+          .then((snapshot) {
+        for (DocumentSnapshot i in snapshot.docs) i.reference.delete();
+      });
+      await FirebaseFirestore.instance
+          .collection(COLLECTION_USERS)
+          .doc(uid)
+          .delete();
+      // await FirebaseAuth.instance.currentUser!.delete();
+    } catch (e) {
       Logger().d(e);
     }
   }
 
   static Future<void> addBlackUser(String blackNickname) async {
-    var prev_data = await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(AuthController.to.user.value.uid).get();
+    var prev_data = await FirebaseFirestore.instance
+        .collection(COLLECTION_USERS)
+        .doc(AuthController.to.user.value.uid)
+        .get();
 
-    List<dynamic> data = await prev_data.get(KEY_USER_BLACKLIST)??[];
+    List<dynamic> data = await prev_data.get(KEY_USER_BLACKLIST) ?? [];
 
     Set<dynamic> semiResult = data.toSet();
     semiResult.add(blackNickname);
     List<dynamic> result = semiResult.toList();
-    await FirebaseFirestore.instance.collection(COLLECTION_USERS).doc(AuthController.to.user.value.uid).update({KEY_USER_BLACKLIST: result});
+    await FirebaseFirestore.instance
+        .collection(COLLECTION_USERS)
+        .doc(AuthController.to.user.value.uid)
+        .update({KEY_USER_BLACKLIST: result});
   }
 }

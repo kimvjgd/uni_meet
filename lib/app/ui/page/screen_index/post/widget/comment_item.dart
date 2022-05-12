@@ -191,9 +191,13 @@ class CommentItem extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Text(
-            comment.content.toString(),
+          child: (comment.hostKey==AuthController.to.user.value.uid || post.host==AuthController.to.user.value.uid)?Text(
+            comment.content!,
             maxLines: null,
+          ):Text(
+            '비밀 댓글입니다.',
+            maxLines: null,
+            style: TextStyle(color: Colors.grey[500]),
           ),
         ),
         Text(
