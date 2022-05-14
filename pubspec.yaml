@@ -45,6 +45,9 @@ dependencies:
   intl: ^0.17.0
   firebase_remote_config: ^2.0.4
   yaml: ^3.1.0
+  intro_slider: ^3.0.4
+  shared_preferences: ^2.0.15
+  store_redirect: ^2.0.1
 
 
 dev_dependencies:
@@ -83,6 +86,9 @@ flutter:
     - assets/images/icons/post_icon.png
     - assets/images/icons/myroom_icon.png
     - assets/images/icons/send_chat_icon.png
+    - assets/images/intro1.png
+    - assets/images/intro2.png
+    - assets/images/intro3.png
 
 
   fonts:

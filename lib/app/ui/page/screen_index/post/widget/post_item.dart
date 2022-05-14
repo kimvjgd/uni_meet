@@ -58,7 +58,7 @@ class PostItem extends StatelessWidget {
                       //         borderRadius: BorderRadius.circular(4.0)),
                       //     child: Text(' 외 ${post.headC ount! - 1}명 ',style: TextStyle(color: Colors.white),)),
                       SizedBox(width: 2,),
-                      Text("#${post.place} ",style: TextStyle(color: app_green),),
+                      //Text("#${post.place} ",style: TextStyle(color: app_green),),
                       Text(
                           TimeAgo.timeCustomFormat(post.createdDate!)
                       )

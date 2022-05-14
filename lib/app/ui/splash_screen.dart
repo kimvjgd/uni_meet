@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:uni_meet/root_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yaml/yaml.dart';
+import 'package:store_redirect/store_redirect.dart';
 import 'dart:io' show Platform;
 
 class SplashScreen extends StatefulWidget {
@@ -42,26 +43,29 @@ class _SplashScreenState extends State<SplashScreen> {
                   Center(
                     child: TextButton(
                         onPressed: () async{
-                          //앱 스토어 링크?
-                          if (Platform.isAndroid) {
-                            final url = "https://play.google.com/store/apps/details?id=com.dongpakka.uni_meet";
-                            if(await canLaunch(url)){
-                              await launch(
-                                url,forceWebView:true,
-                                enableJavaScript:true,
-                              );
-                            }
-                          }
-                          else if (Platform.isIOS) {
-                            // iOS-specific code
-                            final url = "https://apps.apple.com/kr/app/momodu/id1620375953";
-                            if(await canLaunch(url)){
-                              await launch(
-                                url,forceWebView:true,
-                                enableJavaScript:true,
-                              );
-                            }
-                          }
+                          StoreRedirect.redirect(androidAppId: "com.dongpakka.uni_meet",
+                              iOSAppId: "585027354");
+                          //앱 아이디 수정하기 !!!!!!!!!!!!!
+
+                          // if (Platform.isAndroid) {
+                          //   final url = "https://play.google.com/store/apps/details?id=com.dongpakka.uni_meet";
+                          //   if(await canLaunch(url)){
+                          //     await launch(
+                          //       url,forceWebView:true,
+                          //       enableJavaScript:true,
+                          //     );
+                          //   }
+                          // }
+                          // else if (Platform.isIOS) {
+                          //   // iOS-specific code
+                          //   final url = "https://apps.apple.com/kr/app/momodu/id1620375953";
+                          //   if(await canLaunch(url)){
+                          //     await launch(
+                          //       url,forceWebView:true,
+                          //       enableJavaScript:true,
+                          //     );
+                          //   }
+                          // }
                         },
                         child: Text("업데이트하기",)
                     ),
@@ -80,19 +84,21 @@ class _SplashScreenState extends State<SplashScreen> {
                 actions: [
                   TextButton(
                       onPressed: () async{
-                        //앱 스토어 링크?
-                        if (Platform.isAndroid) {
-                          final url = "https://play.google.com/store/apps/details?id=com.dongpakka.uni_meet";
-                          if(await canLaunch(url)){
-                            await launch(
-                              url,forceWebView:true,
-                              enableJavaScript:true,
-                            );
-                          }
-                        }
-                        else if (Platform.isIOS) {
-                          // iOS-specific code
-                        }
+                        StoreRedirect.redirect(androidAppId: "com.dongpakka.uni_meet",
+                            iOSAppId: "585027354");
+
+                        // if (Platform.isAndroid) {
+                        //   final url = "https://play.google.com/store/apps/details?id=com.dongpakka.uni_meet";
+                        //   if(await canLaunch(url)){
+                        //     await launch(
+                        //       url,forceWebView:true,
+                        //       enableJavaScript:true,
+                        //     );
+                        //   }
+                        // }
+                        // else if (Platform.isIOS) {
+                        //   // iOS-specific code
+                        // }
                       },
                       child: Text("업데이트하기",)
                   ),

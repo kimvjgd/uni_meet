@@ -130,8 +130,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
         floatingActionButton: AuthController.to.user.value.auth == true
             ? FloatingActionButton(
                 heroTag: 'invite',
-                foregroundColor: app_deepyellow,
-                backgroundColor: app_lightyellow,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.white,
                 hoverColor: Colors.transparent,
                 focusColor: Colors.transparent,
                 splashColor: Colors.transparent,
@@ -198,7 +198,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                             ),
                           ));
                 },
-                child: Icon(Icons.mail_rounded),
+                child: Icon(Icons.vpn_key_rounded,color: Colors.green,),
               )
             : FloatingActionButton(
                 heroTag: 'invite',

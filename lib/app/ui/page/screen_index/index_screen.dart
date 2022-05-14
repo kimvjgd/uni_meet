@@ -41,20 +41,20 @@ class IndexScreen extends GetView<BottomNavController> {
               items: [
                 BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage("assets/images/icons/home_icon.png")),
-                  activeIcon: ImageIcon(AssetImage("assets/images/icons/home_icon.png"),color: app_deepyellow,),
+                  activeIcon: ImageIcon(AssetImage("assets/images/icons/home_icon.png"),color: Colors.green,),
                   label: 'home',
                 ),
                 BottomNavigationBarItem(
                     icon:  ImageIcon(AssetImage("assets/images/icons/post_icon.png")),
-                    activeIcon: ImageIcon(AssetImage("assets/images/icons/post_icon.png",),color: app_deepyellow,),
+                    activeIcon: ImageIcon(AssetImage("assets/images/icons/post_icon.png",),color: Colors.green,),
                     label: 'list'),
                 BottomNavigationBarItem(
                     icon:  ImageIcon(AssetImage("assets/images/icons/chat_icon.png")),
-                    activeIcon: ImageIcon(AssetImage("assets/images/icons/chat_icon.png",),color: app_deepyellow,),
+                    activeIcon: ImageIcon(AssetImage("assets/images/icons/chat_icon.png",),color: Colors.green,),
                     label: 'chat'),
                 BottomNavigationBarItem(
                     icon:  ImageIcon(AssetImage("assets/images/icons/myroom_icon.png")),
-                    activeIcon: ImageIcon(AssetImage("assets/images/icons/myroom_icon.png",),color: app_deepyellow,),
+                    activeIcon: ImageIcon(AssetImage("assets/images/icons/myroom_icon.png",),color: Colors.green,),
                     label: 'setting'),
               ],
             ),

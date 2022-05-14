@@ -204,20 +204,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           },
           child: Row(
             children: [
-              // Container(
-              //   width: 25,
-              //   height: 25,
-              //   child: CircleAvatar(
-              //     backgroundColor: Colors.transparent,
-              //     backgroundImage: AssetImage('assets/images/momo' +
-              //         widget.post.hostInfo!.split('_')[3]+
-              //         '.png'),
-              //   ),
-              // ),
               Text(
-                widget.post.hostUni!+widget.post.hostGrade!+'학번'+widget.post.hostNick!,
+                widget.post.hostNick!+" ∙ "+widget.post.hostUni!+widget.post.hostGrade!+'학번',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: app_systemGrey1,
                 ),
               ),
             ],
@@ -234,11 +224,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         SizedBox(
           width: 2,
         ),
-        Container(
-            child: Text(
-              "#${widget.post.place} ",
-              style: TextStyle(color: app_green),
-            )),
+
       ],
     );
   }
@@ -308,16 +294,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           if (index == 0)
                             return Column(
                               children: [
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("댓글",
-                                        style:
-                                            TextStyle(color: app_systemGrey1))),
+
                                 Divider(
                                   thickness: 0.5,
                                   color: divider,
                                 ),
-                                CommentItem(      // ..
+                                CommentItem(
                                     comment: snapshot.data[index],
                                     post: widget.post)
                               ],
