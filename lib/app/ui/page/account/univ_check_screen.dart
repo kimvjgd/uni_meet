@@ -246,7 +246,14 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                           ),
                           backgroundColor: Colors.blue,
                         ));
-                      } else {
+                      }
+                      else {
+                        showDialog(context: context,
+                          builder: (BuildContext context){
+                            return Transform.scale(
+                              scale:0.4,
+                                child: CircularProgressIndicator());
+                          });
                         // if(uni_check==null){
                         //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         //     content: const Text(
@@ -271,6 +278,31 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                         // }
                         setState(() {
                           _isLoading = true;
+
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (BuildContext context) {
+                          //       return AlertDialog(
+                          //         title: Text("초대하기"),
+                          //         content: Text(
+                          //           "인증신청이 완료되었습니다! \n2~3분 내로 학생인증이 완료됩니다.",
+                          //           textAlign: TextAlign.center,
+                          //         ),
+                          //         actions: [
+                          //           TextButton(
+                          //               onPressed: () async {
+                          //                 Get.back();
+                          //                 Get.to(RootPage());
+                          //               },
+                          //               child: Text(
+                          //                 "홈 구경하기",
+                          //               )),
+                          //           TextButton(onPressed: (){
+                          //             Get.back();
+                          //           }, child: Text("다시 인증하기"))
+                          //         ],
+                          //       );
+                          //     });
                         });
 
                         if (await _Recognition(imageFile)) {
@@ -279,10 +311,8 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                                   receiver_token: AuthController
                                       .to.user.value.token
                                       .toString());
-                          // users.update({KEY_USER_AUTH: true})
-                          //        .then((value) => print("대학인증 성공"))
-                          //        .catchError((error) => print("대학 인증 실패: $error"));
-                          Logger().d('일단 동현님께서 킵');
+                          Get.to(RootPage());
+
 
                         } else {
                           Logger().d('여기로 가버렸어??');
@@ -306,7 +336,7 @@ class _UnivCheckScreenState extends State<UnivCheckScreen> {
                         }
                       }
                     },
-                    btnText: _isLoading ? "인증중입니다 . . ." : "인증하기")),
+                    btnText: "인증하기")),
           ),
           Spacer(
             flex: 1,

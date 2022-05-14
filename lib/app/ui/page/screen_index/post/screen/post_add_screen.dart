@@ -56,8 +56,8 @@ class _PostAddScreenState extends State<PostAddScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _titleFormField(),
-                    _placeField(),
-                    _peopleFormField(),
+                   // _placeField(),
+                   // _peopleFormField(),
                     _contentFormField(),
                   ],
                 ),
@@ -119,8 +119,7 @@ class _PostAddScreenState extends State<PostAddScreen> {
           maxLines: null,
           decoration: InputDecoration(
               hintStyle: TextStyle(color: app_systemGrey4),
-              hintText:
-                  "간단한 자기소개와\n만나고 싶은 모모들의 조건을 작성해주세요 !\n \n[예시]\n안녕하세요~ 모모대학교 모모과 20학번 남자 3명입니다!\n21학번 여성 세 분 구해요/00대학교 구해요/MBTI E인 분들 구해요/술 잘 마시는 분 구해요",
+              hintText:"어떤 만남을 원하는지 자세히 적어주세요 :)\n특정 학번 이상의 사람을 원하나요?\n아니면 어느 대학, 어떤 MBTI를 만나고 싶은가요?\n혹시 술을 좋아하는 사람은 어떨까요?",
               hintMaxLines: 10,
               contentPadding: EdgeInsets.fromLTRB(15, 70, 15, 70),
               focusedBorder: UnderlineInputBorder(
@@ -372,15 +371,16 @@ class _PostAddScreenState extends State<PostAddScreen> {
   }
 
   _onPressed() {
-    if (place == "" || people == 0) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text(
-          "장소와 인원수를 확인해주세요 !",
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-      ));
-    } else if (_PostformKey.currentState!.validate()) {
+    // if (place == "" || people == 0) {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: const Text(
+    //       "장소와 인원수를 확인해주세요 !",
+    //       style: TextStyle(color: Colors.black),
+    //     ),
+    //     backgroundColor: Colors.white,
+    //   ));
+    // }
+    if (_PostformKey.currentState!.validate()) {
       showDialog(
           context: context,
           barrierDismissible: false,
@@ -396,8 +396,8 @@ class _PostAddScreenState extends State<PostAddScreen> {
                             await PostRepository.createPost(
                                 title: _titleController.text,
                                 content: _contentController.text,
-                                place: place,
-                                headCount: people,
+                                place: "무관",
+                                headCount: 10,
                                 createdDate: DateTime.now(),
                                 host: AuthController.to.user.value.uid!,
                                 hostInfo:  '${AuthController.to.user.value.university}_${AuthController.to.user.value.grade}_${AuthController.to.user.value.nickname}_${AuthController.to.user.value.localImage}_${AuthController.to.user.value.mbti}_${AuthController.to.user.value.gender}',

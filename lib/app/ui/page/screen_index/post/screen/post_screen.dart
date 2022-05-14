@@ -57,8 +57,8 @@ class _PostScreenState extends State<PostScreen> {
       floatingActionButton: AuthController.to.user.value.auth==true
       ? FloatingActionButton(
         heroTag: 'write',
-        foregroundColor: app_deepyellow,
-        backgroundColor: app_lightyellow,
+        foregroundColor: Colors.green,
+        backgroundColor: Colors.green,
         hoverColor: Colors.transparent,
         focusColor: Colors.transparent,
         splashColor: Colors.transparent,
@@ -66,7 +66,7 @@ class _PostScreenState extends State<PostScreen> {
         onPressed: () {
           Get.to(PostAddScreen());
         },
-        child: Icon(Icons.create_outlined)
+        child: Icon(Icons.add,color: Colors.white,)
       )
           :FloatingActionButton(
           heroTag: 'write',
@@ -79,7 +79,7 @@ class _PostScreenState extends State<PostScreen> {
           onPressed: () {
             Get.snackbar("알림", "학교 인증을 완료해주세요 !");
           },
-          child: Icon(Icons.create_outlined)
+          child: Icon(Icons.add,color: Colors.white,)
       )
     );
   }
