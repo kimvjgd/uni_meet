@@ -44,7 +44,9 @@ class _ProfileImageScreenState extends State<ProfileImageScreen> {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(leading: BackButton(color: Colors.black,),),
+      appBar: AppBar(
+        leading: BackButton(color: Colors.black,),
+      ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(

@@ -202,11 +202,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   localImage: widget.post.hostInfo!.split('_')[3]),
             ));
           },
-          child: Text(
-            widget.post.hostNick! + '  ',
-            style: TextStyle(
-              color: Colors.black,
-            ),
+          child: Row(
+            children: [
+              Text(
+                widget.post.hostNick!+" ∙ "+widget.post.hostUni!+widget.post.hostGrade!+'학번',
+                style: TextStyle(
+                  color: app_systemGrey1,
+                ),
+              ),
+            ],
           ),
         ),
         // Container(
@@ -220,14 +224,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         SizedBox(
           width: 2,
         ),
-        Container(
-            decoration: BoxDecoration(
-                color: app_deepyellow.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(4.0)),
-            child: Text(
-              " ${widget.post.place} ",
-              style: TextStyle(color: Colors.white),
-            )),
+
       ],
     );
   }
@@ -297,16 +294,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           if (index == 0)
                             return Column(
                               children: [
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("댓글",
-                                        style:
-                                            TextStyle(color: app_systemGrey1))),
+
                                 Divider(
                                   thickness: 0.5,
                                   color: divider,
                                 ),
-                                CommentItem(      // ..
+                                CommentItem(
                                     comment: snapshot.data[index],
                                     post: widget.post)
                               ],

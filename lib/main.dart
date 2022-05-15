@@ -6,10 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
+import 'package:uni_meet/app/ui/components/app_color.dart';
+import 'package:uni_meet/app/ui/page/intro.dart';
 import 'package:uni_meet/app/ui/splash_screen.dart';
 import 'package:uni_meet/root_page.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:yaml/yaml.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/controller/auth_controller.dart';
 import 'app/data/model/firestore_keys.dart';
@@ -20,8 +23,13 @@ Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.notification!.title);
 }
 
+int? isviewed;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isviewed = prefs.getInt('onBoard');
+  print("온보드 가져오기");
+
   TimeAgo.setLocalMessages();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
@@ -53,7 +61,7 @@ class MyApp extends StatelessWidget {
      getToken();
     return GetMaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch:Colors.green,
         scaffoldBackgroundColor: Colors.white,
           appBarTheme: AppBarTheme(
               color: Colors.white,
@@ -68,9 +76,10 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBinding(),
-     // home: RootPage(),
-     // home: RootPage(),
-      home:SplashScreen(),
+      home:
+      isviewed !=0
+          ?IntroScreen()
+          :SplashScreen(),
     );
   }
 }
