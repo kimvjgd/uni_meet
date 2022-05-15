@@ -122,7 +122,7 @@ class IntroScreenState extends State<IntroScreen> {
 
       // Skip button
       renderSkipBtn: this.renderSkipBtn(),
-      onSkipPress:_storeOnboardInfo(),
+      onSkipPress:() => _storeOnboardInfo(),
 
       // Next button
       renderNextBtn: this.renderNextBtn(),
