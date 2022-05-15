@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
@@ -12,7 +10,6 @@ import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/profile_image_screen.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_text.dart';
-import 'package:uni_meet/root_page.dart';
 import '../../../../secret/univ_list.dart';
 import '../../../data/model/app_user_model.dart';
 
@@ -177,7 +174,7 @@ class _EditInfoState extends State<EditInfo> {
               child: Row(
                 children: [
                   Radio(
-                    activeColor: app_red,
+                    activeColor: Colors.green,
                     value: Gender.MAN,
                     groupValue: _gender,
                     onChanged: (Gender? value) {
@@ -190,7 +187,7 @@ class _EditInfoState extends State<EditInfo> {
                     "남자입니다",
                     style: TextStyle(
                         color:
-                        _gender == Gender.MAN ? app_red : divider),
+                        _gender == Gender.MAN ? Colors.green : divider),
                   ),
                 ],
               )
@@ -207,7 +204,7 @@ class _EditInfoState extends State<EditInfo> {
             },
             child: Row(children: [
               Radio(
-                activeColor: app_red,
+                activeColor:Colors.green,
                 value: Gender.WOMAN,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
@@ -219,7 +216,7 @@ class _EditInfoState extends State<EditInfo> {
               Text("여자입니다",
                   style: TextStyle(
                       color: _gender == Gender.WOMAN
-                          ? app_red : divider)),
+                          ? Colors.green : divider)),
             ]),
           ),
         ),
@@ -233,12 +230,12 @@ class _EditInfoState extends State<EditInfo> {
         children: [
           Expanded(
               child: TextFormField(
-                cursorColor: app_red,
+                cursorColor: Colors.green,
                 decoration: InputDecoration(
-                  focusColor: app_red,
+                  focusColor: Colors.green,
                     label: Text(category,style: TextStyle(color:app_label_grey),),
                   contentPadding: EdgeInsets.all(5),
-                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.green,)),
                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
                 ),
                 controller: _nameController,
@@ -281,12 +278,12 @@ class _EditInfoState extends State<EditInfo> {
                 textFieldConfiguration:
                 TextFieldConfiguration(
                     controller: this._univController,
-                  cursorColor: app_red,
+                  cursorColor:Colors.green,
                   decoration: InputDecoration(
-                    focusColor: app_red,
+                    focusColor: Colors.green,
                     label: Text(category,style: TextStyle(color: app_label_grey),),
                     contentPadding: EdgeInsets.all(5),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.green,)),
                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
                   ),
                 ),
@@ -302,12 +299,12 @@ class _EditInfoState extends State<EditInfo> {
         children: [
           Expanded(
               child: TextFormField(
-                cursorColor: app_red,
+                cursorColor: Colors.green,
                 decoration: InputDecoration(
-                  focusColor: app_red,
+                  focusColor: Colors.green,
                   label: Text(category,style: TextStyle(color: app_label_grey),),
                   contentPadding: EdgeInsets.all(5),
-                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: app_red)),
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.green,)),
                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: divider)),
                 ),
                 controller: _majorController,
@@ -385,7 +382,7 @@ class _EditInfoState extends State<EditInfo> {
                 },
                 child:grade == 0
                   ? Text("학번을 선택해 주세요!",style: TextStyle(color: app_systemGrey2),)
-                  : Text(grade.toString() + "학번",style: TextStyle(color:app_red),),
+                  : Text(grade.toString() + "학번",style: TextStyle(color:Colors.green,),),
     ),
             ),
           ],
@@ -414,7 +411,7 @@ class _EditInfoState extends State<EditInfo> {
                     ? Text("MBTI는 무엇인가요?",style: TextStyle(color: app_systemGrey2),)
                     : Text(
                   mbti,
-                  style: TextStyle(color: app_red),
+                  style: TextStyle(color:Colors.green,),
                 ),
                 onPressed: () {
                   showModalBottomSheet(

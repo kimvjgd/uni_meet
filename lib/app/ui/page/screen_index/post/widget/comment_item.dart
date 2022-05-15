@@ -220,26 +220,22 @@ class CommentItem extends StatelessWidget {
             ),
           ],
         ),
-        (comment.hostKey == AuthController.to.user.value.uid ||
-                post.host == AuthController.to.user.value.uid)
-            ? Row(
+        // (comment.hostKey == AuthController.to.user.value.uid ||
+        //         post.host == AuthController.to.user.value.uid)
+        //     ?
+        Row(
                 children: [
                   Text(
                     comment.content!,
                     maxLines: null,
                   ),
-                  Icon(
-                    Icons.lock_outline,
-                    size: 13,
-                    color: app_systemGrey1,
-                  ),
                 ],
               )
-            : Text(
-                '비밀 댓글입니다.',
-                maxLines: null,
-                style: TextStyle(color: Colors.grey[500]),
-              ),
+            // : Text(
+            //     '비밀 댓글입니다.',
+            //     maxLines: null,
+            //     style: TextStyle(color: Colors.grey[500]),
+            //   ),
       ],
     );
   }
