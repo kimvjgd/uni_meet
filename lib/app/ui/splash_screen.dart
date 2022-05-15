@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:yaml/yaml.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'dart:io' show Platform;
+
+import '../controller/auth_controller.dart';
+import '../data/model/firestore_keys.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -145,8 +150,19 @@ class _SplashScreenState extends State<SplashScreen> {
    // print("최신 버전은"+ latestAppVersion);
   }
 
+  Future<void> getToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    FirebaseFirestore.instance
+        .collection(COLLECTION_USERS)
+        .doc(AuthController.to.user.value.uid)
+        .update({KEY_USER_TOKEN: token});
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    if(AuthController.to.user.value.uid != null){getToken();}
+
     return Scaffold(
       body: Container(
           width: MediaQuery.of(context).size.width,
