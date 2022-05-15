@@ -83,6 +83,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          elevation: 0.0,
           title: Text("코드 인증",style: TextStyle(color: Colors.black),),
           automaticallyImplyLeading: false,
         ),
@@ -91,15 +92,23 @@ class _VerifyNumberState extends State<VerifyNumber> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Spacer(flex: 2,),
-            Image.asset("assets/images/logo.png"),
-            Spacer(flex: 3,),
+            Spacer(flex: 1,),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "인증 번호를 입력해주세요",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20),
+              ),
+            ),
+            SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(
-                  height: 60,
-                  width: 50,
+                  height: 50,
+                  width: 40,
                   child: TextFormField(
                     controller: _textEditingController_1,
                     onChanged: (value){
@@ -112,23 +121,26 @@ class _VerifyNumberState extends State<VerifyNumber> {
                       LengthLimitingTextInputFormatter(1),
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    cursorColor: app_red,
+                    cursorColor: app_systemGrey1,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         ),
-                        focusColor: app_red,
+                        focusColor: app_systemGrey1,
+                        enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: app_systemGrey6),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: app_red),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderSide: BorderSide(color: app_systemGrey1),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         )
 
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 60,
-                  width: 50,
+                  height: 50,
+                  width: 40,
                   child: TextFormField(
                     controller: _textEditingController_2,
                     onChanged: (value){
@@ -141,23 +153,26 @@ class _VerifyNumberState extends State<VerifyNumber> {
                       LengthLimitingTextInputFormatter(1),
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    cursorColor: app_red,
+                    cursorColor: app_systemGrey1,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         ),
-                        focusColor: app_red,
+                        focusColor: app_systemGrey1,
+                        enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: app_systemGrey6),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: app_red),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderSide: BorderSide(color: app_systemGrey1),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         )
 
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 60,
-                  width: 50,
+                  height: 50,
+                  width: 40,
                   child: TextFormField(
                     controller: _textEditingController_3,
                     onChanged: (value){
@@ -170,23 +185,26 @@ class _VerifyNumberState extends State<VerifyNumber> {
                       LengthLimitingTextInputFormatter(1),
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    cursorColor: app_red,
+                    cursorColor: app_systemGrey1,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         ),
-                        focusColor: app_red,
+                        focusColor: app_systemGrey1,
+                        enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: app_systemGrey6),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: app_red),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderSide: BorderSide(color: app_systemGrey1),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         )
 
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 60,
-                  width: 50,
+                  height: 50,
+                  width: 40,
                   child: TextFormField(
                     controller: _textEditingController_4,
                     onChanged: (value){
@@ -199,23 +217,26 @@ class _VerifyNumberState extends State<VerifyNumber> {
                       LengthLimitingTextInputFormatter(1),
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    cursorColor: app_red,
+                    cursorColor: app_systemGrey1,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         ),
-                        focusColor: app_red,
+                        focusColor: app_systemGrey1,
+                        enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: app_systemGrey6),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: app_red),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderSide: BorderSide(color: app_systemGrey1),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         )
 
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 60,
-                  width: 50,
+                  height: 50,
+                  width: 40,
                   child: TextFormField(
                     controller: _textEditingController_5,
                     onChanged: (value){
@@ -228,23 +249,26 @@ class _VerifyNumberState extends State<VerifyNumber> {
                       LengthLimitingTextInputFormatter(1),
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    cursorColor: app_red,
+                    cursorColor: app_systemGrey1,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         ),
-                        focusColor: app_red,
+                        focusColor: app_systemGrey1,
+                        enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: app_systemGrey6),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: app_red),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderSide: BorderSide(color: app_systemGrey1),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         )
 
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 60,
-                  width: 50,
+                  height: 50,
+                  width: 40,
                   child: TextFormField(
                     controller: _textEditingController_6,
                     onChanged: (value){
@@ -257,15 +281,18 @@ class _VerifyNumberState extends State<VerifyNumber> {
                       LengthLimitingTextInputFormatter(1),
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    cursorColor: app_red,
+                    cursorColor: app_systemGrey1,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         ),
-                        focusColor: app_red,
+                        focusColor: app_systemGrey1,
+                        enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: app_systemGrey6),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: app_red),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
+                            borderSide: BorderSide(color: app_systemGrey1),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
                         )
 
                     ),
@@ -276,7 +303,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
             _status != Status.Error
                 ? Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("전송된 6자리 코드를 입력해주세요",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7),fontSize: 20),),
+                  child: Text("",style: TextStyle(color: CupertinoColors.systemGrey.withOpacity(0.7),fontSize: 20),),
                 )
             :Padding(
               padding: const EdgeInsets.all(8.0),
