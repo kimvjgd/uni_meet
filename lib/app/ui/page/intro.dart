@@ -3,6 +3,7 @@ import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:intro_slider/scrollbar_behavior_enum.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
@@ -124,6 +125,7 @@ class IntroScreenState extends State<IntroScreen> {
       renderSkipBtn: this.renderSkipBtn(),
       onSkipPress:() => _storeOnboardInfo(),
 
+      onDonePress: onDonePress,
       // Next button
       renderNextBtn: this.renderNextBtn(),
       onNextPress: this.onNextPress,

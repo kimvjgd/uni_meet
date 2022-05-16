@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:uni_meet/app/binding/init_bindings.dart';
 import 'package:uni_meet/app/data/utils/timeago_util.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
@@ -28,8 +29,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isviewed = prefs.getInt('onBoard');
-  print("온보드 가져오기");
 
+  Logger().d(isviewed);
   TimeAgo.setLocalMessages();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);

@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: TextButton(
                         onPressed: () async{
                           StoreRedirect.redirect(androidAppId: "com.dongpakka.uni_meet",
-                              iOSAppId: "com.dongpakka.uniMeet");
+                              iOSAppId: "id1620375953");
                           //앱 아이디 수정하기 !!!!!!!!!!!!!
 
                           // if (Platform.isAndroid) {
@@ -90,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   TextButton(
                       onPressed: () async{
                         StoreRedirect.redirect(androidAppId: "com.dongpakka.uni_meet",
-                            iOSAppId: "com.dongpakka.uniMeet");
+                            iOSAppId: "id1620375953");
 
                         // if (Platform.isAndroid) {
                         //   final url = "https://play.google.com/store/apps/details?id=com.dongpakka.uni_meet";
