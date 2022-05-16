@@ -111,6 +111,7 @@ class IntroScreenState extends State<IntroScreen> {
     print("Shared pref called");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('onBoard', 0);
+    print(prefs.getInt('onBoard'));
   }
 
 
@@ -122,7 +123,7 @@ class IntroScreenState extends State<IntroScreen> {
 
       // Skip button
       renderSkipBtn: this.renderSkipBtn(),
-      onSkipPress:()=>_storeOnboardInfo(),
+      onSkipPress:() => _storeOnboardInfo(),
 
       onDonePress: onDonePress,
       // Next button
