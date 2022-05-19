@@ -9,6 +9,7 @@ import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/repository/chat_repository.dart';
 import 'package:uni_meet/app/ui/page/account/widget/big_button.dart';
+import 'package:uni_meet/app/ui/page/screen_index/chat/screen/invite_help.dart';
 import 'package:uni_meet/app/ui/page/screen_index/index_screen.dart';
 import 'package:uni_meet/app/ui/page/screen_index/message_popup.dart';
 import 'package:uni_meet/app/ui/page/screen_index/widgets/profile_widget.dart';
@@ -66,6 +67,7 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
           ),
           endDrawer: SafeArea(
             child: Drawer(
+
                 child: Column(
               children: [
                 ElevatedButton(
@@ -80,15 +82,23 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                                 textAlign: TextAlign.center,
                               ),
                               actions: [
-                                TextButton(
-                                    onPressed: () async {
-                                      await FlutterClipboard.copy(
-                                          widget.chatroomKey);
-                                      Get.back();
-                                    },
-                                    child: Text(
-                                      "복사하기",
-                                    ))
+                                Row(
+                                  children: [
+                                    IconButton(onPressed: (){
+                                      Get.to(InviteHelp());
+                                    }, icon: Icon(Icons.help_outline)),
+                                    TextButton(
+                                        onPressed: () async {
+                                          await FlutterClipboard.copy(
+                                              widget.chatroomKey);
+                                          Get.back();
+                                        },
+                                        child: Text(
+                                          "복사하기",
+                                        )),
+                                  ],
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                )
                               ],
                             );
                           });
