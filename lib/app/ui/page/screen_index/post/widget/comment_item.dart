@@ -87,9 +87,9 @@ class CommentItem extends StatelessWidget {
                     : AuthController.to.user.value.uid == post.host
                         ? IconButton(
                             padding: EdgeInsets.only(top: 3),
-                            icon: Icon(Icons.chat_bubble_outline),
+                            icon: ImageIcon(AssetImage("assets/images/icons/chat_icon.png")),
                             iconSize: 20,
-                            color: app_green,
+                            color: app_systemGrey1,
                             onPressed: () {
                               showDialog(
                                   context: Get.context!,
@@ -220,22 +220,55 @@ class CommentItem extends StatelessWidget {
             ),
           ],
         ),
-        // (comment.hostKey == AuthController.to.user.value.uid ||
-        //         post.host == AuthController.to.user.value.uid)
-        //     ?
-        Row(
-                children: [
-                  Text(
-                    comment.content!,
-                    maxLines: null,
-                  ),
-                ],
-              )
+        Text(
+          comment.content!,
+          maxLines: null,
+        ),
             // : Text(
             //     '비밀 댓글입니다.',
             //     maxLines: null,
             //     style: TextStyle(color: Colors.grey[500]),
-            //   ),
+            //   ),,
+        AuthController.to.user.value.uid == post.host
+            ? Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(Icons.subdirectory_arrow_right,size: 19,color: app_systemGrey1,),
+              Expanded(
+                child: TextFormField(
+                  decoration:InputDecoration(
+                    fillColor: Colors.grey[50],
+                    filled: true,
+                    hintText: "대댓글을 입력하세요.",
+                    hintStyle: TextStyle(fontSize: 12,color: app_systemGrey1),
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.circular(50),
+                      borderSide:  BorderSide(width: 0,color: Colors.transparent)
+                    ),
+                    enabledBorder:OutlineInputBorder(
+                        borderRadius:BorderRadius.circular(50),
+                        borderSide:  BorderSide(width: 0,color: Colors.transparent)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius:BorderRadius.circular(50),
+                        borderSide:  BorderSide(width: 0,color: Colors.transparent)
+                    ),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                    suffixIcon: IconButton(
+                      onPressed: (){},
+                      icon: ImageIcon(AssetImage("assets/images/icons/send_chat_icon.png")),iconSize: 15,),
+                  ),
+                  style: TextStyle(fontSize: 12),
+                  maxLines: 1,
+
+                ),
+              ),
+
+            ],
+          ),
+        )
+            : Container()
       ],
     );
   }
