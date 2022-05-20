@@ -91,6 +91,7 @@ flutter:
     - assets/images/intro3.png
     - assets/images/invite_help_1.jpeg
     - assets/images/invite_help_2.jpeg
+    - assets/images/invite_help_3.jpeg
 
 
   fonts:
