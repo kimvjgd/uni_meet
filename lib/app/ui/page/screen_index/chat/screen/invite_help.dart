@@ -40,47 +40,21 @@ class InviteHelpState extends State<InviteHelp> {
       Slide(
         marginDescription:
         EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
+        backgroundImage: 'assets/images/invite_help_3.jpeg',
+        backgroundImageFit: BoxFit.contain,
+        backgroundOpacity: 0.0,
+        backgroundColor: Colors.white,
+        directionColorBegin: Alignment.topLeft,
+        directionColorEnd: Alignment.bottomRight,
+        onCenterItemPress: () {},
+      ),
+    );
+    slides.add(
+      Slide(
+        marginDescription:
+        EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
         backgroundImage: 'assets/images/invite_help_2.jpeg',
         backgroundImageFit: BoxFit.contain,
-        backgroundOpacity: 0.0,
-        backgroundColor: Colors.white,
-        directionColorBegin: Alignment.topLeft,
-        directionColorEnd: Alignment.bottomRight,
-        onCenterItemPress: () {},
-      ),
-    );
-    slides.add(
-      Slide(
-        marginDescription:
-        EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-        backgroundImage: 'assets/images/intro3.png',
-        backgroundImageFit: BoxFit.contain,
-        backgroundOpacity: 0.0,
-        backgroundColor: Colors.white,
-        directionColorBegin: Alignment.topLeft,
-        directionColorEnd: Alignment.bottomRight,
-        onCenterItemPress: () {},
-      ),
-    );
-    slides.add(
-      Slide(
-        marginDescription:
-        EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-        widgetTitle: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top:125),
-            child: RichText(
-              text:TextSpan(children: [
-                TextSpan(text: "대학생을 위한",style: TextStyle(fontSize:22,color:Colors.black)),
-                TextSpan(text: " 새로운 미팅", style: TextStyle(fontSize:22,color: Colors.green,))
-              ]),
-            ),
-          ),
-        ),
-        centerWidget: Padding(
-          padding: const EdgeInsets.only(top:250),
-          child: BigButton(onPressed: (){Get.to(RootPage());}, btnText: '시작하기',),
-        ),
         backgroundOpacity: 0.0,
         backgroundColor: Colors.white,
         directionColorBegin: Alignment.topLeft,
@@ -91,8 +65,9 @@ class InviteHelpState extends State<InviteHelp> {
   }
 
   void onDonePress() {
-    _storeOnboardInfo();
-    Get.to(RootPage());
+    // _storeOnboardInfo();
+    // Get.to(RootPage());
+    Get.back();
   }
 
   void onNextPress() {
@@ -107,12 +82,12 @@ class InviteHelpState extends State<InviteHelp> {
     return Text("SKIP",style: TextStyle(color: Colors.grey),);
   }
 
-  _storeOnboardInfo() async {
-    print("Shared pref called");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('onBoard', 0);
-    print(prefs.getInt('onBoard'));
-  }
+  // _storeOnboardInfo() async {
+  //   print("Shared pref called");
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setInt('onBoard', 0);
+  //   print(prefs.getInt('onBoard'));
+  // }
 
 
   @override
@@ -123,7 +98,7 @@ class InviteHelpState extends State<InviteHelp> {
 
       // Skip button
       renderSkipBtn: this.renderSkipBtn(),
-      onSkipPress:() => _storeOnboardInfo(),
+      // onSkipPress:() => _storeOnboardInfo(),
 
       onDonePress: onDonePress,
       // Next button
