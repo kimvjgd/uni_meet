@@ -105,7 +105,7 @@ class ProfileWidget extends StatelessWidget {
                           child: Text('신고'),
                         ),
                         AuthController.to.user.value.blackList!.contains(nickname)
-                        ?TextButton(
+                        ? TextButton(
                           onPressed: () async {
 
                             showDialog(
@@ -117,6 +117,7 @@ class ProfileWidget extends StatelessWidget {
                                     okCallback: () async {
                                       await UserRepository.removeBlackUser(
                                           nickname);
+                                      AuthController.to.removeblackList(nickname);
                                       Get.back();
                                       Get.back();
                                       Get.snackbar("알림", "차단 해제가 완료되었습니다.");
@@ -129,7 +130,7 @@ class ProfileWidget extends StatelessWidget {
                           },
                           child:Text('차단 해제'),
                         )
-                        :TextButton(
+                        : TextButton(
                           onPressed: () async {
                             showDialog(
                                 context: context,
@@ -140,6 +141,8 @@ class ProfileWidget extends StatelessWidget {
                                     okCallback: () async {
                                       await UserRepository.addBlackUser(
                                           nickname);
+
+                                      AuthController.to.addblackList(nickname);
 
                                       Get.back();
                                       Get.back();
