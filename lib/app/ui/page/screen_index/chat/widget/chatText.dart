@@ -5,6 +5,8 @@ import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 import 'package:uni_meet/app/ui/page/screen_index/widgets/profile_widget.dart';
 
+import '../../../../../controller/chat_controller.dart';
+
 const roundedCorner = Radius.circular(20);
 
 class ChatText extends StatelessWidget {
@@ -88,8 +90,8 @@ class ChatText extends StatelessWidget {
                 Container(
                   child: Text(
                     AuthController.to.user.value.blackList!=null && AuthController.to.user.value.blackList!.contains(chatModel.writer!.split('_')[2])
-                        ? "차단한 사용자입니다." :
-                    chatModel.message ?? '메세지 가려짐',
+                        ? "차단한 사용자입니다."
+                        : chatModel.message.toString(),
                     style: TextStyle(color: Colors.black),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),

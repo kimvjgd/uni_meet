@@ -21,13 +21,47 @@ class CommentRepository {
     });
   }
 
+  Future<void> createBabyComment(
+      DocumentReference commentKey, String content,bool ishost) async {
+    if(ishost){
+      await commentKey.collection("babycomments").doc().set({
+        'writer': '글작성자',
+        'content': content,
+        'time':DateTime.now()
+      });
+    } else{
+      await commentKey.collection("babycomments").doc().set({
+        'writer': '댓글쓴이',
+        'content': content,
+        'time':DateTime.now()
+      });
+    }
+  }
+
+ Future<List<Map<String, dynamic>>> loadBabyCommentList(DocumentReference commentKey) async {
+    List<Map<String, dynamic>> babyList =[];
+    var data = await commentKey.collection('babycomments').orderBy('time', descending: false).get();
+
+    print("타입"+data.runtimeType.toString());
+
+    for(int i=0; i<data.size; i++){
+     babyList.add({
+       'content':data.docs[i].data()['content'],
+       'writer':data.docs[i].data()['writer'],
+     });
+
+    }
+    return babyList;
+  }
+
   Future<List<CommentModel>> loadCommentList(String postKey) async {
     var document = FirebaseFirestore.instance
-        .collection(COLLECTION_POSTS)
-        .doc(postKey)
+        .collection(COLLECTION_POSTS).doc(postKey)
         .collection(COLLECTION_COMMENTS)
         .orderBy(KEY_COMMENT_COMMENTTIME, descending: false);
+
     var data = await document.get();
+
     List<CommentModel> comments = [];
     for (int i = 0; i < data.size; i++) {
       CommentModel comment = CommentModel(
@@ -39,8 +73,7 @@ class CommentRepository {
         commentTime: data.docs[i].data()[KEY_COMMENT_COMMENTTIME].toDate(),
       );
       if (!AuthController.to.user.value.blackList!.contains(comment.hostKey)) {
-        comments.add(comment);
-      }
+        comments.add(comment);}
     }
     return comments;
   }
