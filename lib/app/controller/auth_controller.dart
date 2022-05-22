@@ -30,7 +30,6 @@ class AuthController extends GetxController {
     user.value.grade = grade;
     user.value.name = name;
     user.value.university = university;
-
   }
 
   void changeAge(value) {
@@ -38,8 +37,11 @@ class AuthController extends GetxController {
     // user.value.age = value;
   }
 
-  void toggleGender() {
-
+  void addblackList(String nick) {
+    user.value.blackList!.add(nick);
+  }
+  void removeblackList(String nick) {
+    user.value.blackList!.remove(nick);
   }
 
   void signup(AppUserModel User) async {
