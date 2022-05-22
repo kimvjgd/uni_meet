@@ -6,6 +6,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
 import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
@@ -25,7 +26,7 @@ import '../../../../components/app_color.dart';
 class ChatroomScreen extends StatefulWidget {
   String chatroomKey;
 
-  ChatroomScreen({required this.chatroomKey,Key? key}) : super(key: key);
+  ChatroomScreen({required this.chatroomKey, Key? key}) : super(key: key);
 
   @override
   State<ChatroomScreen> createState() => _ChatroomScreenState();
@@ -54,7 +55,6 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     // setState(() {
     //   AuthController.to.user.refresh();
     //   ChatController.to.chat_chatList.refresh();
@@ -79,32 +79,21 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
           endDrawer: SafeArea(
             child: Drawer(
                 child: Column(
-                  children: [
+              children: [
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                    child: Text("대화상대",style:TextStyle(fontSize: 15),),
+                    child: Text(
+                      "대화상대",
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
                 ),
-                Divider(thickness: 1,color: divider,),
-                // Expanded(child: FutureBuilder(
-                //   future: ChatRepository.getChatterInfo(ChatController.to.chat_chatroomModel.value.allUser!),
-                //     builder: (context, snapshot) {
-                //   return Container();
-                // },
-                // )),
-                // Expanded(
-                //   child: ListView.builder(
-                //     itemCount: ChatController.to.chat_chatroomModel.value.allUser!.length,
-                //     itemBuilder: (BuildContext context,int index){
-                //       return ListTile(
-                //         onTap: ()async {await ChatRepository.getChatterInfo(widget.chatroomKey);},
-                //         title:Text("닉네임",style: TextStyle(fontSize: 10),)
-                //       );
-                //     },
-                //   )
-                // ),
+                Divider(
+                  thickness: 1,
+                  color: divider,
+                ),
                 Obx(() => Expanded(
                         child: ListView.builder(
                       itemCount: ChatController.to.chatterInfo.length,
@@ -112,9 +101,11 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                         var chatterInfo = ChatController.to.chatterInfo[index];
                         return ListTile(
                             onTap: () async {
-                              if(chatterInfo.gender=='Gender.MAN'){
+                              if (chatterInfo.gender == 'Gender.MAN' ||
+                                  chatterInfo.gender == '남자') {
                                 chatterInfo.gender = '남자';
-                              }else if(chatterInfo.gender=='Gender.WOMAN'){
+                              } else if (chatterInfo.gender == 'Gender.WOMAN' ||
+                                  chatterInfo.gender == '여자') {
                                 chatterInfo.gender = '여자';
                               }
                               Get.dialog(AlertDialog(
@@ -143,43 +134,45 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: ElevatedButton(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text("초대하기"),
-                                          content: Text(
-                                            "복사된 코드를 친구에게 전달해주세요! \n채팅방 리스트 오른쪽 하단 버튼을 통해 입장하실 수 있습니다.",
-                                            textAlign: TextAlign.center,
-                                          ),
-
-                                          actions: [
-                                            Row(
-                                              children: [
-                                                IconButton(onPressed: (){
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("초대하기"),
+                                      content: Text(
+                                        "복사된 코드를 친구에게 전달해주세요! \n채팅방 리스트 오른쪽 하단 버튼을 통해 입장하실 수 있습니다.",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      actions: [
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
                                                   Get.to(InviteHelp());
-                                                }, icon: Icon(Icons.help_outline)),
-                                                TextButton(
-                                                    onPressed: () async {
-                                                      await FlutterClipboard.copy(
-                                                          widget.chatroomKey);
-                                                      Get.back();
-                                                    },
-                                                    child: Text(
-                                                      "복사하기",
-                                                    )),
-                                              ],
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            )
+                                                },
+                                                icon: Icon(Icons.help_outline)),
+                                            TextButton(
+                                                onPressed: () async {
+                                                  await FlutterClipboard.copy(
+                                                      widget.chatroomKey);
+                                                  Get.back();
+                                                },
+                                                child: Text(
+                                                  "복사하기",
+                                                )),
                                           ],
-                                        );
-                                      });
-                                },
-                                child: Text(
-                                  "초대하기",
-                                  style: TextStyle(color: Colors.white),
-                                )),
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                        )
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Text(
+                              "초대하기",
+                              style: TextStyle(color: Colors.white),
+                            )),
                       ),
                     ),
                   ],
@@ -196,11 +189,11 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                                 return MessagePopup(
                                   title: "신고하기",
                                   message:
-                                  "정말 채팅방을 신고하시겠습니까? 신고 후 2~3일 내로 운영진의 적절한 조치가 이루어질 예정입니다.\n특정 사용자의 신고/차단은 상대방의 프로필 클릭 후 가능합니다. ",
+                                      "정말 채팅방을 신고하시겠습니까? 신고 후 2~3일 내로 운영진의 적절한 조치가 이루어질 예정입니다.\n특정 사용자의 신고/차단은 상대방의 프로필 클릭 후 가능합니다. ",
                                   okCallback: () async {
                                     await FirebaseStorage.instance
                                         .ref('report/chatroom/' +
-                                        widget.chatroomKey.toString())
+                                            widget.chatroomKey.toString())
                                         .putString(DateTime.now().toString());
                                     //일단.. 귀찮으니..
                                     Get.back();
@@ -212,7 +205,11 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                                 );
                               });
                         }),
-                    Container(height: 20,width: 1,color: divider,),
+                    Container(
+                      height: 20,
+                      width: 1,
+                      color: divider,
+                    ),
                     TextButton(
                       child: Text("나가기"),
                       onPressed: () {
@@ -237,8 +234,10 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
                       },
                     ),
                   ],
-                ),SizedBox(height: 8,)
-
+                ),
+                SizedBox(
+                  height: 8,
+                )
               ],
             )),
           ),

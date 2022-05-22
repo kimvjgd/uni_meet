@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:uni_meet/app/data/model/chat_model.dart';
 import 'package:uni_meet/app/data/model/chatroom_model.dart';
 import 'package:uni_meet/app/data/model/chatter_model.dart';
@@ -41,7 +42,6 @@ class ChatController extends GetxController {
     getxConstructor();
 
 
-
     ChatRepository()
         .connectChatroom(chat_chatroomKey.value)
         .listen((chatroomModel) {
@@ -64,7 +64,8 @@ class ChatController extends GetxController {
         });
       }
     });
-
+    Logger().d('onInit');
+    Logger().d(await ChatRepository.getChatterInfo(chatroomKey));
     await getChatterInfo();
 
 
