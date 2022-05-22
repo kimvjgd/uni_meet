@@ -344,14 +344,14 @@ class ChatRepository {
           localImage: tempData[KEY_USER_LOCALIMAGE].toString()));
     }
 
-    for(int i=0; i<3; i++) {
-      print(chatterModels[i].nickname);
-      print(chatterModels[i].university);
-      print(chatterModels[i].grade);
-      print(chatterModels[i].mbti);
-      print(chatterModels[i].gender);
-      print(chatterModels[i].localImage);
-    }
+    // for(int i=0; i<3; i++) {
+    //   print(chatterModels[i].nickname);
+    //   print(chatterModels[i].university);
+    //   print(chatterModels[i].grade);
+    //   print(chatterModels[i].mbti);
+    //   print(chatterModels[i].gender);
+    //   print(chatterModels[i].localImage);
+    // }
 
     return chatterModels;
   }

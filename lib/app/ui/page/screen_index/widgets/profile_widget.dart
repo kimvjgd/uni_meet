@@ -91,6 +91,7 @@ class ProfileWidget extends StatelessWidget {
                                           .ref('report/user/' + nickname)
                                           .putString(DateTime.now().toString());
                                       //일단.. 귀찮으니..
+
                                       Get.back();
                                       Get.back();
                                       Get.snackbar("알림", "신고처리가 완료되었습니다.");
@@ -140,7 +141,9 @@ class ProfileWidget extends StatelessWidget {
                                     okCallback: () async {
                                       await UserRepository.addBlackUser(
                                           nickname);
+
                                       AuthController.to.addblackList(nickname);
+
                                       Get.back();
                                       Get.back();
                                       Get.snackbar("알림", "차단이 완료되었습니다.");
