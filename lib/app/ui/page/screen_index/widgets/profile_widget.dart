@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:uni_meet/app/controller/auth_controller.dart';
+import 'package:uni_meet/app/controller/chat_controller.dart';
 import 'package:uni_meet/app/data/repository/user_repository.dart';
 import 'package:uni_meet/app/ui/components/app_color.dart';
 
@@ -102,7 +103,32 @@ class ProfileWidget extends StatelessWidget {
                           },
                           child: Text('신고'),
                         ),
-                        TextButton(
+                        AuthController.to.user.value.blackList!.contains(nickname)
+                        ?TextButton(
+                          onPressed: () async {
+
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return MessagePopup(
+                                    title: "차단 해제하기",
+                                    message: "차단한 사용자를 차단 해제하시겠습니까?",
+                                    okCallback: () async {
+                                      await UserRepository.removeBlackUser(
+                                          nickname);
+                                      Get.back();
+                                      Get.back();
+                                      Get.snackbar("알림", "차단 해제가 완료되었습니다.");
+                                    },
+                                    cancelCallback: () {
+                                      Get.back();
+                                    },
+                                  );
+                                });
+                          },
+                          child:Text('차단 해제'),
+                        )
+                        :TextButton(
                           onPressed: () async {
                             showDialog(
                                 context: context,
@@ -123,8 +149,8 @@ class ProfileWidget extends StatelessWidget {
                                   );
                                 });
                           },
-                          child: Text('차단'),
-                        ),
+                          child:Text('차단'),
+                        )
                       ],
                     ))
         ],

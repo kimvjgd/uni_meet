@@ -106,18 +106,20 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     )
             ],
           ),
-          body: Container(
-            height: _size.height,
-            width: _size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: _postContent(
-                        TimeAgo.timeCustomFormat(widget.post.createdDate!))),
-                _commentContent(),
-              ],
+          body: SingleChildScrollView(
+            child: Container(
+              height: _size.height,
+              width: _size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: _postContent(
+                          TimeAgo.timeCustomFormat(widget.post.createdDate!))),
+                  _commentContent(),
+                ],
+              ),
             ),
           ),
           bottomSheet: widget.post.host != AuthController.to.user.value.uid
@@ -267,9 +269,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     return FutureBuilder(
         future: commentRepository.loadCommentList(widget.post.postKey),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print(snapshot.connectionState);
           if (snapshot.hasData) {
-            //
             return snapshot.data.length == 0
                 ? Padding(
                   padding: const EdgeInsets.only(top:8.0),
@@ -294,7 +294,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           if (index == 0)
                             return Column(
                               children: [
-
                                 Divider(
                                   thickness: 0.5,
                                   color: divider,
@@ -312,11 +311,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     ),
                   );
           } else if (snapshot.hasError) {
-            return Column(
-              children: [
-                Container(child: Text(snapshot.error.toString())),
-              ],
-            );
+            return Column(children: [Container(child: Text(snapshot.error.toString())),],);
           } else
             return Container();
         });

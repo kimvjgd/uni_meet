@@ -20,12 +20,32 @@ import '../../../../components/app_color.dart';
 import '../../../account/widget/big_button.dart';
 import '../../message_popup.dart';
 
-class CommentItem extends StatelessWidget {
+class CommentItem extends StatefulWidget {
   final CommentModel comment;
   final PostModel post;
 
   const CommentItem({required this.comment, required this.post, Key? key})
       : super(key: key);
+
+  @override
+  State<CommentItem> createState() => _CommentItemState();
+}
+
+class _CommentItemState extends State<CommentItem> {
+  late FocusNode myFocusNode;
+  TextEditingController babyController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,29 +61,29 @@ class CommentItem extends StatelessWidget {
                 Get.dialog(AlertDialog(
                   title: SizedBox(),
                   content: ProfileWidget(
-                      university: comment.hostInfo!.split('_')[0],
-                      grade: comment.hostInfo!.split('_')[1] + '학번',
-                      mbti: comment.hostInfo!.split('_')[4],
-                      gender: comment.hostInfo!.split('_')[5],
-                      nickname: comment.hostInfo!.split('_')[2],
-                      localImage: comment.hostInfo!.split('_')[3]),
+                      university: widget.comment.hostInfo!.split('_')[0],
+                      grade: widget.comment.hostInfo!.split('_')[1] + '학번',
+                      mbti: widget.comment.hostInfo!.split('_')[4],
+                      gender: widget.comment.hostInfo!.split('_')[5],
+                      nickname: widget.comment.hostInfo!.split('_')[2],
+                      localImage: widget.comment.hostInfo!.split('_')[3]),
                 ));
               },
               child: Text(
-                comment.hostInfo!.split('_')[0] +
-                    comment.hostInfo!.split('_')[1] +
+                widget.comment.hostInfo!.split('_')[0] +
+                    widget.comment.hostInfo!.split('_')[1] +
                     '학번' +
-                    comment.hostInfo!.split('_')[2],
+                    widget.comment.hostInfo!.split('_')[2],
                 style: TextStyle(color: app_systemGrey1),
               ),
             ),
             Row(
               children: [
                 Text(
-                  TimeAgo.timeCustomFormat(comment.commentTime!),
+                  TimeAgo.timeCustomFormat(widget.comment.commentTime!),
                   style: TextStyle(fontSize: 12, color: app_systemGrey1),
                 ),
-                AuthController.to.user.value.uid == comment.hostKey
+                AuthController.to.user.value.uid == widget.comment.hostKey
                     ? IconButton(
                         padding: EdgeInsets.all(0),
                         icon: Icon(Icons.clear),
@@ -77,17 +97,19 @@ class CommentItem extends StatelessWidget {
                                     message: '삭제하시겠습니까?',
                                     okCallback: () {
                                       commentRepository.deleteComment(
-                                          post.postKey, comment.commentKey!);
+                                          widget.post.postKey,
+                                          widget.comment.commentKey!);
                                       Get.back();
                                     },
                                     cancelCallback: Get.back,
                                   ));
                         },
                       )
-                    : AuthController.to.user.value.uid == post.host
+                    : AuthController.to.user.value.uid == widget.post.host
                         ? IconButton(
                             padding: EdgeInsets.only(top: 3),
-                            icon: ImageIcon(AssetImage("assets/images/icons/chat_icon.png")),
+                            icon: ImageIcon(AssetImage(
+                                "assets/images/icons/chat_icon.png")),
                             iconSize: 20,
                             color: app_systemGrey1,
                             onPressed: () {
@@ -97,38 +119,44 @@ class CommentItem extends StatelessWidget {
                                         title: "채팅 신청",
                                         message: '신청하시겠습니까?',
                                         okCallback: () async {
-                                          if (comment.hostKey != null &&
-                                              comment.hostKey != '') {
+                                          if (widget.comment.hostKey != null &&
+                                              widget.comment.hostKey != '') {
                                             if (await CommentRepository()
                                                 .checkCommentPossible(
-                                                    comment.hostKey!)) {
+                                                    widget.comment.hostKey!)) {
                                               await ChatRepository()
                                                   .createNewChatroom(
                                                       ChatroomModel(
                                                           allUser: [
-                                                            post.host,
-                                                            comment.hostKey
+                                                            widget.post.host,
+                                                            widget
+                                                                .comment.hostKey
                                                           ],
                                                           allToken: [
-                                                            post.hostpushToken
+                                                            widget.post
+                                                                .hostpushToken
                                                                 .toString(),
-                                                            comment
+                                                            widget.comment
                                                                 .hostPushToken
                                                                 .toString()
                                                           ],
                                                           createDate:
                                                               DateTime.now(),
-                                                          postKey: post.postKey,
-                                                          headCount:
-                                                              post.headCount,
-                                                          postTitle: post.title,
-                                                          place: post.place,
+                                                          postKey: widget
+                                                              .post.postKey,
+                                                          headCount: widget
+                                                              .post.headCount,
+                                                          postTitle:
+                                                              widget.post.title,
+                                                          place:
+                                                              widget.post.place,
                                                           lastMessage: '',
                                                           chatroomId: '',
                                                           lastMessageTime:
                                                               DateTime.now()),
-                                                      post.host.toString(),
-                                                      comment.hostKey
+                                                      widget.post.host
+                                                          .toString(),
+                                                      widget.comment.hostKey
                                                           .toString());
 
                                               FirebaseFirestore.instance
@@ -136,8 +164,8 @@ class CommentItem extends StatelessWidget {
                                                       COLLECTION_CHATROOMS)
                                                   .where(KEY_CHATROOM_ALLUSER,
                                                       isEqualTo: [
-                                                        post.host,
-                                                        comment.hostKey
+                                                        widget.post.host,
+                                                        widget.comment.hostKey
                                                       ])
                                                   .get()
                                                   .then((value) {
@@ -147,8 +175,9 @@ class CommentItem extends StatelessWidget {
                                                           element.id);
 
                                                       NewsController.to.newchat(
-                                                          post.title.toString(),
-                                                          comment.hostKey
+                                                          widget.post.title
+                                                              .toString(),
+                                                          widget.comment.hostKey
                                                               .toString(),
                                                           element.id
                                                               .toString());
@@ -166,16 +195,18 @@ class CommentItem extends StatelessWidget {
                                                       NotificationController())
                                                   .SendNewChatNotification(
                                                       info:
-                                                          post.hostUni
+                                                          widget.post.hostUni
                                                                   .toString() +
                                                               " " +
-                                                              post.hostGrade
+                                                              widget.post
+                                                                  .hostGrade
                                                                   .toString() +
                                                               "학번 " +
-                                                              post.hostNick
+                                                              widget
+                                                                  .post.hostNick
                                                                   .toString(),
-                                                      receiver_token: comment
-                                                          .hostPushToken
+                                                      receiver_token: widget
+                                                          .comment.hostPushToken
                                                           .toString());
                                             } else {
                                               showDialog(
@@ -221,54 +252,128 @@ class CommentItem extends StatelessWidget {
           ],
         ),
         Text(
-          comment.content!,
+          widget.comment.content!,
           maxLines: null,
         ),
-            // : Text(
-            //     '비밀 댓글입니다.',
-            //     maxLines: null,
-            //     style: TextStyle(color: Colors.grey[500]),
-            //   ),,
-        AuthController.to.user.value.uid == post.host
-            ? Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Icon(Icons.subdirectory_arrow_right,size: 19,color: app_systemGrey1,),
-              Expanded(
-                child: TextFormField(
-                  decoration:InputDecoration(
-                    fillColor: Colors.grey[50],
-                    filled: true,
-                    hintText: "대댓글을 입력하세요.",
-                    hintStyle: TextStyle(fontSize: 12,color: app_systemGrey1),
-                    border: OutlineInputBorder(
-                      borderRadius:BorderRadius.circular(50),
-                      borderSide:  BorderSide(width: 0,color: Colors.transparent)
-                    ),
-                    enabledBorder:OutlineInputBorder(
-                        borderRadius:BorderRadius.circular(50),
-                        borderSide:  BorderSide(width: 0,color: Colors.transparent)
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius:BorderRadius.circular(50),
-                        borderSide:  BorderSide(width: 0,color: Colors.transparent)
-                    ),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                    suffixIcon: IconButton(
-                      onPressed: (){},
-                      icon: ImageIcon(AssetImage("assets/images/icons/send_chat_icon.png")),iconSize: 15,),
-                  ),
-                  style: TextStyle(fontSize: 12),
-                  maxLines: 1,
-
-                ),
-              ),
-
-            ],
-          ),
-        )
-            : Container()
+        //대댓글 ui 만 가려놓음
+        // FutureBuilder(
+        //     future: commentRepository
+        //         .loadBabyCommentList(widget.comment.commentKey!),
+        //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+        //       if (snapshot.hasData) {
+        //         return snapshot.data.length == 0
+        //         ? SizedBox()
+        //         : SizedBox(
+        //           height: 200,
+        //                 child: ListView.builder(
+        //                   itemCount: 4,
+        //                   itemBuilder: (context,index){
+        //                     var content = snapshot.data![index]
+        //                         .cast<String, dynamic>()['content']
+        //                         .toString();
+        //                     var writer = snapshot.data![index]
+        //                         .cast<String, dynamic>()['writer']
+        //                         .toString();
+        //                     print("프린트"+content + writer);
+        //                     return ListTile(
+        //                       leading:Icon(
+        //                         Icons.subdirectory_arrow_right,
+        //                         size: 19,
+        //                         color: app_systemGrey1,
+        //                       ),
+        //                       title: Text(writer,style: TextStyle(color: Colors.black),),
+        //                       subtitle: Text(content),
+        //                     );
+        //                   },
+        //                 ),
+        //               );
+        //       } else
+        //         return SizedBox();
+        //     }),
+        // // : Text(
+        // //     '비밀 댓글입니다.',
+        // //     maxLines: null,
+        // //     style: TextStyle(color: Colors.grey[500]),
+        // //   ),,
+        // AuthController.to.user.value.uid == widget.post.host ||
+        //         AuthController.to.user.value.uid == widget.comment.hostKey
+        //     ? Padding(
+        //         padding: const EdgeInsets.all(8.0),
+        //         child: Row(
+        //           children: [
+        //             Icon(
+        //               Icons.subdirectory_arrow_right,
+        //               size: 19,
+        //               color: app_systemGrey1,
+        //             ),
+        //             Expanded(
+        //               child: TextFormField(
+        //                 focusNode: myFocusNode,
+        //                 autofocus: true,
+        //                 controller: babyController,
+        //                 decoration: InputDecoration(
+        //                   fillColor: Colors.grey[50],
+        //                   filled: true,
+        //                   hintText: "답글을 입력하세요.",
+        //                   hintStyle:
+        //                       TextStyle(fontSize: 12, color: app_systemGrey1),
+        //                   border: OutlineInputBorder(
+        //                       borderRadius: BorderRadius.circular(50),
+        //                       borderSide: BorderSide(
+        //                           width: 0, color: Colors.transparent)),
+        //                   enabledBorder: OutlineInputBorder(
+        //                       borderRadius: BorderRadius.circular(50),
+        //                       borderSide: BorderSide(
+        //                           width: 0, color: Colors.transparent)),
+        //                   focusedBorder: OutlineInputBorder(
+        //                       borderRadius: BorderRadius.circular(50),
+        //                       borderSide: BorderSide(
+        //                           width: 0, color: Colors.transparent)),
+        //                   contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        //                   suffixIcon: IconButton(
+        //                     onPressed: () {
+        //                       if (babyController.text.trim() != '') {
+        //                         showDialog(
+        //                             context: Get.context!,
+        //                             builder: (BuildContext context) {
+        //                               return MessagePopup(
+        //                                 title: "답글 등록",
+        //                                 message: '등록하시겠습니까?',
+        //                                 okCallback: () async {
+        //                                   AuthController.to.user.value.uid ==
+        //                                           widget.post.host
+        //                                       ? await commentRepository
+        //                                           .createBabyComment(
+        //                                               widget
+        //                                                   .comment.commentKey!,
+        //                                               babyController.text,
+        //                                               true)
+        //                                       : await commentRepository
+        //                                           .createBabyComment(
+        //                                               widget
+        //                                                   .comment.commentKey!,
+        //                                               babyController.text,
+        //                                               false);
+        //                                   Get.back();
+        //                                 },
+        //                                 cancelCallback: Get.back,
+        //                               );
+        //                             });
+        //                       }
+        //                     },
+        //                     icon: ImageIcon(AssetImage(
+        //                         "assets/images/icons/send_chat_icon.png")),
+        //                     iconSize: 15,
+        //                   ),
+        //                 ),
+        //                 style: TextStyle(fontSize: 12),
+        //                 maxLines: 1,
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       )
+        //     : Container()
       ],
     );
   }
