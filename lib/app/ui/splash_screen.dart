@@ -152,16 +152,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> getToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
+    if(AuthController.to.user.value.uid != null){
     FirebaseFirestore.instance
         .collection(COLLECTION_USERS)
         .doc(AuthController.to.user.value.uid)
         .update({KEY_USER_TOKEN: token});
-
+    }
+    print("현재 토큰"+token.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    if(AuthController.to.user.value.uid != null){getToken();}
+    getToken();
 
     return Scaffold(
       body: Container(
